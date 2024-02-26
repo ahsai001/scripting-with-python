@@ -133,8 +133,8 @@ if len(sys.argv) >= 2:
             degree = education.get('degree','')
             city = education.get('city','')
             country = education.get('country','')
-            startDate = education.get('startDate','')
-            endDate = education.get('endDate','')
+            startDate = education['startDate'].get('year','')
+            endDate = education['endDate'].get('year','')
             store_education(school,schoolLink,degree,city,country, startDate,endDate)
         works = json_response['data']['user']['resumes'][1]['content']['work']['entries']
         for work in works:
@@ -143,8 +143,8 @@ if len(sys.argv) >= 2:
             jobTitle = work.get('jobTitle','')
             city = work.get('city','')
             country = work.get('country','')
-            startDate = work.get('startDate','')
-            endDate = work.get('endDate','')
+            startDate = work['startDate'].get('year','')
+            endDate = work['endDate'].get('year','')
             store_work(employer,employerLink,jobTitle,city,country, startDate,endDate)
         skills = json_response['data']['user']['resumes'][1]['content']['skill']['entries']
         for skill in skills:
