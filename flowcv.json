@@ -1,0 +1,3231 @@
+{
+    "success": true,
+    "data": {
+        "user": {
+            "emails": {
+                "hasReceivedPleaseShareEmail": true
+            },
+            "emailNotifications": {
+                "productUpdates": true
+            },
+            "helper": {
+                "likesResume": true,
+                "hasSeenOnboardingNameForm": false
+            },
+            "paid": {
+                "additionalResumes": 1,
+                "premiumSignature": false
+            },
+            "i18n": {
+                "lngCode": "en"
+            },
+            "_id": "5ed75be82d7ac3000440282f",
+            "role": "user",
+            "flaggedForDeletion": false,
+            "email": "ahsai001@gmail.com",
+            "password": "$2b$11$DD1pyCRV.vPuXXO4z03RV.RgSJXcelG76eraVxhFn5HBFroDIzEOC",
+            "emailConfirmationToken": "wEP8TuCgwTBJMUjZ",
+            "gaToken": "YJ4Pnt7SrlwHabuR",
+            "emailNotificationsToken": "f3hF5mdC072qbmfn",
+            "resumes": [
+                {
+                    "businessDetails": {},
+                    "personalDetails": {
+                        "birthday": {
+                            "day": "",
+                            "month": "",
+                            "year": "1987"
+                        },
+                        "photo": {
+                            "shape": "round",
+                            "widthPct": 0.9746287128712872,
+                            "heightPct": 0.9900990099009901,
+                            "xPct": 0.01268564356435642,
+                            "yPct": 0.004950495049504955,
+                            "width": "0.9746287128712872",
+                            "height": "0.9900990099009901",
+                            "x": "0.01268564356435642",
+                            "y": "0.004950495049504955",
+                            "cloudinaryId": "avatar/ghawaxdti1dwbzy49ert",
+                            "imageId": "avatar/ghawaxdti1dwbzy49ert.jpeg",
+                            "originalHeight": 504,
+                            "originalWidth": 512
+                        },
+                        "detailsOrder": [
+                            "jobTitle",
+                            "address",
+                            "displayEmail",
+                            "phone",
+                            "birthday",
+                            "github",
+                            "website",
+                            "stackoverflow",
+                            "medium",
+                            "maritalStatus"
+                        ],
+                        "fullName": "Ahmad Saifullah",
+                        "githubLink": "https://github.com/ahsai001",
+                        "github": "ahsai001",
+                        "cloudinaryIdToSave": "",
+                        "displayEmail": "ahsai001@gmail.com",
+                        "phone": "+628561552200",
+                        "street": "Lubang Buaya, Cipayung",
+                        "postcode": "13810",
+                        "city": "Jakarta",
+                        "country": "Indonesia",
+                        "usAddress": false,
+                        "jobTitle": "Android Developer",
+                        "maritalStatus": "Married",
+                        "drivingLicense": "",
+                        "nationality": "",
+                        "military": "",
+                        "website": "https://ahsailabs.com",
+                        "websiteLink": "https://ahsailabs.com",
+                        "linkedIn": "",
+                        "instagram": "",
+                        "instagramLink": "https://instagram.com/ahsai001",
+                        "facebook": "",
+                        "twitter": "",
+                        "twitterLink": "https://www.twitter.com/ahsai001",
+                        "facebookLink": "https://www.facebook.com/ahsai001",
+                        "cloudinaryIdToDelete": "avatar/uswwrvirdsxzzxpb1cqt",
+                        "social": {
+                            "github": {
+                                "display": "ahsai001",
+                                "link": "https://github.com/ahsai001"
+                            }
+                        }
+                    },
+                    "customization": {
+                        "layout": {
+                            "colsFromDetails": {},
+                            "colWidthsFromDetails": {
+                                "top": {
+                                    "leftWidth": 50,
+                                    "rightWidth": 50
+                                },
+                                "left": {
+                                    "leftWidth": 40,
+                                    "rightWidth": 60
+                                },
+                                "right": {
+                                    "leftWidth": 60,
+                                    "rightWidth": 40
+                                }
+                            },
+                            "one": {
+                                "colWidths": {
+                                    "dateLocationLeft": {},
+                                    "dateLocationRight": {},
+                                    "dateContentLocation": {}
+                                },
+                                "columnWidths": {
+                                    "dateLocationLeft": {
+                                        "left": 0,
+                                        "right": 0
+                                    },
+                                    "dateLocationRight": {
+                                        "left": 0,
+                                        "right": 0
+                                    },
+                                    "dateContentLocation": {
+                                        "left": 0,
+                                        "middle": 0,
+                                        "right": 0
+                                    }
+                                },
+                                "sectionDisplay": "fullWidth",
+                                "columnWidthMode": "auto"
+                            },
+                            "two": {
+                                "sectionDisplay": "halfHalf",
+                                "leftWidth": 49,
+                                "rightWidth": 51,
+                                "personalDetails": "left"
+                            },
+                            "mix": {
+                                "columnWidths": {
+                                    "dateLocationLeft": {
+                                        "left": 0,
+                                        "right": 0
+                                    },
+                                    "dateLocationRight": {
+                                        "left": 0,
+                                        "right": 0
+                                    },
+                                    "dateContentLocation": {
+                                        "left": 0,
+                                        "middle": 0,
+                                        "right": 0
+                                    }
+                                },
+                                "sectionDisplay": "fullWidth",
+                                "columnWidthMode": "auto",
+                                "leftWidth": 49,
+                                "rightWidth": 51,
+                                "personalDetails": "left"
+                            },
+                            "selected": "two"
+                        },
+                        "entryLayout": {
+                            "colWidths": {
+                                "dateLocationLeft": {},
+                                "dateLocationRight": {},
+                                "dateContentLocation": {}
+                            },
+                            "colMode": "auto",
+                            "titleAndSubtitleSize": "s",
+                            "subtitleStyle": "italic",
+                            "bodyIndentation": "0",
+                            "dateLocationOpacity": false
+                        },
+                        "colors": {
+                            "basic": {
+                                "multi": {},
+                                "multiCustom": {}
+                            },
+                            "advanced": {
+                                "multi": {
+                                    "strong": {},
+                                    "light": {}
+                                },
+                                "multiCustom": {
+                                    "strong": {},
+                                    "light": {}
+                                }
+                            },
+                            "border": {}
+                        },
+                        "sectionOrder": {
+                            "one": {
+                                "sectionsSorted": [
+                                    "profile",
+                                    "project",
+                                    "education",
+                                    "work",
+                                    "skill",
+                                    "interest"
+                                ]
+                            },
+                            "two": {
+                                "leftSectionsSorted": [
+                                    "profile",
+                                    "skill",
+                                    "interest"
+                                ],
+                                "rightSectionsSorted": [
+                                    "project",
+                                    "work",
+                                    "education"
+                                ]
+                            },
+                            "mix": [
+                                "profile",
+                                "project",
+                                "education",
+                                "work",
+                                "skill",
+                                "interest"
+                            ]
+                        },
+                        "header": {
+                            "photo": {
+                                "show": true,
+                                "grayscale": false,
+                                "size": "m"
+                            },
+                            "photoPositionFromHeaderPosition": {
+                                "left": "left",
+                                "top": "center",
+                                "right": "left"
+                            },
+                            "position": "right",
+                            "accentuateName": true,
+                            "detailsDisplayCenter": "icon",
+                            "detailsDisplayLeftRight": "icon",
+                            "nameSize": "xl",
+                            "detailsArrangement": "column",
+                            "jobTitleSize": "m",
+                            "jobTitleStyle": "italic",
+                            "jobTitlePosition": "sameLine"
+                        },
+                        "spacing": {
+                            "marginVertical": "5",
+                            "marginHorizontal": "4",
+                            "fontSize": "3",
+                            "lineHeight": "4",
+                            "spacingFactor": "2"
+                        },
+                        "font": {
+                            "selected": "serif",
+                            "fontFamily": "Source Sans Pro"
+                        },
+                        "advanced": {
+                            "linkIcon": "boxArrow",
+                            "groupPromotions": false,
+                            "showCity": true,
+                            "showCountry": true,
+                            "listStyle": "bullet"
+                        },
+                        "skillDisplay": {
+                            "grid": {
+                                "columns": "two",
+                                "splitCommasIntoBullets": false
+                            },
+                            "level": {
+                                "selected": "dots"
+                            },
+                            "selected": "text",
+                            "text": "wrap",
+                            "subinfoItalic": true
+                        },
+                        "languageDisplay": {
+                            "grid": {
+                                "columns": "two",
+                                "splitCommasIntoBullets": false
+                            },
+                            "level": {
+                                "selected": "dots"
+                            },
+                            "selected": "level",
+                            "text": "bullet",
+                            "subinfoItalic": true
+                        },
+                        "interestDisplay": {
+                            "grid": {
+                                "columns": "two",
+                                "splitCommasIntoBullets": false
+                            },
+                            "selected": "text",
+                            "text": "wrap",
+                            "subinfoItalic": true
+                        },
+                        "certificateDisplay": {
+                            "grid": {
+                                "columns": "two",
+                                "splitCommasIntoBullets": false
+                            },
+                            "selected": "grid",
+                            "text": "bullet",
+                            "subinfoItalic": true
+                        },
+                        "regional": {
+                            "format": "A4",
+                            "dateDisplay": "DD/MM/YYYY",
+                            "anonymous": false,
+                            "monthFormat": "MM",
+                            "dateDelimiter": "/"
+                        },
+                        "heading": {
+                            "icons": "filled",
+                            "style": "line",
+                            "capitalization": "capitalize",
+                            "headingSize": "l"
+                        },
+                        "expert": {
+                            "footer": {
+                                "pages": false,
+                                "name": false,
+                                "email": false
+                            },
+                            "showProfileHeading": true,
+                            "subTitlePlacement": "trySameLine"
+                        },
+                        "border": {
+                            "width": {
+                                "filled": "m",
+                                "line": "m",
+                                "image": "m"
+                            },
+                            "searchMode": "ideas",
+                            "selectedStyle": "none"
+                        },
+                        "background": {
+                            "fullPage": {
+                                "accentColor": "#D2BFB7",
+                                "textColor": "#ffffff",
+                                "backgroundColor": "#193141"
+                            },
+                            "header": {
+                                "multi": {
+                                    "a": {
+                                        "textColor": "#ffffff",
+                                        "accentColor": "#D2BFB7",
+                                        "backgroundColor": "#193141"
+                                    },
+                                    "b": {
+                                        "textColor": "#222222",
+                                        "accentColor": "#193141",
+                                        "backgroundColor": "#ffffff"
+                                    }
+                                },
+                                "mode": "multi",
+                                "contrast": "#000000"
+                            },
+                            "leftCol": {
+                                "multi": {
+                                    "a": {
+                                        "textColor": "#ffffff",
+                                        "accentColor": "#D2BFB7",
+                                        "backgroundColor": "#193141"
+                                    },
+                                    "b": {
+                                        "textColor": "#222222",
+                                        "accentColor": "#193141",
+                                        "backgroundColor": "#ffffff"
+                                    }
+                                },
+                                "mode": "multi",
+                                "contrast": "#000000"
+                            },
+                            "rightCol": {
+                                "multi": {
+                                    "a": {
+                                        "textColor": "#222222",
+                                        "accentColor": "#193141",
+                                        "backgroundColor": "#ffffff"
+                                    },
+                                    "b": {
+                                        "textColor": "#ffffff",
+                                        "accentColor": "#D2BFB7",
+                                        "backgroundColor": "#193141"
+                                    }
+                                },
+                                "mode": "multi",
+                                "contrast": "#000000"
+                            },
+                            "fullPageImageSearchMode": "ideas",
+                            "headerImageSearchMode": "ideas",
+                            "fullPageMode": "accent",
+                            "selected": "leftCol",
+                            "selectedHelper": "leftCol"
+                        },
+                        "applyAccentColor": {
+                            "name": true,
+                            "headings": true,
+                            "headingLine": true,
+                            "dotsBarsBubbles": false,
+                            "icons": false,
+                            "dates": false,
+                            "linkIcons": false
+                        },
+                        "educationDisplay": {
+                            "degreeBeforeSchool": false
+                        },
+                        "workDisplay": {
+                            "jobTitleBeforeEmployer": false
+                        },
+                        "declarationDisplay": {
+                            "showHeading": true
+                        },
+                        "unsplashImageHistory": [],
+                        "customSkillSections": {},
+                        "creativeNameFont": "bodyFont"
+                    },
+                    "feedback": {
+                        "comments": []
+                    },
+                    "webResumeDownloadBtn": true,
+                    "webResumeSearchIndex": true,
+                    "downloads": [],
+                    "feedbackEnabled": true,
+                    "meta": {
+                        "usedTemplates": {},
+                        "numberOfDownloads": 14,
+                        "lastDownloadAt": "2021-12-29T15:59:55.925Z"
+                    },
+                    "_id": "5edb51b22f647d00040403d3",
+                    "content": {
+                        "project": {
+                            "sectionType": "project",
+                            "displayName": "",
+                            "entries": [
+                                {
+                                    "id": "bddb8830-a571-11ea-b0d8-0580344a8935",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Ya!man",
+                                    "projectTitleLink": "https://apkdownload.com/Ya-man/com.jatismobile.ahmad.yaman.html",
+                                    "subTitle": "android",
+                                    "startDate": {
+                                        "month": "",
+                                        "year": "",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false
+                                    },
+                                    "endDate": {
+                                        "month": "",
+                                        "year": "",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false,
+                                        "customOngoingWord": "present"
+                                    },
+                                    "description": "<p>Financial Application</p>",
+                                    "updated_at": "2021-12-29T15:09:23.941Z"
+                                },
+                                {
+                                    "id": "fb448280-a571-11ea-b0d8-0580344a8935",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Mobile Genie",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android",
+                                    "description": "<p>Android application generator</p>",
+                                    "isHidden": false,
+                                    "updated_at": "2021-12-29T15:09:29.330Z"
+                                },
+                                {
+                                    "id": "49169d80-a7cb-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Tooz Loyalty Feature",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android",
+                                    "description": "<p>Loyalty program feature of TIKI application</p>",
+                                    "updated_at": "2021-12-29T15:09:35.664Z"
+                                },
+                                {
+                                    "id": "599ccf30-a7cb-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Sahabat Muslim",
+                                    "projectTitleLink": "https://play.google.com/store/apps/details?id=com.zaitunlabs.salim",
+                                    "subTitle": "android",
+                                    "description": "<p>Islamic learning schedule application based on location</p>",
+                                    "updated_at": "2021-12-29T15:09:41.120Z"
+                                },
+                                {
+                                    "id": "685a27c0-a7cb-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Event Holic",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android",
+                                    "description": "<p>Event management application</p>",
+                                    "updated_at": "2021-12-29T15:09:46.453Z"
+                                },
+                                {
+                                    "id": "73387160-a7cb-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Klik BTA Mobile",
+                                    "projectTitleLink": "https://play.google.com/store/apps/details?id=com.klikbta.app",
+                                    "subTitle": "android",
+                                    "description": "<p>mobile version klikbta application of BTA UI</p>",
+                                    "updated_at": "2021-12-29T15:09:52.566Z"
+                                },
+                                {
+                                    "id": "8cb9fbe0-a7cb-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Matabali",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android",
+                                    "description": "<p>Tour and travel management application</p>",
+                                    "updated_at": "2021-12-29T15:09:59.100Z"
+                                },
+                                {
+                                    "id": "99ef2dd0-a7cb-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "projectTitle": "PPOB Library",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android",
+                                    "description": "<p>PPOB library for android</p>",
+                                    "updated_at": "2021-12-29T15:10:05.829Z"
+                                },
+                                {
+                                    "id": "a72f8350-a7cb-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "projectTitle": "SmartCall",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android",
+                                    "description": "<p>Audio call and messaging application</p>",
+                                    "updated_at": "2021-12-29T15:10:13.083Z"
+                                },
+                                {
+                                    "id": "27f73d50-a94a-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Mata Garuda",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android",
+                                    "description": "<p>Mapping application</p>",
+                                    "created_at": "2020-06-08T05:38:06.569Z",
+                                    "updated_at": "2021-12-29T15:09:17.259Z"
+                                },
+                                {
+                                    "id": "3d5583f0-a94a-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Event Management System",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android",
+                                    "description": "<p>Event Management System</p>",
+                                    "created_at": "2020-06-08T05:38:36.594Z",
+                                    "updated_at": "2020-06-08T05:38:36.594Z"
+                                },
+                                {
+                                    "id": "4eaf3240-a94a-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Review1st",
+                                    "projectTitleLink": "https://play.google.com/store/apps/details?id=com.review1st.review1st",
+                                    "subTitle": "android",
+                                    "description": "<p>News Portal for technology, gadget and automotive</p>",
+                                    "created_at": "2020-06-08T05:39:19.717Z",
+                                    "updated_at": "2021-12-29T15:14:50.306Z"
+                                },
+                                {
+                                    "id": "69bc65d0-a94a-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Simple Tools",
+                                    "projectTitleLink": "https://play.google.com/store/apps/details?id=com.ahsailabs.simpletools",
+                                    "subTitle": "android",
+                                    "description": "<p>Some usefull tools to handle simple things</p>",
+                                    "updated_at": "2021-12-29T15:19:30.370Z"
+                                },
+                                {
+                                    "id": "82b4c320-a94a-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Quds & Qids Player",
+                                    "projectTitleLink": "https://play.google.com/store/apps/details?id=com.ahsailabs.qudsplayer",
+                                    "subTitle": "android",
+                                    "description": "<p>Murottal/Music player with source from micro sd card</p>",
+                                    "created_at": "2020-06-08T05:40:41.720Z",
+                                    "updated_at": "2021-12-29T15:25:31.430Z"
+                                },
+                                {
+                                    "id": "9e6bcb40-a94a-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "e-KPSP",
+                                    "projectTitleLink": "https://play.google.com/store/apps/details?id=id.ac.ui.fkm.e_kpsp",
+                                    "subTitle": "android",
+                                    "description": "<p>Pra Screening Quesioner for monitoring children development</p>",
+                                    "created_at": "2020-06-08T05:42:21.205Z",
+                                    "updated_at": "2021-12-29T15:30:20.297Z"
+                                },
+                                {
+                                    "id": "d6334620-a94a-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Konsuldok",
+                                    "projectTitleLink": "https://play.google.com/store/apps/details?id=com.production.konsuldok",
+                                    "subTitle": "android",
+                                    "description": "<p>Online doctor consultation application</p>",
+                                    "created_at": "2020-06-08T05:42:56.806Z",
+                                    "updated_at": "2021-12-29T15:32:07.718Z"
+                                },
+                                {
+                                    "id": "ed8c2440-a94a-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Bintang Pelajar Tryout",
+                                    "projectTitleLink": "https://play.google.com/store/apps/details?id=id.co.rumahcoding.bptryoutonline",
+                                    "subTitle": "android",
+                                    "description": "<p>Application used for conducting exams online for Bintang Pelajar(BP)</p>",
+                                    "created_at": "2020-06-08T05:44:39.767Z",
+                                    "updated_at": "2021-12-29T15:34:37.048Z"
+                                },
+                                {
+                                    "id": "85f85ff0-a94b-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "HiClub",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android",
+                                    "description": "<p>Loyalti application with features like news, info, poin, etc</p>",
+                                    "created_at": "2020-06-08T05:52:02.334Z",
+                                    "updated_at": "2020-06-08T05:52:02.334Z"
+                                },
+                                {
+                                    "id": "31628410-a94c-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "ArenaLTE",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android",
+                                    "description": "<p>News Portal like technology, gadget</p>",
+                                    "created_at": "2020-06-08T05:52:35.364Z",
+                                    "updated_at": "2020-06-08T05:52:35.364Z"
+                                },
+                                {
+                                    "id": "44f9c650-a94c-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Dzikir Harian",
+                                    "projectTitleLink": "https://play.google.com/store/apps/details?id=com.zaitunlabs.dzikirharian",
+                                    "subTitle": "android",
+                                    "description": "<p>Morning and Evening Dhikr application, also has feature reminder inside it</p>",
+                                    "created_at": "2020-06-08T05:53:54.242Z",
+                                    "updated_at": "2021-12-29T15:36:22.189Z"
+                                },
+                                {
+                                    "id": "5b572e10-fc52-11eb-b251-cf864da45603",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Sekolahku",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android-java/kotlin",
+                                    "created_at": "2021-08-13T16:20:35.055Z",
+                                    "updated_at": "2021-11-29T21:14:27.671Z",
+                                    "description": "<p>Aplikasi pendataan siswa offline</p>"
+                                },
+                                {
+                                    "id": "6c3e1d60-fc52-11eb-b251-cf864da45603",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Toko Online",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android-java/kotlin, php, mysql",
+                                    "created_at": "2021-08-13T16:21:55.823Z",
+                                    "updated_at": "2021-08-13T16:21:55.823Z"
+                                },
+                                {
+                                    "id": "dbeca910-fc52-11eb-b251-cf864da45603",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Sekolahku",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android, flutter, dart",
+                                    "updated_at": "2021-08-13T16:26:25.956Z"
+                                },
+                                {
+                                    "id": "f32a0ff0-fc52-11eb-b251-cf864da45603",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Berita Kita",
+                                    "projectTitleLink": "https://play.google.com/store/apps/details?id=com.ahsailabs.beritakita",
+                                    "subTitle": "android, java, kotlin",
+                                    "created_at": "2021-08-13T16:25:14.925Z",
+                                    "updated_at": "2021-12-29T15:40:59.822Z",
+                                    "description": "<p>Aplikasi citizen journalism</p>"
+                                },
+                                {
+                                    "id": "1650c7d0-fc53-11eb-b251-cf864da45603",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Berita Kita",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android, flutter, dart",
+                                    "created_at": "2021-08-13T16:26:05.127Z",
+                                    "updated_at": "2021-08-13T16:26:05.127Z"
+                                },
+                                {
+                                    "id": "3ca14860-fc53-11eb-b251-cf864da45603",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Berita Kita",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android, react native, js",
+                                    "created_at": "2021-08-13T16:26:56.376Z",
+                                    "updated_at": "2021-08-13T16:26:56.376Z"
+                                },
+                                {
+                                    "id": "37a1d040-68ba-11ec-b492-cfe0b0778c35",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Review1st.id",
+                                    "projectTitleLink": "https://play.google.com/store/apps/details?id=id.review1st.mobile",
+                                    "subTitle": "android",
+                                    "description": "<p>Price Portal for technology, gadget and automotive</p>",
+                                    "updated_at": "2021-12-29T15:18:02.982Z"
+                                },
+                                {
+                                    "id": "eede3af0-68ba-11ec-b492-cfe0b0778c35",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Al Muwahhid Player",
+                                    "projectTitleLink": "https://play.google.com/store/apps/details?id=com.ahsailabs.almuwahhidplayer",
+                                    "subTitle": "android",
+                                    "description": "<p>a companion app for speaker quds & qids series</p>",
+                                    "updated_at": "2021-12-29T15:43:12.471Z"
+                                },
+                                {
+                                    "id": "3f880220-5159-11ec-aab0-a3dafe6a3e44",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Sekolahku",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android, react native, js",
+                                    "description": "",
+                                    "created_at": "2021-11-29T21:14:04.576Z",
+                                    "updated_at": "2021-11-29T21:14:04.576Z"
+                                },
+                                {
+                                    "id": "04dd59f0-5158-11ec-aab0-a3dafe6a3e44",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Puhba",
+                                    "projectTitleLink": "https://play.google.com/store/apps/details?id=com.publikasiham.app",
+                                    "subTitle": "android, jetpack compose",
+                                    "description": "<p>Digital Book Library & Reader</p>",
+                                    "isHidden": false,
+                                    "updated_at": "2021-12-29T15:45:14.332Z"
+                                }
+                            ]
+                        },
+                        "profile": {
+                            "sectionType": "profile",
+                            "displayName": "",
+                            "entries": [
+                                {
+                                    "id": "145d5e30-a735-11ea-8ff9-9d7c5358b943",
+                                    "isNewEntry": false,
+                                    "text": "<p class=\"ql-align-justify\">I’m passionate about building great products that make people’s lives easier. With this spirit, i am also being a trainer. I have over 10 years of experience developing usefull and innovative products for some companies.</p><p class=\"ql-align-justify\"><br /></p><p class=\"ql-align-justify\">I grew up in Jakarta, am an urban farmer, moslem preneur and I’m excited to partner with you!</p><p class=\"ql-align-justify\"><br /></p>",
+                                    "updated_at": "2020-06-06T15:11:02.904Z"
+                                }
+                            ],
+                            "iconKey": ""
+                        },
+                        "education": {
+                            "sectionType": "education",
+                            "displayName": "",
+                            "entries": [
+                                {
+                                    "id": "c6c47da0-a736-11ea-8ff9-9d7c5358b943",
+                                    "isNewEntry": false,
+                                    "school": "University of Indonesia",
+                                    "schoolLink": "https://www.ui.ac.id/",
+                                    "degree": "Electrical Engineering Studies",
+                                    "city": "Jawa Barat",
+                                    "country": "Indonesia",
+                                    "startDate": {
+                                        "month": null,
+                                        "year": "2005",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false
+                                    },
+                                    "endDate": {
+                                        "month": null,
+                                        "year": "2010",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false,
+                                        "customOngoingWord": "present"
+                                    },
+                                    "description": "",
+                                    "created_at": "2020-06-05T14:15:46.431Z",
+                                    "updated_at": "2020-06-06T07:40:20.342Z"
+                                },
+                                {
+                                    "id": "5ed226b0-a7c8-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "school": "SMA 48 Pinang Ranti",
+                                    "schoolLink": "",
+                                    "degree": "Senior High School",
+                                    "city": "Jakarta",
+                                    "country": "Indonesia",
+                                    "startDate": {
+                                        "month": null,
+                                        "year": "2002",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false
+                                    },
+                                    "endDate": {
+                                        "month": null,
+                                        "year": "2005",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false,
+                                        "customOngoingWord": "present"
+                                    },
+                                    "created_at": "2020-06-06T07:39:55.417Z",
+                                    "updated_at": "2020-06-06T07:39:55.417Z"
+                                },
+                                {
+                                    "id": "30b4a940-a7ca-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "school": "SMP 81 Lubang Buaya",
+                                    "schoolLink": "",
+                                    "degree": "Junior High School",
+                                    "city": "Jakarta",
+                                    "country": "Indonesia",
+                                    "startDate": {
+                                        "month": null,
+                                        "year": "1999",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false
+                                    },
+                                    "endDate": {
+                                        "month": null,
+                                        "year": "2002",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false,
+                                        "customOngoingWord": "present"
+                                    },
+                                    "created_at": "2020-06-06T07:49:56.934Z",
+                                    "updated_at": "2020-06-06T07:49:56.934Z"
+                                },
+                                {
+                                    "id": "53c14970-a7ca-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "school": "SD 02 Lubang Buaya",
+                                    "schoolLink": "",
+                                    "degree": "Elementary School",
+                                    "city": "Jakarta",
+                                    "country": "Indonesia",
+                                    "startDate": {
+                                        "month": null,
+                                        "year": "1993",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false
+                                    },
+                                    "endDate": {
+                                        "month": null,
+                                        "year": "1999",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false,
+                                        "customOngoingWord": "present"
+                                    },
+                                    "created_at": "2020-06-06T07:50:51.279Z",
+                                    "updated_at": "2020-06-06T07:50:51.279Z"
+                                }
+                            ],
+                            "iconKey": ""
+                        },
+                        "work": {
+                            "sectionType": "work",
+                            "displayName": "",
+                            "entries": [
+                                {
+                                    "id": "cababed0-a7ca-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "employer": "Software Freelance",
+                                    "employerLink": "",
+                                    "jobTitle": "Software Developer/Trainer",
+                                    "city": "Jakarta",
+                                    "country": "Indonesia",
+                                    "startDate": {
+                                        "month": null,
+                                        "year": "2017",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false
+                                    },
+                                    "endDate": {
+                                        "month": null,
+                                        "year": null,
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": true,
+                                        "customOngoingWord": "present"
+                                    },
+                                    "created_at": "2020-06-06T07:54:37.376Z",
+                                    "updated_at": "2020-06-06T14:07:48.225Z"
+                                },
+                                {
+                                    "id": "b9e97a60-a7ca-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "employer": "PT Prakarsa Visi Valutama",
+                                    "employerLink": "",
+                                    "jobTitle": "Software Developer",
+                                    "city": "Jakarta",
+                                    "country": "Indonesia",
+                                    "startDate": {
+                                        "month": null,
+                                        "year": "2015",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false
+                                    },
+                                    "endDate": {
+                                        "month": null,
+                                        "year": "2017",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false,
+                                        "customOngoingWord": "present"
+                                    },
+                                    "created_at": "2020-06-06T07:53:18.624Z",
+                                    "updated_at": "2020-06-06T07:53:18.624Z"
+                                },
+                                {
+                                    "id": "13613900-a737-11ea-8ff9-9d7c5358b943",
+                                    "isNewEntry": false,
+                                    "employer": "PT Teknologi Informasi Indonesia (Jatis Mobile)",
+                                    "employerLink": "",
+                                    "jobTitle": "Software Developer",
+                                    "created_at": "2020-06-05T14:16:08.191Z",
+                                    "updated_at": "2020-06-06T07:52:49.226Z",
+                                    "city": "Jakarta",
+                                    "country": "Indonesia",
+                                    "startDate": {
+                                        "month": null,
+                                        "year": "2010",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false
+                                    },
+                                    "endDate": {
+                                        "month": null,
+                                        "year": "2015",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false,
+                                        "customOngoingWord": "present"
+                                    }
+                                }
+                            ],
+                            "iconKey": ""
+                        },
+                        "skill": {
+                            "sectionType": "skill",
+                            "displayName": "",
+                            "entries": [
+                                {
+                                    "id": "2cb46080-a737-11ea-8ff9-9d7c5358b943",
+                                    "isNewEntry": false,
+                                    "skill": "Android",
+                                    "created_at": "2020-06-05T14:16:44.059Z",
+                                    "updated_at": "2020-06-06T07:29:39.719Z",
+                                    "level": "4",
+                                    "info": "java, kotlin",
+                                    "isHidden": false
+                                },
+                                {
+                                    "id": "07697890-a7c5-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "skill": "php",
+                                    "level": "4",
+                                    "info": "codeigniter, laravel",
+                                    "updated_at": "2020-06-06T07:30:25.454Z"
+                                },
+                                {
+                                    "id": "5ad01be0-a7c7-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "skill": "database",
+                                    "level": "4",
+                                    "info": "mysql, sqlite",
+                                    "created_at": "2020-06-06T07:29:00.781Z",
+                                    "updated_at": "2020-06-06T07:29:00.781Z"
+                                },
+                                {
+                                    "id": "8004f340-a7c7-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "skill": "flutter",
+                                    "level": "2",
+                                    "created_at": "2020-06-06T07:30:03.899Z",
+                                    "updated_at": "2021-08-13T16:09:34.894Z",
+                                    "info": "dart"
+                                },
+                                {
+                                    "id": "9946b5a0-a7c7-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "skill": "ios",
+                                    "level": "2",
+                                    "info": "swift",
+                                    "created_at": "2020-06-06T07:30:42.735Z",
+                                    "updated_at": "2020-06-06T07:30:42.735Z"
+                                },
+                                {
+                                    "id": "aae5d160-a7c7-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "skill": "web",
+                                    "level": "2",
+                                    "info": "html, css, js, jquery",
+                                    "created_at": "2020-06-06T07:31:18.560Z",
+                                    "updated_at": "2021-08-10T16:24:29.343Z"
+                                },
+                                {
+                                    "id": "8f773c90-a7ca-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "skill": "c/c++",
+                                    "level": "2",
+                                    "updated_at": "2020-06-06T08:02:51.949Z"
+                                },
+                                {
+                                    "id": "f8ee4d10-f9f6-11eb-8b1d-5b615a68dc0c",
+                                    "isNewEntry": false,
+                                    "skill": "react native",
+                                    "level": "2",
+                                    "updated_at": "2021-08-13T16:13:14.465Z",
+                                    "info": "js"
+                                },
+                                {
+                                    "id": "8473ec00-f9f7-11eb-8b1d-5b615a68dc0c",
+                                    "isNewEntry": false,
+                                    "skill": "python",
+                                    "level": "2",
+                                    "created_at": "2021-08-10T16:25:16.112Z",
+                                    "updated_at": "2021-08-10T16:25:16.112Z"
+                                },
+                                {
+                                    "id": "99431200-f9f7-11eb-8b1d-5b615a68dc0c",
+                                    "isNewEntry": false,
+                                    "skill": "arduino",
+                                    "level": "2",
+                                    "info": "arduino, esp",
+                                    "created_at": "2021-08-10T16:26:12.565Z",
+                                    "updated_at": "2021-08-10T16:26:12.565Z"
+                                }
+                            ],
+                            "iconKey": ""
+                        },
+                        "interest": {
+                            "sectionType": "interest",
+                            "displayName": "",
+                            "entries": [
+                                {
+                                    "id": "3badd7b0-a737-11ea-8ff9-9d7c5358b943",
+                                    "isNewEntry": false,
+                                    "interest": "Software Development",
+                                    "created_at": "2020-06-05T14:17:10.125Z",
+                                    "updated_at": "2020-06-06T07:34:41.388Z"
+                                },
+                                {
+                                    "id": "307dccb0-a7c8-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "interest": "IT/Software Training",
+                                    "created_at": "2020-06-06T07:34:53.321Z",
+                                    "updated_at": "2021-08-10T16:27:11.168Z"
+                                },
+                                {
+                                    "id": "37d75c60-a7c8-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "interest": "Entrepreneur",
+                                    "created_at": "2020-06-06T07:35:05.000Z",
+                                    "updated_at": "2020-06-06T07:35:05.000Z"
+                                },
+                                {
+                                    "id": "3e3d3d40-a7c8-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "interest": "Urban farming",
+                                    "created_at": "2020-06-06T07:35:11.161Z",
+                                    "updated_at": "2020-06-06T07:35:11.161Z"
+                                },
+                                {
+                                    "id": "42549a40-a7c8-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "interest": "Islamic studies",
+                                    "created_at": "2020-06-06T07:35:23.091Z",
+                                    "updated_at": "2020-06-06T07:35:23.091Z"
+                                },
+                                {
+                                    "id": "4920de10-a7c8-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "interest": "IOT Development",
+                                    "created_at": "2020-06-06T07:35:30.842Z",
+                                    "updated_at": "2020-06-08T02:39:37.948Z"
+                                }
+                            ],
+                            "iconKey": ""
+                        }
+                    },
+                    "order": 1,
+                    "title": "Resume Android",
+                    "languageCode": "en",
+                    "feedbackToken": "WYecul6nSTyM",
+                    "createdAt": "2020-06-06T08:20:02.195Z",
+                    "updatedAt": "2022-01-24T12:57:59.573Z",
+                    "userId": "5ed75be82d7ac3000440282f",
+                    "id": "5edb51b22f647d00040403d3"
+                },
+                {
+                    "businessDetails": {},
+                    "personalDetails": {
+                        "birthday": {
+                            "day": "",
+                            "month": "",
+                            "year": "1987"
+                        },
+                        "photo": {
+                            "shape": "round",
+                            "widthPct": 0.9746287128712872,
+                            "heightPct": 0.9900990099009901,
+                            "xPct": 0.01268564356435642,
+                            "yPct": 0.004950495049504955,
+                            "width": "0.9746287128712872",
+                            "height": "0.9900990099009901",
+                            "x": "0.01268564356435642",
+                            "y": "0.004950495049504955",
+                            "cloudinaryId": "avatar/lfiwba4gzx11hiytkslm",
+                            "imageId": "avatar/lfiwba4gzx11hiytkslm.jpeg",
+                            "originalHeight": 504,
+                            "originalWidth": 512
+                        },
+                        "detailsOrder": [
+                            "jobTitle",
+                            "address",
+                            "displayEmail",
+                            "phone",
+                            "birthday",
+                            "github",
+                            "website",
+                            "stackoverflow",
+                            "medium",
+                            "maritalStatus"
+                        ],
+                        "fullName": "Ahmad Saifullah",
+                        "githubLink": "https://github.com/ahsai001",
+                        "github": "ahsai001",
+                        "cloudinaryIdToSave": "",
+                        "displayEmail": "ahsai001@gmail.com",
+                        "phone": "+628561552200",
+                        "street": "Lubang Buaya, Cipayung",
+                        "postcode": "13810",
+                        "city": "Jakarta",
+                        "country": "Indonesia",
+                        "usAddress": false,
+                        "jobTitle": "Software Developer",
+                        "maritalStatus": "Married",
+                        "drivingLicense": "",
+                        "nationality": "",
+                        "military": "",
+                        "website": "https://ahsailabs.com",
+                        "websiteLink": "https://ahsailabs.com",
+                        "linkedIn": "",
+                        "instagram": "",
+                        "instagramLink": "https://instagram.com/ahsai001",
+                        "facebook": "",
+                        "twitter": "",
+                        "twitterLink": "https://www.twitter.com/ahsai001",
+                        "facebookLink": "https://www.facebook.com/ahsai001",
+                        "social": {
+                            "github": {
+                                "display": "ahsai001",
+                                "link": "https://github.com/ahsai001"
+                            }
+                        }
+                    },
+                    "customization": {
+                        "layout": {
+                            "colsFromDetails": {},
+                            "colWidthsFromDetails": {
+                                "top": {
+                                    "leftWidth": 50,
+                                    "rightWidth": 50
+                                },
+                                "left": {
+                                    "leftWidth": 40,
+                                    "rightWidth": 60
+                                },
+                                "right": {
+                                    "leftWidth": 60,
+                                    "rightWidth": 40
+                                }
+                            },
+                            "one": {
+                                "colWidths": {
+                                    "dateLocationLeft": {},
+                                    "dateLocationRight": {},
+                                    "dateContentLocation": {}
+                                },
+                                "columnWidths": {
+                                    "dateLocationLeft": {
+                                        "left": 0,
+                                        "right": 0
+                                    },
+                                    "dateLocationRight": {
+                                        "left": 0,
+                                        "right": 0
+                                    },
+                                    "dateContentLocation": {
+                                        "left": 0,
+                                        "middle": 0,
+                                        "right": 0
+                                    }
+                                },
+                                "sectionDisplay": "fullWidth",
+                                "columnWidthMode": "auto"
+                            },
+                            "two": {
+                                "sectionDisplay": "halfHalf",
+                                "leftWidth": 49,
+                                "rightWidth": 51,
+                                "personalDetails": "left"
+                            },
+                            "mix": {
+                                "columnWidths": {
+                                    "dateLocationLeft": {
+                                        "left": 0,
+                                        "right": 0
+                                    },
+                                    "dateLocationRight": {
+                                        "left": 0,
+                                        "right": 0
+                                    },
+                                    "dateContentLocation": {
+                                        "left": 0,
+                                        "middle": 0,
+                                        "right": 0
+                                    }
+                                },
+                                "sectionDisplay": "fullWidth",
+                                "columnWidthMode": "auto",
+                                "leftWidth": 49,
+                                "rightWidth": 51,
+                                "personalDetails": "left"
+                            },
+                            "selected": "two"
+                        },
+                        "entryLayout": {
+                            "colWidths": {
+                                "dateLocationLeft": {},
+                                "dateLocationRight": {},
+                                "dateContentLocation": {}
+                            },
+                            "colMode": "auto",
+                            "titleAndSubtitleSize": "s",
+                            "subtitleStyle": "italic",
+                            "bodyIndentation": "0",
+                            "dateLocationOpacity": false
+                        },
+                        "colors": {
+                            "basic": {
+                                "multi": {},
+                                "multiCustom": {}
+                            },
+                            "advanced": {
+                                "multi": {
+                                    "strong": {},
+                                    "light": {}
+                                },
+                                "multiCustom": {
+                                    "strong": {},
+                                    "light": {}
+                                }
+                            },
+                            "border": {}
+                        },
+                        "sectionOrder": {
+                            "one": {
+                                "sectionsSorted": [
+                                    "profile",
+                                    "project",
+                                    "education",
+                                    "work",
+                                    "skill",
+                                    "interest"
+                                ]
+                            },
+                            "two": {
+                                "leftSectionsSorted": [
+                                    "profile",
+                                    "skill",
+                                    "interest"
+                                ],
+                                "rightSectionsSorted": [
+                                    "project",
+                                    "work",
+                                    "education"
+                                ]
+                            },
+                            "mix": [
+                                "profile",
+                                "project",
+                                "education",
+                                "work",
+                                "skill",
+                                "interest"
+                            ]
+                        },
+                        "header": {
+                            "photo": {
+                                "show": true,
+                                "grayscale": false,
+                                "size": "m"
+                            },
+                            "photoPositionFromHeaderPosition": {
+                                "left": "left",
+                                "top": "center",
+                                "right": "left"
+                            },
+                            "position": "right",
+                            "accentuateName": true,
+                            "detailsDisplayCenter": "icon",
+                            "detailsDisplayLeftRight": "icon",
+                            "nameSize": "xl",
+                            "detailsArrangement": "column",
+                            "jobTitleSize": "m",
+                            "jobTitleStyle": "italic",
+                            "jobTitlePosition": "sameLine"
+                        },
+                        "spacing": {
+                            "marginVertical": "5",
+                            "marginHorizontal": "4",
+                            "fontSize": "3",
+                            "lineHeight": "4",
+                            "spacingFactor": "2"
+                        },
+                        "font": {
+                            "selected": "serif",
+                            "fontFamily": "Source Sans Pro"
+                        },
+                        "advanced": {
+                            "linkIcon": "boxArrow",
+                            "groupPromotions": false,
+                            "showCity": true,
+                            "showCountry": true,
+                            "listStyle": "bullet"
+                        },
+                        "skillDisplay": {
+                            "grid": {
+                                "columns": "two",
+                                "splitCommasIntoBullets": false
+                            },
+                            "level": {
+                                "selected": "dots"
+                            },
+                            "selected": "text",
+                            "text": "wrap",
+                            "subinfoItalic": true
+                        },
+                        "languageDisplay": {
+                            "grid": {
+                                "columns": "two",
+                                "splitCommasIntoBullets": false
+                            },
+                            "level": {
+                                "selected": "dots"
+                            },
+                            "selected": "level",
+                            "text": "bullet",
+                            "subinfoItalic": true
+                        },
+                        "interestDisplay": {
+                            "grid": {
+                                "columns": "two",
+                                "splitCommasIntoBullets": false
+                            },
+                            "selected": "text",
+                            "text": "wrap",
+                            "subinfoItalic": true
+                        },
+                        "certificateDisplay": {
+                            "grid": {
+                                "columns": "two",
+                                "splitCommasIntoBullets": false
+                            },
+                            "selected": "grid",
+                            "text": "bullet",
+                            "subinfoItalic": true
+                        },
+                        "regional": {
+                            "format": "A4",
+                            "dateDisplay": "DD/MM/YYYY",
+                            "anonymous": false,
+                            "monthFormat": "MM",
+                            "dateDelimiter": "/"
+                        },
+                        "heading": {
+                            "icons": "filled",
+                            "style": "line",
+                            "capitalization": "capitalize",
+                            "headingSize": "l"
+                        },
+                        "expert": {
+                            "footer": {
+                                "pages": false,
+                                "name": false,
+                                "email": false
+                            },
+                            "showProfileHeading": true,
+                            "subTitlePlacement": "trySameLine"
+                        },
+                        "border": {
+                            "width": {
+                                "filled": "m",
+                                "line": "m",
+                                "image": "m"
+                            },
+                            "searchMode": "ideas",
+                            "selectedStyle": "none"
+                        },
+                        "background": {
+                            "fullPage": {
+                                "accentColor": "#D2BFB7",
+                                "textColor": "#ffffff",
+                                "backgroundColor": "#193141"
+                            },
+                            "header": {
+                                "multi": {
+                                    "a": {
+                                        "textColor": "#ffffff",
+                                        "accentColor": "#D2BFB7",
+                                        "backgroundColor": "#193141"
+                                    },
+                                    "b": {
+                                        "textColor": "#222222",
+                                        "accentColor": "#193141",
+                                        "backgroundColor": "#ffffff"
+                                    }
+                                },
+                                "mode": "multi",
+                                "contrast": "#000000"
+                            },
+                            "leftCol": {
+                                "multi": {
+                                    "a": {
+                                        "textColor": "#ffffff",
+                                        "accentColor": "#D2BFB7",
+                                        "backgroundColor": "#193141"
+                                    },
+                                    "b": {
+                                        "textColor": "#222222",
+                                        "accentColor": "#193141",
+                                        "backgroundColor": "#ffffff"
+                                    }
+                                },
+                                "mode": "multi",
+                                "contrast": "#000000"
+                            },
+                            "rightCol": {
+                                "multi": {
+                                    "a": {
+                                        "textColor": "#222222",
+                                        "accentColor": "#193141",
+                                        "backgroundColor": "#ffffff"
+                                    },
+                                    "b": {
+                                        "textColor": "#ffffff",
+                                        "accentColor": "#D2BFB7",
+                                        "backgroundColor": "#193141"
+                                    }
+                                },
+                                "mode": "multi",
+                                "contrast": "#000000"
+                            },
+                            "fullPageImageSearchMode": "ideas",
+                            "headerImageSearchMode": "ideas",
+                            "fullPageMode": "accent",
+                            "selected": "leftCol",
+                            "selectedHelper": "leftCol"
+                        },
+                        "applyAccentColor": {
+                            "name": true,
+                            "headings": true,
+                            "headingLine": true,
+                            "dotsBarsBubbles": false,
+                            "icons": false,
+                            "dates": false,
+                            "linkIcons": false
+                        },
+                        "educationDisplay": {
+                            "degreeBeforeSchool": false
+                        },
+                        "workDisplay": {
+                            "jobTitleBeforeEmployer": false
+                        },
+                        "declarationDisplay": {
+                            "showHeading": true
+                        },
+                        "unsplashImageHistory": [],
+                        "customSkillSections": {},
+                        "creativeNameFont": "bodyFont"
+                    },
+                    "feedback": {
+                        "comments": []
+                    },
+                    "webResumeDownloadBtn": true,
+                    "webResumeSearchIndex": true,
+                    "downloads": [],
+                    "feedbackEnabled": true,
+                    "meta": {
+                        "usedTemplates": {},
+                        "numberOfDownloads": 9,
+                        "lastDownloadAt": "2021-12-29T16:00:59.063Z"
+                    },
+                    "_id": "5eddd2d61d3f740004ae82bf",
+                    "content": {
+                        "project": {
+                            "sectionType": "project",
+                            "displayName": "",
+                            "entries": [
+                                {
+                                    "id": "bddb8830-a571-11ea-b0d8-0580344a8935",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Ya!man",
+                                    "projectTitleLink": "https://apkdownload.com/Ya-man/com.jatismobile.ahmad.yaman.html",
+                                    "subTitle": "android",
+                                    "startDate": {
+                                        "month": "",
+                                        "year": "",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false
+                                    },
+                                    "endDate": {
+                                        "month": "",
+                                        "year": "",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false,
+                                        "customOngoingWord": "present"
+                                    },
+                                    "description": "<p>Financial Application</p>",
+                                    "updated_at": "2021-12-29T15:10:31.442Z"
+                                },
+                                {
+                                    "id": "fb448280-a571-11ea-b0d8-0580344a8935",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Mobile Genie",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android",
+                                    "description": "<p>Android application generator</p>",
+                                    "isHidden": false,
+                                    "updated_at": "2021-12-29T15:10:39.232Z"
+                                },
+                                {
+                                    "id": "49169d80-a7cb-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Tooz Loyalty Feature",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android",
+                                    "description": "<p>Loyalty program feature of TIKI application</p>",
+                                    "updated_at": "2020-06-06T08:08:39.052Z"
+                                },
+                                {
+                                    "id": "599ccf30-a7cb-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Sahabat Muslim",
+                                    "projectTitleLink": "https://play.google.com/store/apps/details?id=com.zaitunlabs.salim",
+                                    "subTitle": "android",
+                                    "description": "<p>Islamic learning schedule application based on location</p>",
+                                    "updated_at": "2021-12-29T15:10:45.030Z"
+                                },
+                                {
+                                    "id": "685a27c0-a7cb-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Event Holic",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android",
+                                    "description": "<p>Event management application</p>",
+                                    "updated_at": "2021-12-29T15:10:50.781Z"
+                                },
+                                {
+                                    "id": "73387160-a7cb-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Klik BTA Mobile",
+                                    "projectTitleLink": "https://play.google.com/store/apps/details?id=com.klikbta.app",
+                                    "subTitle": "android",
+                                    "description": "<p>mobile version klikbta application of BTA UI</p>",
+                                    "updated_at": "2021-12-29T15:10:56.348Z"
+                                },
+                                {
+                                    "id": "8cb9fbe0-a7cb-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Matabali",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android",
+                                    "description": "<p>Tour and travel management application</p>",
+                                    "updated_at": "2021-12-29T15:11:02.450Z"
+                                },
+                                {
+                                    "id": "99ef2dd0-a7cb-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "projectTitle": "PPOB Library",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android",
+                                    "description": "<p>PPOB library for android</p>",
+                                    "updated_at": "2021-12-29T15:11:07.698Z"
+                                },
+                                {
+                                    "id": "a72f8350-a7cb-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "projectTitle": "SmartCall",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android",
+                                    "description": "<p>Audio call and messaging application</p>",
+                                    "updated_at": "2021-12-29T15:11:13.721Z"
+                                },
+                                {
+                                    "id": "27f73d50-a94a-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Mata Garuda",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android",
+                                    "description": "<p>Mapping application</p>",
+                                    "created_at": "2020-06-08T05:38:06.569Z",
+                                    "updated_at": "2021-12-29T15:11:19.430Z"
+                                },
+                                {
+                                    "id": "3d5583f0-a94a-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Event Management System",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android",
+                                    "description": "<p>Event Management System</p>",
+                                    "created_at": "2020-06-08T05:38:36.594Z",
+                                    "updated_at": "2020-06-08T05:38:36.594Z"
+                                },
+                                {
+                                    "id": "4eaf3240-a94a-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Review1st",
+                                    "projectTitleLink": "https://play.google.com/store/apps/details?id=com.review1st.review1st",
+                                    "subTitle": "android",
+                                    "description": "<p>News Portal for technology, gadget and automotive</p>",
+                                    "created_at": "2020-06-08T05:39:19.717Z",
+                                    "updated_at": "2021-12-29T15:14:59.988Z"
+                                },
+                                {
+                                    "id": "69bc65d0-a94a-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Simple Tools",
+                                    "projectTitleLink": "https://play.google.com/store/apps/details?id=com.ahsailabs.simpletools",
+                                    "subTitle": "android",
+                                    "description": "<p>Some usefull tools to handle simple things</p>",
+                                    "updated_at": "2021-12-29T15:19:41.287Z"
+                                },
+                                {
+                                    "id": "82b4c320-a94a-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Quds & Qids Player",
+                                    "projectTitleLink": "https://play.google.com/store/apps/details?id=com.ahsailabs.qudsplayer",
+                                    "subTitle": "android",
+                                    "description": "<p>Murottal/Music player with source from micro sd card</p>",
+                                    "created_at": "2020-06-08T05:40:41.720Z",
+                                    "updated_at": "2021-12-29T15:29:44.931Z"
+                                },
+                                {
+                                    "id": "9e6bcb40-a94a-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "e-KPSP",
+                                    "projectTitleLink": "https://play.google.com/store/apps/details?id=id.ac.ui.fkm.e_kpsp",
+                                    "subTitle": "android",
+                                    "description": "<p>Pra Screening Quesioner for monitoring children development</p>",
+                                    "created_at": "2020-06-08T05:42:21.205Z",
+                                    "updated_at": "2021-12-29T15:30:25.833Z"
+                                },
+                                {
+                                    "id": "d6334620-a94a-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Konsuldok",
+                                    "projectTitleLink": "https://play.google.com/store/apps/details?id=com.production.konsuldok",
+                                    "subTitle": "android",
+                                    "description": "<p>Online doctor consultation application</p>",
+                                    "created_at": "2020-06-08T05:42:56.806Z",
+                                    "updated_at": "2021-12-29T15:32:12.422Z"
+                                },
+                                {
+                                    "id": "ed8c2440-a94a-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Bintang Pelajar Tryout",
+                                    "projectTitleLink": "https://play.google.com/store/apps/details?id=id.co.rumahcoding.bptryoutonline",
+                                    "subTitle": "android",
+                                    "description": "<p>Application used for conducting exams online for Bintang Pelajar(BP)</p>",
+                                    "created_at": "2020-06-08T05:44:39.767Z",
+                                    "updated_at": "2021-12-29T15:34:42.404Z"
+                                },
+                                {
+                                    "id": "85f85ff0-a94b-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "HiClub",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android",
+                                    "description": "<p>Loyalti application with features like news, info, poin, etc</p>",
+                                    "created_at": "2020-06-08T05:52:02.334Z",
+                                    "updated_at": "2020-06-08T05:52:02.334Z"
+                                },
+                                {
+                                    "id": "31628410-a94c-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "ArenaLTE",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android",
+                                    "description": "<p>News Portal like technology, gadget</p>",
+                                    "created_at": "2020-06-08T05:52:35.364Z",
+                                    "updated_at": "2020-06-08T05:52:35.364Z"
+                                },
+                                {
+                                    "id": "44f9c650-a94c-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Dzikir Harian",
+                                    "projectTitleLink": "https://play.google.com/store/apps/details?id=com.zaitunlabs.dzikirharian",
+                                    "subTitle": "android",
+                                    "description": "<p>Morning and Evening Dhikr application, also has feature reminder inside it</p>",
+                                    "created_at": "2020-06-08T05:53:54.242Z",
+                                    "updated_at": "2021-12-29T15:36:32.923Z"
+                                },
+                                {
+                                    "id": "55002ec0-a94e-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Api of klikbta",
+                                    "projectTitleLink": "",
+                                    "subTitle": "php-ci,mysql",
+                                    "description": "<p>Apis used by klikbta application</p>",
+                                    "created_at": "2020-06-08T06:08:28.515Z",
+                                    "updated_at": "2020-06-08T06:08:28.515Z"
+                                },
+                                {
+                                    "id": "7d4b1fc0-a94e-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "BSML",
+                                    "projectTitleLink": "",
+                                    "subTitle": "php-laravel, mysql, javascript",
+                                    "description": "<p>Internal app for BSML company</p>",
+                                    "updated_at": "2020-06-08T06:15:04.264Z"
+                                },
+                                {
+                                    "id": "be61b8c0-a94e-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Sipensel",
+                                    "projectTitleLink": "",
+                                    "subTitle": "php-yii2, mysql, javascript",
+                                    "description": "<p>Website for LPDP</p>",
+                                    "updated_at": "2020-06-08T06:14:55.676Z"
+                                },
+                                {
+                                    "id": "d777fe50-a94e-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "IPBCC",
+                                    "projectTitleLink": "",
+                                    "subTitle": "php-laravel, mysql, javascript",
+                                    "description": "<p>Website to sell microorganisme like fungi, bacteri, etc</p>",
+                                    "updated_at": "2020-06-08T06:14:47.195Z"
+                                },
+                                {
+                                    "id": "f5f94a00-a94e-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Hisense Photo Contest",
+                                    "projectTitleLink": "",
+                                    "subTitle": "php-ci, mysql, javascript",
+                                    "description": "<p>Website that held a photo contest</p>",
+                                    "updated_at": "2020-06-08T06:14:30.186Z"
+                                },
+                                {
+                                    "id": "23d6ed60-a94f-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Rejeki Pureshot",
+                                    "projectTitleLink": "",
+                                    "subTitle": "php-ci, mysql, javascript",
+                                    "description": "<p>Website that held wheel of fortune game</p>",
+                                    "updated_at": "2020-06-08T06:14:20.069Z"
+                                },
+                                {
+                                    "id": "6bf43b20-a94f-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Sasis",
+                                    "projectTitleLink": "",
+                                    "subTitle": "asp, vbscript",
+                                    "description": "<p>Website for monitoring process in smartfren service center</p>",
+                                    "created_at": "2020-06-08T06:16:23.063Z",
+                                    "updated_at": "2020-06-08T06:16:23.064Z"
+                                },
+                                {
+                                    "id": "9f282420-a94f-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Facebook brew",
+                                    "projectTitleLink": "",
+                                    "subTitle": "brew, c",
+                                    "description": "<p>Facebook application that run in lowend handset</p>",
+                                    "created_at": "2020-06-08T06:17:31.951Z",
+                                    "updated_at": "2020-06-08T06:17:31.951Z"
+                                },
+                                {
+                                    "id": "c03ff930-a94f-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Twitter brew",
+                                    "projectTitleLink": "",
+                                    "subTitle": "brew, c",
+                                    "description": "<p>Twitter application that run in lowend handset</p>",
+                                    "created_at": "2020-06-08T06:18:10.286Z",
+                                    "updated_at": "2020-06-08T06:18:10.286Z"
+                                },
+                                {
+                                    "id": "d89d9d20-a94f-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "UG1Click",
+                                    "projectTitleLink": "",
+                                    "subTitle": "brew, c",
+                                    "description": "<p>Brew application that used by students in university of gunadarma</p>",
+                                    "created_at": "2020-06-08T06:19:01.496Z",
+                                    "updated_at": "2020-06-08T06:19:01.496Z"
+                                },
+                                {
+                                    "id": "f4857940-a94f-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Vivanews brew",
+                                    "projectTitleLink": "",
+                                    "subTitle": "brew, c",
+                                    "description": "<p>Brew application that show news</p>",
+                                    "created_at": "2020-06-08T06:19:28.672Z",
+                                    "updated_at": "2020-06-08T06:19:28.672Z"
+                                },
+                                {
+                                    "id": "05f324c0-a950-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Esiashop",
+                                    "projectTitleLink": "",
+                                    "subTitle": "brew, c",
+                                    "description": "<p>Brew application that used for shopping digital item in lowend handset</p>",
+                                    "created_at": "2020-06-08T06:20:09.612Z",
+                                    "updated_at": "2020-06-08T06:20:09.612Z"
+                                },
+                                {
+                                    "id": "1e82fc40-a950-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Broadcast website, cms, desktop and service",
+                                    "projectTitleLink": "",
+                                    "subTitle": ".net, vb",
+                                    "description": "<p>All system service that running broadcast engine</p>",
+                                    "created_at": "2020-06-08T06:21:21.086Z",
+                                    "updated_at": "2020-06-08T06:21:21.086Z"
+                                },
+                                {
+                                    "id": "48212130-a950-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Core Broadcast Service",
+                                    "projectTitleLink": "",
+                                    "subTitle": "c,c++",
+                                    "description": "<p>Core service that sending message in broadcast engine</p>",
+                                    "created_at": "2020-06-08T06:22:11.791Z",
+                                    "updated_at": "2020-06-08T06:22:11.791Z"
+                                },
+                                {
+                                    "id": "679cab60-a950-11ea-b046-b5b2bc004ef8",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Sainsburry BB10",
+                                    "projectTitleLink": "",
+                                    "subTitle": "bb10, c++",
+                                    "description": "<p>Shopping application that run in blackberry 10 handset</p>",
+                                    "created_at": "2020-06-08T06:23:11.856Z",
+                                    "updated_at": "2020-06-08T06:23:11.857Z"
+                                },
+                                {
+                                    "id": "ed261590-ac62-11ea-a4bc-8935800653db",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Sekolahku",
+                                    "projectTitleLink": "",
+                                    "subTitle": "ios-swift",
+                                    "description": "<p>Aplikasi pendataan siswa secara offline</p>",
+                                    "created_at": "2020-06-12T04:13:17.509Z",
+                                    "updated_at": "2020-06-12T04:13:17.509Z"
+                                },
+                                {
+                                    "id": "88d7eca0-cc9f-11ea-92a3-470382a82f63",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Sekolahku",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android-java/kotlin",
+                                    "description": "<p>Aplikasi pendataan siswa secara offline</p>",
+                                    "updated_at": "2020-07-23T04:49:14.649Z"
+                                },
+                                {
+                                    "id": "a194c790-cc9f-11ea-92a3-470382a82f63",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Toko Online",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android-java/kotlin, php, mysql",
+                                    "description": "<p>Aplikasi toko online sederhana</p>",
+                                    "updated_at": "2020-07-23T04:52:23.341Z"
+                                },
+                                {
+                                    "id": "ddc5b710-cc9f-11ea-92a3-470382a82f63",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Sales App",
+                                    "projectTitleLink": "",
+                                    "subTitle": "java(j2ee)-swing, mysql",
+                                    "description": "<p>Aplikasi pencatatan penjualan atau kasir sederhana</p>",
+                                    "updated_at": "2020-07-23T04:52:09.857Z"
+                                },
+                                {
+                                    "id": "185a34a0-cca0-11ea-92a3-470382a82f63",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Sistem Informasi Penjualan",
+                                    "projectTitleLink": "",
+                                    "subTitle": "php-ci, mysql",
+                                    "description": "<p>Website sistem informasi penjualan sederhana</p>",
+                                    "updated_at": "2020-07-23T04:51:59.764Z"
+                                },
+                                {
+                                    "id": "2fe43530-f9f9-11eb-8b1d-5b615a68dc0c",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Sekolahku",
+                                    "projectTitleLink": "",
+                                    "subTitle": "flutter, dart",
+                                    "created_at": "2021-08-10T16:37:19.562Z",
+                                    "updated_at": "2021-11-29T21:12:09.559Z",
+                                    "description": "<p>Aplikasi pendataan siswa secara offline</p>"
+                                },
+                                {
+                                    "id": "e63daf60-f9f8-11eb-8b1d-5b615a68dc0c",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Sistem Informasi Penjualan",
+                                    "projectTitleLink": "",
+                                    "subTitle": "php-laravel, mysql",
+                                    "created_at": "2021-08-10T16:35:26.720Z",
+                                    "updated_at": "2021-08-10T16:35:26.720Z"
+                                },
+                                {
+                                    "id": "47e84770-f9f9-11eb-8b1d-5b615a68dc0c",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Berita Kita",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android, java, kotlin",
+                                    "created_at": "2021-08-10T16:37:58.176Z",
+                                    "updated_at": "2021-12-29T15:40:47.819Z",
+                                    "description": "<p>Aplikasi citizen journalism</p>"
+                                },
+                                {
+                                    "id": "634f0cb0-f9f9-11eb-8b1d-5b615a68dc0c",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Berita Kita",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android, flutter, dart",
+                                    "created_at": "2021-08-10T16:38:46.322Z",
+                                    "updated_at": "2021-08-10T16:38:46.322Z"
+                                },
+                                {
+                                    "id": "70f80f10-f9f9-11eb-8b1d-5b615a68dc0c",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Berita Kita",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android, react native, js/ts",
+                                    "created_at": "2021-08-10T16:39:21.763Z",
+                                    "updated_at": "2021-08-10T16:39:21.763Z"
+                                },
+                                {
+                                    "id": "53e560f0-68ba-11ec-9ae5-e92d0e970778",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Review1st.id",
+                                    "projectTitleLink": "https://play.google.com/store/apps/details?id=id.review1st.mobile",
+                                    "subTitle": "android",
+                                    "description": "<p>Price Portal for technology, gadget and automotive</p>",
+                                    "updated_at": "2021-12-29T15:18:13.336Z"
+                                },
+                                {
+                                    "id": "cb235960-68ba-11ec-9ae5-e92d0e970778",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Al Muwahhid Player",
+                                    "projectTitleLink": "https://play.google.com/store/apps/details?id=com.ahsailabs.almuwahhidplayer",
+                                    "subTitle": "android",
+                                    "description": "<p>a companion app for speaker quds & qids series</p>",
+                                    "updated_at": "2021-12-29T15:43:18.760Z"
+                                },
+                                {
+                                    "id": "b05f4bd0-5158-11ec-aab0-a3dafe6a3e44",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Sekolahku",
+                                    "projectTitleLink": "",
+                                    "subTitle": "android, react native, js/flow",
+                                    "description": "<p>Aplikasi pendataan siswa offline</p>",
+                                    "created_at": "2021-11-29T21:10:52.851Z",
+                                    "updated_at": "2021-11-29T21:10:52.851Z"
+                                },
+                                {
+                                    "id": "4a2603e0-5158-11ec-aab0-a3dafe6a3e44",
+                                    "isNewEntry": false,
+                                    "projectTitle": "Puhba",
+                                    "projectTitleLink": "https://play.google.com/store/apps/details?id=com.publikasiham.app",
+                                    "subTitle": "android, jetpack compose",
+                                    "description": "<p>Digital Book Library & Reader</p>",
+                                    "updated_at": "2021-12-29T15:45:25.827Z"
+                                }
+                            ]
+                        },
+                        "profile": {
+                            "sectionType": "profile",
+                            "displayName": "",
+                            "entries": [
+                                {
+                                    "id": "145d5e30-a735-11ea-8ff9-9d7c5358b943",
+                                    "isNewEntry": false,
+                                    "text": "<p class=\"ql-align-justify\">I’m passionate about building great products that make people’s lives easier. With this spirit, i am also being a trainer. I have over 10 years of experience developing usefull and innovative products for some companies.</p><p class=\"ql-align-justify\"><br /></p><p class=\"ql-align-justify\">I grew up in Jakarta, am an urban farmer, moslem preneur and I’m excited to partner with you!</p><p class=\"ql-align-justify\"><br /></p>",
+                                    "updated_at": "2020-06-06T15:11:02.904Z"
+                                }
+                            ],
+                            "iconKey": ""
+                        },
+                        "education": {
+                            "sectionType": "education",
+                            "displayName": "",
+                            "entries": [
+                                {
+                                    "id": "c6c47da0-a736-11ea-8ff9-9d7c5358b943",
+                                    "isNewEntry": false,
+                                    "school": "University of Indonesia",
+                                    "schoolLink": "https://www.ui.ac.id/",
+                                    "degree": "Electrical Engineering Studies",
+                                    "city": "Jawa Barat",
+                                    "country": "Indonesia",
+                                    "startDate": {
+                                        "month": null,
+                                        "year": "2005",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false
+                                    },
+                                    "endDate": {
+                                        "month": null,
+                                        "year": "2010",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false,
+                                        "customOngoingWord": "present"
+                                    },
+                                    "description": "",
+                                    "created_at": "2020-06-05T14:15:46.431Z",
+                                    "updated_at": "2020-06-06T07:40:20.342Z"
+                                },
+                                {
+                                    "id": "5ed226b0-a7c8-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "school": "SMA 48 Pinang Ranti",
+                                    "schoolLink": "",
+                                    "degree": "Senior High School",
+                                    "city": "Jakarta",
+                                    "country": "Indonesia",
+                                    "startDate": {
+                                        "month": null,
+                                        "year": "2002",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false
+                                    },
+                                    "endDate": {
+                                        "month": null,
+                                        "year": "2005",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false,
+                                        "customOngoingWord": "present"
+                                    },
+                                    "created_at": "2020-06-06T07:39:55.417Z",
+                                    "updated_at": "2020-06-06T07:39:55.417Z"
+                                },
+                                {
+                                    "id": "30b4a940-a7ca-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "school": "SMP 81 Lubang Buaya",
+                                    "schoolLink": "",
+                                    "degree": "Junior High School",
+                                    "city": "Jakarta",
+                                    "country": "Indonesia",
+                                    "startDate": {
+                                        "month": null,
+                                        "year": "1999",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false
+                                    },
+                                    "endDate": {
+                                        "month": null,
+                                        "year": "2002",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false,
+                                        "customOngoingWord": "present"
+                                    },
+                                    "created_at": "2020-06-06T07:49:56.934Z",
+                                    "updated_at": "2020-06-06T07:49:56.934Z"
+                                },
+                                {
+                                    "id": "53c14970-a7ca-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "school": "SD 02 Lubang Buaya",
+                                    "schoolLink": "",
+                                    "degree": "Elementary School",
+                                    "city": "Jakarta",
+                                    "country": "Indonesia",
+                                    "startDate": {
+                                        "month": null,
+                                        "year": "1993",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false
+                                    },
+                                    "endDate": {
+                                        "month": null,
+                                        "year": "1999",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false,
+                                        "customOngoingWord": "present"
+                                    },
+                                    "created_at": "2020-06-06T07:50:51.279Z",
+                                    "updated_at": "2020-06-06T07:50:51.279Z"
+                                }
+                            ],
+                            "iconKey": ""
+                        },
+                        "work": {
+                            "sectionType": "work",
+                            "displayName": "",
+                            "entries": [
+                                {
+                                    "id": "cababed0-a7ca-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "employer": "Software Freelance",
+                                    "employerLink": "",
+                                    "jobTitle": "Software Developer/Trainer",
+                                    "city": "Jakarta",
+                                    "country": "Indonesia",
+                                    "startDate": {
+                                        "month": null,
+                                        "year": "2017",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false
+                                    },
+                                    "endDate": {
+                                        "month": null,
+                                        "year": null,
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": true,
+                                        "customOngoingWord": "present"
+                                    },
+                                    "created_at": "2020-06-06T07:54:37.376Z",
+                                    "updated_at": "2020-06-06T14:07:48.225Z"
+                                },
+                                {
+                                    "id": "b9e97a60-a7ca-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "employer": "PT Prakarsa Visi Valutama",
+                                    "employerLink": "",
+                                    "jobTitle": "Software Developer",
+                                    "city": "Jakarta",
+                                    "country": "Indonesia",
+                                    "startDate": {
+                                        "month": null,
+                                        "year": "2015",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false
+                                    },
+                                    "endDate": {
+                                        "month": null,
+                                        "year": "2017",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false,
+                                        "customOngoingWord": "present"
+                                    },
+                                    "created_at": "2020-06-06T07:53:18.624Z",
+                                    "updated_at": "2020-06-06T07:53:18.624Z"
+                                },
+                                {
+                                    "id": "13613900-a737-11ea-8ff9-9d7c5358b943",
+                                    "isNewEntry": false,
+                                    "employer": "PT Teknologi Informasi Indonesia (Jatis Mobile)",
+                                    "employerLink": "",
+                                    "jobTitle": "Software Developer",
+                                    "created_at": "2020-06-05T14:16:08.191Z",
+                                    "updated_at": "2020-06-06T07:52:49.226Z",
+                                    "city": "Jakarta",
+                                    "country": "Indonesia",
+                                    "startDate": {
+                                        "month": null,
+                                        "year": "2010",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false
+                                    },
+                                    "endDate": {
+                                        "month": null,
+                                        "year": "2015",
+                                        "onlyYear": false,
+                                        "hide": false,
+                                        "ongoing": false,
+                                        "customOngoingWord": "present"
+                                    }
+                                }
+                            ],
+                            "iconKey": ""
+                        },
+                        "skill": {
+                            "sectionType": "skill",
+                            "displayName": "",
+                            "entries": [
+                                {
+                                    "id": "2cb46080-a737-11ea-8ff9-9d7c5358b943",
+                                    "isNewEntry": false,
+                                    "skill": "Android",
+                                    "created_at": "2020-06-05T14:16:44.059Z",
+                                    "updated_at": "2020-06-06T07:29:39.719Z",
+                                    "level": "4",
+                                    "info": "java, kotlin"
+                                },
+                                {
+                                    "id": "07697890-a7c5-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "skill": "php",
+                                    "level": "4",
+                                    "info": "codeigniter, laravel",
+                                    "updated_at": "2020-06-06T07:30:25.454Z"
+                                },
+                                {
+                                    "id": "5ad01be0-a7c7-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "skill": "database",
+                                    "level": "4",
+                                    "info": "mysql, sqlite",
+                                    "created_at": "2020-06-06T07:29:00.781Z",
+                                    "updated_at": "2020-06-06T07:29:00.781Z"
+                                },
+                                {
+                                    "id": "8004f340-a7c7-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "skill": "flutter",
+                                    "level": "2",
+                                    "created_at": "2020-06-06T07:30:03.899Z",
+                                    "updated_at": "2021-08-13T16:11:44.653Z",
+                                    "info": "dart"
+                                },
+                                {
+                                    "id": "9946b5a0-a7c7-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "skill": "ios",
+                                    "level": "2",
+                                    "info": "swift",
+                                    "created_at": "2020-06-06T07:30:42.735Z",
+                                    "updated_at": "2020-06-06T07:30:42.735Z"
+                                },
+                                {
+                                    "id": "aae5d160-a7c7-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "skill": "web",
+                                    "level": "2",
+                                    "info": "html, css, js, jquery",
+                                    "created_at": "2020-06-06T07:31:18.560Z",
+                                    "updated_at": "2020-06-06T07:31:18.560Z"
+                                },
+                                {
+                                    "id": "8f773c90-a7ca-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "skill": "c/c++",
+                                    "level": "2",
+                                    "updated_at": "2020-06-06T08:02:51.949Z"
+                                },
+                                {
+                                    "id": "8b1c1090-f9f8-11eb-8b1d-5b615a68dc0c",
+                                    "isNewEntry": false,
+                                    "skill": "react native",
+                                    "level": "2",
+                                    "info": "js",
+                                    "created_at": "2021-08-10T16:32:34.597Z",
+                                    "updated_at": "2021-08-13T16:11:25.213Z"
+                                },
+                                {
+                                    "id": "935eeed0-f9f8-11eb-8b1d-5b615a68dc0c",
+                                    "isNewEntry": false,
+                                    "skill": "python",
+                                    "level": "2",
+                                    "created_at": "2021-08-10T16:32:46.749Z",
+                                    "updated_at": "2021-08-10T16:32:46.749Z"
+                                },
+                                {
+                                    "id": "9b845a00-f9f8-11eb-8b1d-5b615a68dc0c",
+                                    "isNewEntry": false,
+                                    "skill": "arduino",
+                                    "level": "2",
+                                    "info": "arduino, esp",
+                                    "created_at": "2021-08-10T16:33:10.685Z",
+                                    "updated_at": "2021-08-10T16:33:10.685Z"
+                                }
+                            ],
+                            "iconKey": ""
+                        },
+                        "interest": {
+                            "sectionType": "interest",
+                            "displayName": "",
+                            "entries": [
+                                {
+                                    "id": "3badd7b0-a737-11ea-8ff9-9d7c5358b943",
+                                    "isNewEntry": false,
+                                    "interest": "Software Development",
+                                    "created_at": "2020-06-05T14:17:10.125Z",
+                                    "updated_at": "2020-06-06T07:34:41.388Z"
+                                },
+                                {
+                                    "id": "307dccb0-a7c8-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "interest": "IT/Software Training",
+                                    "created_at": "2020-06-06T07:34:53.321Z",
+                                    "updated_at": "2021-08-10T16:31:35.706Z"
+                                },
+                                {
+                                    "id": "37d75c60-a7c8-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "interest": "Entrepreneur",
+                                    "created_at": "2020-06-06T07:35:05.000Z",
+                                    "updated_at": "2020-06-06T07:35:05.000Z"
+                                },
+                                {
+                                    "id": "3e3d3d40-a7c8-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "interest": "Urban farming",
+                                    "created_at": "2020-06-06T07:35:11.161Z",
+                                    "updated_at": "2020-06-06T07:35:11.161Z"
+                                },
+                                {
+                                    "id": "42549a40-a7c8-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "interest": "Islamic studies",
+                                    "created_at": "2020-06-06T07:35:23.091Z",
+                                    "updated_at": "2020-06-06T07:35:23.091Z"
+                                },
+                                {
+                                    "id": "4920de10-a7c8-11ea-80cc-497a012a1b68",
+                                    "isNewEntry": false,
+                                    "interest": "IOT Development",
+                                    "created_at": "2020-06-06T07:35:30.842Z",
+                                    "updated_at": "2020-06-08T02:39:37.948Z"
+                                }
+                            ],
+                            "iconKey": ""
+                        }
+                    },
+                    "order": 2,
+                    "title": "Resume All",
+                    "languageCode": "en",
+                    "feedbackToken": "urkYPVEhxzUS",
+                    "createdAt": "2020-06-08T05:55:34.828Z",
+                    "updatedAt": "2022-01-24T12:57:59.573Z",
+                    "userId": "5ed75be82d7ac3000440282f",
+                    "id": "5eddd2d61d3f740004ae82bf"
+                }
+            ],
+            "createdAt": "2020-06-03T08:14:32.777Z",
+            "updatedAt": "2024-02-25T06:33:17.768Z",
+            "__v": 162,
+            "emailConfirmedAt": "2020-06-03T08:17:40.003Z",
+            "schemaVersion": "16",
+            "tracker": {
+                "_id": "5f7b2ab309089c000efff9f1",
+                "columns": [],
+                "cards": [
+                    {
+                        "hidden": false,
+                        "_id": "6116a0a6ad9b2d0004f1a8ec",
+                        "id": "27eb638a-da6b-4441-a6a5-befedb0ffa85",
+                        "company": "",
+                        "jobTitle": "",
+                        "location": "",
+                        "salary": "",
+                        "link": "",
+                        "notes": "",
+                        "todos": [
+                            {
+                                "done": false,
+                                "_id": "6116a0a6ad9b2d0004f1a8ed",
+                                "todo": ""
+                            }
+                        ],
+                        "files": [],
+                        "createdAt": "2021-08-13T16:41:07.921Z",
+                        "updatedAt": "2021-08-13T16:41:10.867Z"
+                    }
+                ],
+                "updatedAt": "2022-11-02T14:53:24.749Z",
+                "userId": "5ed75be82d7ac3000440282f",
+                "createdAt": "2022-11-02T14:53:24.749Z",
+                "id": "5f7b2ab309089c000efff9f1"
+            },
+            "signatures": [
+                {
+                    "meta": {
+                        "downloadCount": 1,
+                        "cdnId": "107aca97-9e13-48d9-937d-763dabde36da",
+                        "downloads": {}
+                    },
+                    "content": {
+                        "photo": {
+                            "shape": "round",
+                            "widthPct": 0.9746287128712872,
+                            "heightPct": 0.9900990099009901,
+                            "xPct": 0.01268564356435642,
+                            "yPct": 0.004950495049504955,
+                            "imageId": "avatar/lfiwba4gzx11hiytkslm.jpeg",
+                            "originalHeight": 504,
+                            "originalWidth": 512
+                        },
+                        "contactDetailsOrder": [
+                            "mobile",
+                            "address",
+                            "website",
+                            "email"
+                        ],
+                        "professionalDetailsOrder": [
+                            "jobTitle"
+                        ],
+                        "social": [
+                            {
+                                "_id": "6112b17afbfc9200040a0eb0",
+                                "kind": "github",
+                                "link": "https://github.com/ahsai001"
+                            },
+                            {
+                                "_id": "6112b17afbfc9200040a0eb1",
+                                "kind": "linkedIn",
+                                "link": "https://www.linkedin.com/in/ahmadsaifullah/"
+                            },
+                            {
+                                "_id": "6112b17afbfc9200040a0eb2",
+                                "kind": "instagram",
+                                "link": "https://www.instagram.com/ahsai001"
+                            },
+                            {
+                                "_id": "6112b17afbfc9200040a0eb3",
+                                "kind": "medium",
+                                "link": "https://medium.com/@ahsai001"
+                            }
+                        ],
+                        "fullName": "Ahmad Saifullah",
+                        "jobTitle": "Software Developer",
+                        "mobile": "+628561552200",
+                        "address": "Jakarta, Indonesia",
+                        "website": "https://ahsailabs.com",
+                        "websiteLink": "https://ahsailabs.com",
+                        "email": "ahsai001@gmail.com"
+                    },
+                    "design": {
+                        "name": {
+                            "size": "m",
+                            "bold": true
+                        },
+                        "applyAccentColor": {
+                            "name": true,
+                            "divider": true,
+                            "detailsLabel": true,
+                            "links": false,
+                            "social": false
+                        },
+                        "divider": {
+                            "width": "short",
+                            "height": "thick"
+                        },
+                        "details": {
+                            "textLabelMap": {
+                                "mobile": "M",
+                                "phone": "P",
+                                "address": "A",
+                                "website": "W"
+                            },
+                            "compact": false,
+                            "label": "text"
+                        },
+                        "photo": {
+                            "show": true,
+                            "grayscale": false,
+                            "size": "m"
+                        },
+                        "social": {
+                            "frame": "square",
+                            "style": "filled",
+                            "color": "original"
+                        },
+                        "font": {
+                            "selected": "sans",
+                            "sans": "Arial",
+                            "serif": "Times New Roman",
+                            "mono": "Courier New"
+                        },
+                        "layout": "photoLeft",
+                        "accentColor": "#303F9F",
+                        "bgColor": "none"
+                    },
+                    "downloads": [],
+                    "lngCode": "en",
+                    "_id": "5f9acaf300f24700106d5745",
+                    "updatedAt": "2022-11-02T14:53:24.750Z",
+                    "userId": "5ed75be82d7ac3000440282f",
+                    "createdAt": "2022-11-02T14:53:24.750Z",
+                    "id": "5f9acaf300f24700106d5745"
+                }
+            ],
+            "website": {
+                "currentWebsiteData": {
+                    "elements": {
+                        "intro": {
+                            "photo": {
+                                "shape": "round",
+                                "widthPct": 0.9746287128712872,
+                                "heightPct": 0.9900990099009901,
+                                "xPct": 0.01268564356435642,
+                                "yPct": 0.004950495049504955,
+                                "imageId": "website-intro-photo/lfiwba4gzx11hiytkslm.jpeg",
+                                "originalHeight": 504,
+                                "originalWidth": 512,
+                                "imageIdToSave": "",
+                                "imageIdToDelete": ""
+                            },
+                            "button": {
+                                "file": {
+                                    "text": "",
+                                    "fileId": ""
+                                },
+                                "mail": {
+                                    "text": "Contact me",
+                                    "mailAddress": "ahsai001@gmail.com"
+                                },
+                                "web": {
+                                    "text": "",
+                                    "webAddress": ""
+                                },
+                                "activeType": "mail"
+                            },
+                            "links": [
+                                {
+                                    "type": "website",
+                                    "text": "https://ahsailabs.com",
+                                    "link": "https://ahsailabs.com"
+                                },
+                                {
+                                    "type": "email",
+                                    "text": "ahsai001@gmail.com",
+                                    "link": "ahsai001@gmail.com"
+                                },
+                                {
+                                    "type": "github",
+                                    "text": "ahsai001",
+                                    "link": "https://github.com/ahsai001"
+                                },
+                                {
+                                    "type": "linkedIn",
+                                    "link": "https://www.linkedin.com/in/ahmadsaifullah",
+                                    "text": ""
+                                },
+                                {
+                                    "type": "medium",
+                                    "link": "https://medium.com/@ahsai001",
+                                    "text": ""
+                                },
+                                {
+                                    "type": "instagram",
+                                    "link": "https://www.instagram.com/ahsai001",
+                                    "text": ""
+                                }
+                            ],
+                            "name": "Ahmad Saifullah",
+                            "jobTitle": "Software Developer",
+                            "introText": "<p class=\"ql-align-justify\">I’m passionate about building great products that make people’s lives easier. With this spirit, i am also being a trainer. I have over 10 years of experience developing usefull and innovative products for some companies.</p><p class=\"ql-align-justify\"><br></p><p class=\"ql-align-justify\">I grew up in Jakarta, am an urban farmer, moslem preneur and I’m excited to partner with you!</p><p class=\"ql-align-justify\"><br></p>"
+                        }
+                    },
+                    "design": {
+                        "general": {
+                            "accents": {
+                                "animations": false,
+                                "divider": false
+                            },
+                            "fonts": {
+                                "body": {
+                                    "selected": "sans",
+                                    "sans": "Barlow",
+                                    "serif": "Zilla Slab",
+                                    "mono": "Inconsolata"
+                                },
+                                "title": "bodyFont",
+                                "baseSize": 2
+                            },
+                            "pageBackground": {
+                                "solid": {
+                                    "color": "41,51,92",
+                                    "opacity": 1
+                                },
+                                "gradient": {
+                                    "linear": {
+                                        "colorA": {
+                                            "colorCode": "76,79,106",
+                                            "colorStop": 3.2
+                                        },
+                                        "colorB": {
+                                            "colorCode": "118,124,163",
+                                            "colorStop": 97.6
+                                        },
+                                        "angle": 69.9
+                                    },
+                                    "radial": {
+                                        "colorA": {
+                                            "colorCode": "0,178,169",
+                                            "colorStop": 0
+                                        },
+                                        "colorB": {
+                                            "colorCode": "0,106,101",
+                                            "colorStop": 76.9
+                                        },
+                                        "position": "94.7% 50%",
+                                        "shape": "circle",
+                                        "extendKeyword": "939px"
+                                    },
+                                    "gradientType": "linear"
+                                },
+                                "image": {
+                                    "unsplash": {
+                                        "unsplashImageHistory": [],
+                                        "unsplashImage": {
+                                            "brightness": null,
+                                            "dominantColors": [],
+                                            "height": 3264,
+                                            "photoId": "_f2m3mEkaaU",
+                                            "photographerFirstName": "Paula",
+                                            "photographerFullName": "Paula Vermeulen",
+                                            "photographerId": "8fiPbDgGA6Q",
+                                            "photographerLastName": "Vermeulen",
+                                            "urlFull": "https://images.unsplash.com/reserve/aOcWqRTfQ12uwr3wWevA_14401305508_804b300054_o.jpg?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjEwMTg4M30",
+                                            "urlRegular": "https://images.unsplash.com/reserve/aOcWqRTfQ12uwr3wWevA_14401305508_804b300054_o.jpg?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEwMTg4M30",
+                                            "urlThumb": "https://images.unsplash.com/reserve/aOcWqRTfQ12uwr3wWevA_14401305508_804b300054_o.jpg?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjEwMTg4M30",
+                                            "userHtmlLink": "https://unsplash.com/@paulavermeulen",
+                                            "width": 4928
+                                        }
+                                    },
+                                    "uploaded": {
+                                        "widthPct": 0,
+                                        "heightPct": 0,
+                                        "xPct": 0,
+                                        "yPct": 0,
+                                        "imageId": "",
+                                        "originalWidth": 0,
+                                        "originalHeight": 0
+                                    },
+                                    "selected": "unsplash",
+                                    "blur": false,
+                                    "overlay": "darken"
+                                },
+                                "selected": "gradient"
+                            },
+                            "colors": {
+                                "textContrast": "normal",
+                                "accent": "0,0,0"
+                            }
+                        },
+                        "intro": {
+                            "photo": {
+                                "placement": "inline",
+                                "position": "top",
+                                "size": 6,
+                                "grayscale": false
+                            },
+                            "links": {
+                                "icon": {
+                                    "style": "outline",
+                                    "frame": "square"
+                                },
+                                "display": "icon"
+                            },
+                            "cardBackground": {
+                                "solid": {
+                                    "color": "255, 255, 255",
+                                    "opacity": 1
+                                },
+                                "gradient": {
+                                    "linear": {
+                                        "colorA": {
+                                            "colorCode": "228,247,255,1",
+                                            "colorStop": 21.9
+                                        },
+                                        "colorB": {
+                                            "colorCode": "228,247,255,1",
+                                            "colorStop": 21.9
+                                        },
+                                        "angle": 111.5
+                                    },
+                                    "radial": {
+                                        "colorA": {
+                                            "colorCode": "228,247,255,1",
+                                            "colorStop": 21.9
+                                        },
+                                        "colorB": {
+                                            "colorCode": "228,247,255,1",
+                                            "colorStop": 21.9
+                                        },
+                                        "position": "center",
+                                        "shape": "circle",
+                                        "extendKeyword": "closest-corner"
+                                    },
+                                    "gradientType": "linear"
+                                },
+                                "image": {
+                                    "unsplash": {
+                                        "unsplashImageHistory": [],
+                                        "unsplashImage": {
+                                            "photoId": "hyN9aU9Tm-c",
+                                            "urlFull": "https://images.unsplash.com/photo-1529480653440-0e5fd1af911c?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjEwMTg4M30",
+                                            "urlRegular": "https://images.unsplash.com/photo-1529480653440-0e5fd1af911c?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEwMTg4M30",
+                                            "urlThumb": "https://images.unsplash.com/photo-1529480653440-0e5fd1af911c?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjEwMTg4M30",
+                                            "photographerId": "-QugQTVBUDQ",
+                                            "photographerFullName": "Aditya Chinchure",
+                                            "photographerFirstName": "Aditya",
+                                            "photographerLastName": "Chinchure",
+                                            "userHtmlLink": "https://unsplash.com/@adityachinchure",
+                                            "width": 3372,
+                                            "height": 5058,
+                                            "brightness": 147,
+                                            "dominantColors": [
+                                                "#2e4370",
+                                                "#e2e3e5",
+                                                "#a4c0d2",
+                                                "#908a9c",
+                                                "#839fbf",
+                                                "#5c86a3",
+                                                "#65607c",
+                                                "#252538",
+                                                "#ca8486",
+                                                "#d49c7c"
+                                            ]
+                                        }
+                                    },
+                                    "uploaded": {
+                                        "widthPct": 0,
+                                        "heightPct": 0,
+                                        "xPct": 0,
+                                        "yPct": 0,
+                                        "imageId": "",
+                                        "originalWidth": 0,
+                                        "originalHeight": 0
+                                    },
+                                    "selected": "unsplash",
+                                    "blur": false,
+                                    "overlay": "darken"
+                                },
+                                "selected": "solid"
+                            },
+                            "card": false,
+                            "cardPosition": "center",
+                            "contentAlignment": "center"
+                        }
+                    }
+                },
+                "meta": {
+                    "subDomainId": "ahsai001"
+                },
+                "_id": "5f9acaf300f24700106d5746",
+                "lastPublishedWebsiteData": {
+                    "elements": {
+                        "intro": {
+                            "photo": {
+                                "shape": "round",
+                                "widthPct": 0.9746287128712872,
+                                "heightPct": 0.9900990099009901,
+                                "xPct": 0.01268564356435642,
+                                "yPct": 0.004950495049504955,
+                                "imageId": "website-intro-photo/lfiwba4gzx11hiytkslm.jpeg",
+                                "originalHeight": 504,
+                                "originalWidth": 512,
+                                "imageIdToSave": "",
+                                "imageIdToDelete": ""
+                            },
+                            "button": {
+                                "file": {
+                                    "text": "",
+                                    "fileId": ""
+                                },
+                                "mail": {
+                                    "text": "Contact me",
+                                    "mailAddress": "ahsai001@gmail.com"
+                                },
+                                "web": {
+                                    "text": "",
+                                    "webAddress": ""
+                                },
+                                "activeType": "mail"
+                            },
+                            "links": [
+                                {
+                                    "type": "website",
+                                    "text": "https://ahsailabs.com",
+                                    "link": "https://ahsailabs.com"
+                                },
+                                {
+                                    "type": "email",
+                                    "text": "ahsai001@gmail.com",
+                                    "link": "ahsai001@gmail.com"
+                                },
+                                {
+                                    "type": "github",
+                                    "text": "ahsai001",
+                                    "link": "https://github.com/ahsai001"
+                                },
+                                {
+                                    "type": "linkedIn",
+                                    "link": "https://www.linkedin.com/in/ahmadsaifullah",
+                                    "text": ""
+                                },
+                                {
+                                    "type": "medium",
+                                    "link": "https://medium.com/@ahsai001",
+                                    "text": ""
+                                },
+                                {
+                                    "type": "instagram",
+                                    "link": "https://www.instagram.com/ahsai001",
+                                    "text": ""
+                                }
+                            ],
+                            "name": "Ahmad Saifullah",
+                            "jobTitle": "Software Developer",
+                            "introText": "<p class=\"ql-align-justify\">I’m passionate about building great products that make people’s lives easier. With this spirit, i am also being a trainer. I have over 10 years of experience developing usefull and innovative products for some companies.</p><p class=\"ql-align-justify\"><br></p><p class=\"ql-align-justify\">I grew up in Jakarta, am an urban farmer, moslem preneur and I’m excited to partner with you!</p><p class=\"ql-align-justify\"><br></p>"
+                        }
+                    },
+                    "design": {
+                        "general": {
+                            "accents": {
+                                "animations": false,
+                                "divider": false
+                            },
+                            "colors": {
+                                "textContrast": "normal",
+                                "accent": "0,0,0"
+                            },
+                            "fonts": {
+                                "body": {
+                                    "selected": "sans",
+                                    "sans": "Barlow",
+                                    "serif": "Zilla Slab",
+                                    "mono": "Inconsolata"
+                                },
+                                "title": "bodyFont",
+                                "baseSize": 2
+                            },
+                            "pageBackground": {
+                                "solid": {
+                                    "color": "41,51,92",
+                                    "opacity": 1
+                                },
+                                "gradient": {
+                                    "linear": {
+                                        "colorA": {
+                                            "colorCode": "76,79,106",
+                                            "colorStop": 3.2
+                                        },
+                                        "colorB": {
+                                            "colorCode": "118,124,163",
+                                            "colorStop": 97.6
+                                        },
+                                        "angle": 69.9
+                                    },
+                                    "radial": {
+                                        "colorA": {
+                                            "colorCode": "0,178,169",
+                                            "colorStop": 0
+                                        },
+                                        "colorB": {
+                                            "colorCode": "0,106,101",
+                                            "colorStop": 76.9
+                                        },
+                                        "position": "94.7% 50%",
+                                        "shape": "circle",
+                                        "extendKeyword": "939px"
+                                    },
+                                    "gradientType": "linear"
+                                },
+                                "image": {
+                                    "unsplash": {
+                                        "unsplashImageHistory": [],
+                                        "unsplashImage": {
+                                            "brightness": null,
+                                            "dominantColors": [],
+                                            "height": 3264,
+                                            "photoId": "_f2m3mEkaaU",
+                                            "photographerFirstName": "Paula",
+                                            "photographerFullName": "Paula Vermeulen",
+                                            "photographerId": "8fiPbDgGA6Q",
+                                            "photographerLastName": "Vermeulen",
+                                            "urlFull": "https://images.unsplash.com/reserve/aOcWqRTfQ12uwr3wWevA_14401305508_804b300054_o.jpg?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjEwMTg4M30",
+                                            "urlRegular": "https://images.unsplash.com/reserve/aOcWqRTfQ12uwr3wWevA_14401305508_804b300054_o.jpg?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEwMTg4M30",
+                                            "urlThumb": "https://images.unsplash.com/reserve/aOcWqRTfQ12uwr3wWevA_14401305508_804b300054_o.jpg?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjEwMTg4M30",
+                                            "userHtmlLink": "https://unsplash.com/@paulavermeulen",
+                                            "width": 4928
+                                        }
+                                    },
+                                    "uploaded": {
+                                        "widthPct": 0,
+                                        "heightPct": 0,
+                                        "xPct": 0,
+                                        "yPct": 0,
+                                        "imageId": "",
+                                        "originalWidth": 0,
+                                        "originalHeight": 0
+                                    },
+                                    "selected": "unsplash",
+                                    "blur": false,
+                                    "overlay": "darken"
+                                },
+                                "selected": "gradient"
+                            }
+                        },
+                        "intro": {
+                            "cardBackground": {
+                                "solid": {
+                                    "color": "255, 255, 255",
+                                    "opacity": 1
+                                },
+                                "gradient": {
+                                    "linear": {
+                                        "colorA": {
+                                            "colorCode": "228,247,255,1",
+                                            "colorStop": 21.9
+                                        },
+                                        "colorB": {
+                                            "colorCode": "228,247,255,1",
+                                            "colorStop": 21.9
+                                        },
+                                        "angle": 111.5
+                                    },
+                                    "radial": {
+                                        "colorA": {
+                                            "colorCode": "228,247,255,1",
+                                            "colorStop": 21.9
+                                        },
+                                        "colorB": {
+                                            "colorCode": "228,247,255,1",
+                                            "colorStop": 21.9
+                                        },
+                                        "position": "center",
+                                        "shape": "circle",
+                                        "extendKeyword": "closest-corner"
+                                    },
+                                    "gradientType": "linear"
+                                },
+                                "image": {
+                                    "unsplash": {
+                                        "unsplashImageHistory": [],
+                                        "unsplashImage": {
+                                            "photoId": "hyN9aU9Tm-c",
+                                            "urlFull": "https://images.unsplash.com/photo-1529480653440-0e5fd1af911c?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjEwMTg4M30",
+                                            "urlRegular": "https://images.unsplash.com/photo-1529480653440-0e5fd1af911c?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjEwMTg4M30",
+                                            "urlThumb": "https://images.unsplash.com/photo-1529480653440-0e5fd1af911c?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjEwMTg4M30",
+                                            "photographerId": "-QugQTVBUDQ",
+                                            "photographerFullName": "Aditya Chinchure",
+                                            "photographerFirstName": "Aditya",
+                                            "photographerLastName": "Chinchure",
+                                            "userHtmlLink": "https://unsplash.com/@adityachinchure",
+                                            "width": 3372,
+                                            "height": 5058,
+                                            "brightness": 147,
+                                            "dominantColors": [
+                                                "#2e4370",
+                                                "#e2e3e5",
+                                                "#a4c0d2",
+                                                "#908a9c",
+                                                "#839fbf",
+                                                "#5c86a3",
+                                                "#65607c",
+                                                "#252538",
+                                                "#ca8486",
+                                                "#d49c7c"
+                                            ]
+                                        }
+                                    },
+                                    "uploaded": {
+                                        "widthPct": 0,
+                                        "heightPct": 0,
+                                        "xPct": 0,
+                                        "yPct": 0,
+                                        "imageId": "",
+                                        "originalWidth": 0,
+                                        "originalHeight": 0
+                                    },
+                                    "selected": "unsplash",
+                                    "blur": false,
+                                    "overlay": "darken"
+                                },
+                                "selected": "solid"
+                            },
+                            "photo": {
+                                "placement": "inline",
+                                "position": "top",
+                                "size": 6,
+                                "grayscale": false
+                            },
+                            "links": {
+                                "icon": {
+                                    "style": "outline",
+                                    "frame": "square"
+                                },
+                                "display": "icon"
+                            },
+                            "card": false,
+                            "cardPosition": "center",
+                            "contentAlignment": "center"
+                        }
+                    }
+                },
+                "updatedAt": "2022-11-02T14:53:24.750Z",
+                "userId": "5ed75be82d7ac3000440282f",
+                "createdAt": "2022-11-02T14:53:24.750Z",
+                "downloads": [],
+                "customDomainLiveNotificationOutstanding": false,
+                "nameservers": [],
+                "id": "5f9acaf300f24700106d5746"
+            },
+            "letters": [
+                {
+                    "meta": {
+                        "title": "Letter 1",
+                        "order": 0
+                    },
+                    "content": {
+                        "personalDetails": {
+                            "birthday": {
+                                "day": "",
+                                "month": "",
+                                "year": "1987"
+                            },
+                            "photo": {
+                                "shape": "round"
+                            },
+                            "detailsOrder": [
+                                "jobTitle",
+                                "address",
+                                "displayEmail",
+                                "phone",
+                                "birthday",
+                                "github",
+                                "website",
+                                "stackoverflow",
+                                "medium",
+                                "maritalStatus"
+                            ],
+                            "fullName": "Ahmad Saifullah",
+                            "githubLink": "https://github.com/ahsai001",
+                            "github": "ahsai001",
+                            "displayEmail": "ahsai001@gmail.com",
+                            "phone": "+628561552200",
+                            "street": "Lubang Buaya, Cipayung",
+                            "postcode": "13810",
+                            "city": "Jakarta",
+                            "country": "Indonesia",
+                            "usAddress": false,
+                            "jobTitle": "Software Developer",
+                            "maritalStatus": "Married",
+                            "drivingLicense": "",
+                            "nationality": "",
+                            "military": "",
+                            "website": "https://ahsailabs.com",
+                            "websiteLink": "https://ahsailabs.com",
+                            "linkedIn": "",
+                            "instagram": "",
+                            "instagramLink": "https://instagram.com/ahsai001",
+                            "facebook": "",
+                            "twitter": "",
+                            "twitterLink": "https://www.twitter.com/ahsai001",
+                            "facebookLink": "https://www.facebook.com/ahsai001",
+                            "social": {
+                                "github": {
+                                    "display": "ahsai001",
+                                    "link": "https://github.com/ahsai001"
+                                }
+                            }
+                        },
+                        "recipient": {
+                            "hrName": "",
+                            "company": "",
+                            "address": ""
+                        },
+                        "date": {
+                            "mode": "today",
+                            "custom": ""
+                        },
+                        "declaration": {},
+                        "body": "<p data-height=\"19\">Dear ______,</p><p data-height=\"19\"><br></p><p data-height=\"19\">Sincerely,</p>"
+                    },
+                    "design": {
+                        "layout": {
+                            "colWidthsFromDetails": {
+                                "left": {
+                                    "leftWidth": 40,
+                                    "rightWidth": 60
+                                },
+                                "right": {
+                                    "leftWidth": 60,
+                                    "rightWidth": 40
+                                }
+                            }
+                        },
+                        "colors": {
+                            "basic": {
+                                "multi": {},
+                                "multiCustom": {}
+                            },
+                            "advanced": {
+                                "multi": {
+                                    "strong": {},
+                                    "light": {}
+                                },
+                                "multiCustom": {
+                                    "strong": {},
+                                    "light": {}
+                                }
+                            },
+                            "border": {}
+                        },
+                        "applyAccentColor": {},
+                        "header": {
+                            "photo": {
+                                "show": true,
+                                "grayscale": false,
+                                "size": "m"
+                            },
+                            "photoPositionFromHeaderPosition": {
+                                "left": "left",
+                                "top": "center",
+                                "right": "left"
+                            },
+                            "position": "right",
+                            "detailsDisplayCenter": "icon",
+                            "detailsDisplayLeftRight": "icon",
+                            "accentuateName": true,
+                            "nameSize": "xl",
+                            "detailsArrangement": "column",
+                            "jobTitleSize": "m",
+                            "jobTitleStyle": "italic",
+                            "jobTitlePosition": "sameLine"
+                        },
+                        "regional": {
+                            "format": "A4",
+                            "anonymous": false,
+                            "dateDisplay": "DD/MM/YYYY",
+                            "dateDelimiter": "/",
+                            "monthFormat": "MMMM"
+                        },
+                        "footer": {
+                            "pages": false,
+                            "name": false,
+                            "email": false
+                        },
+                        "declarationDisplay": {},
+                        "color": {
+                            "apply": {
+                                "name": true,
+                                "icons": true
+                            },
+                            "accent": "#111111",
+                            "text": "#111111",
+                            "background": "#ffffff"
+                        },
+                        "unsplashImageHistory": [],
+                        "verticalMarginMm": 16,
+                        "horizontalMarginMm": 16,
+                        "fontSizePt": 11,
+                        "lineHeightPct": 1.3,
+                        "creativeNameFont": "bodyFont",
+                        "fontFamily": "Source Sans Pro"
+                    },
+                    "downloads": [],
+                    "feedback": {
+                        "comments": []
+                    },
+                    "_id": "6043c9335cb5ba000fed041e",
+                    "createdAt": "2021-03-06T18:25:55.528Z",
+                    "updatedAt": "2022-01-24T12:57:59.573Z",
+                    "userId": "5ed75be82d7ac3000440282f",
+                    "id": "6043c9335cb5ba000fed041e"
+                }
+            ],
+            "privacyConsentDate": "2023-12-06T20:23:16.521Z",
+            "privacyVersion": "3",
+            "termsConsentDate": "2023-12-06T20:23:16.521Z",
+            "termsVersion": "3",
+            "products": {
+                "hasSeenResume": true,
+                "lastUsed": "resume",
+                "hasSeenCoverLetter": true,
+                "hasSeenSignature": true,
+                "hasSeenWebsite": true,
+                "hasSeenTracker": true
+            },
+            "letterIds": [
+                "61eea257dea7124d40612473"
+            ],
+            "resumeIds": [
+                "61eea257dea7124d4061246f",
+                "61eea257dea7124d40612471"
+            ],
+            "signatureIds": [
+                "61eea257dea7124d40612477"
+            ],
+            "trackerIds": [
+                "61eea257dea7124d4061247d"
+            ],
+            "websiteIds": [
+                "61eea257dea7124d40612475"
+            ],
+            "inviteToken": "3ho2wsjpbp",
+            "logins": [
+                "2023-10-04T20:46:05.925Z",
+                "2023-12-06T20:23:11.551Z",
+                "2024-02-15T03:06:01.090Z",
+                "2024-02-25T04:54:32.163Z",
+                "2024-02-25T06:33:17.761Z"
+            ]
+        },
+        "currentPlan": "free"
+    },
+    "error": "",
+    "code": 200
+}
