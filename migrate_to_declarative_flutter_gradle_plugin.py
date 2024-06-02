@@ -31,7 +31,8 @@ if len(sys.argv) == 2:
             raise Exception("build.gradle is not exist")
         
         # 1. get kotlin version and agp version
-        print(build_gradle_file)
+        print("1. get kotlin version, agp version, google service version and crashlytics version")
+        # print(build_gradle_file)
         kotlin_version = ""
         agp_version = ""
         google_service_version = ""
@@ -57,6 +58,7 @@ if len(sys.argv) == 2:
 
 
         # 2. replace content of settings.gradle with this
+        print("2. replace content of settings.gradle with this")
         settings_gradle_content: str = '''pluginManagement {
     def flutterSdkPath = {
         def properties = new Properties()
@@ -105,6 +107,7 @@ include ":app"'''
             file.write(settings_gradle_content)
 
         # 3. remove buildscript from android/build.gradle
+        print("3. remove buildscript from android/build.gradle")
 
         with open(build_gradle_file, 'r') as read_file, open(build_gradle_file + '.bak', 'w') as write_file:
             in_removal_zone = True  # Flag to track if we're before the keyword
@@ -119,11 +122,12 @@ include ":app"'''
         os.replace(build_gradle_file + '.bak', build_gradle_file)
 
         # 4. modify android/app/build.gradle
+        print("4. modify android/app/build.gradle")
         
         android_app_folder = os.path.join(android_folder, "app")
         
         android_app_build_gradle_file = os.path.join(android_app_folder, "build.gradle")
-        
+
         remove_multiline_strings(filename=android_app_build_gradle_file, strings='''def flutterRoot = localProperties.getProperty('flutter.sdk')
 if (flutterRoot == null) {
     throw new GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
