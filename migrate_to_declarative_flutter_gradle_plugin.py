@@ -1,19 +1,7 @@
 import sys
 import os
 
-
-def remove_multiline_strings(filename, strings):
-  with open(filename, 'r') as read_file, open(filename + '.bak', 'w') as write_file:
-    content: str = ''
-    for line in read_file:
-        content += line
-
-    new_content = content.replace(strings,"")
-    write_file.write(new_content)
-
-  # Rename the backup file to the original filename (optional)
-  import os
-  os.replace(filename + '.bak', filename)
+from ascommonlib import create_new_file, prepend_to_file, remove_multiline_strings
 
 if len(sys.argv) == 2:
     print("migration start")
@@ -103,8 +91,7 @@ include ":app"'''
 
 
         settings_gradle_file= os.path.join(android_folder, "settings.gradle")
-        with open(settings_gradle_file, 'w') as file:
-            file.write(settings_gradle_content)
+        create_new_file(settings_gradle_file, settings_gradle_content)
 
         # 3. remove buildscript from android/build.gradle
         print("3. remove buildscript from android/build.gradle")
@@ -155,13 +142,7 @@ if (flutterRoot == null) {
         content += '''
  }
 '''
-        with open(android_app_build_gradle_file, 'r') as read_file, open(android_app_build_gradle_file + '.bak', 'w') as write_file:
-            write_file.write(content)  # Write new content at the beginning
-            write_file.writelines(read_file)  # Append existing file content
-
-        # Rename the backup file to the original filename (optional)
-        import os
-        os.replace(android_app_build_gradle_file + '.bak', android_app_build_gradle_file)
+        prepend_to_file(android_app_build_gradle_file, content)
 
         
         print("migration done")

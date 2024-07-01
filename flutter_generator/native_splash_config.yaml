@@ -1,0 +1,5 @@
+flutter_native_splash:
+  android: true
+  ios: true
+  image: "{{splash_asset_path}}"
+  color: "{{background_color}}"
