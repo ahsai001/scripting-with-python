@@ -1,7 +1,7 @@
   flutter_alcore:
     git: 
       url: https://github.com/ahsai001/flutter_alcore.git
-      ref: 6067feb43d0002d18462e74d6b860f4b34884621 #android
-      #ref: 90e9d81747baf551258a12d60cf31cc67df7bb51 #web
+      ref: 3aedfc1f73e1e5116bfad0be6ad6c2923a8d781a #android
+      #ref: 845e733bdc0f6638d014f1cf3c4a6ef16d5fd269 #web
   # flutter_alcore:
   #   path: ./../flutter_alcore
