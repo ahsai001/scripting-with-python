@@ -1,7 +1,7 @@
 import os
 import shutil
 
-from ascommonlib import append_to_file, change_directory, choose_file, exist_line_in_file, input_directorypath, input_filepath, insert_strings_to_file_after, insert_strings_to_file_before, prepend_to_file, read_file, remove_all_after, remove_all_before, remove_multiline_strings, replace_in_file, run_command
+from ascommonlib import append_to_file, change_directory, choose_file, exist_line_in_file, get_line_in_file, input_directorypath, input_filepath, insert_strings_to_file_after, insert_strings_to_file_before, prepend_to_file, read_file, remove_all_after, remove_all_before, remove_multiline_strings, replace_in_file, run_command
 
 print("Welcome in flutter generator: ")
 print("1. create flutter project")
@@ -11,7 +11,9 @@ print("4. activate native splash")
 print("5. add flutter alcore")
 print("6. add DI")
 print("7. add app preference")
-print("10. generate domain layer based on json")
+print("8. add api package")
+print("9. add database package")
+print("10. generate datasource, repository and usecase")
 print("press enter to exit")
 
 task = input("What do you want (1 or 2): ")
@@ -89,6 +91,12 @@ def activate_native_splash(project_directory):
 
     command = f"dart run flutter_native_splash:create"
     run_command(command)
+
+def get_project_name(project_directory):
+    pubspec_yaml_file = os.path.join(project_directory, "pubspec.yaml")
+    line_1_pubspec = get_line_in_file(pubspec_yaml_file, 1)
+    project_name = line_1_pubspec.split(": ")[1].strip()
+    return project_name
 
 if task=="1":  
     print("1. create flutter project")
@@ -205,22 +213,37 @@ elif task=="6":
     project_directory = input_directorypath("input project directory")
     print(f"project_directory : {project_directory}")
     print(f"flutter_generator_dir : {flutter_generator_dir}")
+    
     change_directory(project_directory)
-    command = f"{flutter_command} pub add get_it"
+
+    command = f"{flutter_command} pub add get_it logger"
     run_command(command)
+
     main_file = os.path.join(project_directory, "lib/main.dart")
     if not exist_line_in_file(main_file, "Future<void> setupServices() async {"):
         append_to_file(main_file, '''Future<void> setupServices() async {
 }''')
+        
     if not exist_line_in_file(main_file, "Future<void> registerDI() async {"):
         append_to_file(main_file, '''Future<void> registerDI() async {
-  var inject = GetIt.I;
-  // use like this : inject()
+  var inject = GetIt.I; 
+  inject.registerLazySingleton(() => Logger());
+  
+  /* // use like this : inject()
+  
+  // examples :
+  inject.registerLazySingleton(() => SerialNumberRemoteDatasource(inject()));
+  inject.registerLazySingleton<ISerialNumberRepository>(() => SerialNumberRepository(inject()));
+  inject.registerFactory(() => CheckAppUpdateUseCase(inject()));
+  inject.registerLazySingletonAsync<AppPreference>(() => AppPreference().initialize());
+  */
 }''')
 
     if not exist_line_in_file(main_file, "await registerDI();"):    
         insert_strings_to_file_after(main_file, '''  //dependecy injection
-  await registerDI();''', "Future<void> setupServices() async {")
+  await registerDI();
+  //logger
+  Logger.level = kDebugMode ? Level.trace : Level.off;''', "Future<void> setupServices() async {")
     
     if not exist_line_in_file(main_file, "await setupServices();"): 
         insert_strings_to_file_before(main_file, '''\n  await setupServices();''', "runApp(")
@@ -229,6 +252,16 @@ elif task=="6":
 
     if not exist_line_in_file(main_file, "import 'package:get_it/get_it.dart';"): 
         insert_strings_to_file_before(main_file, '''import 'package:get_it/get_it.dart';\n''', "Future<void> main() async {")
+    
+    if not exist_line_in_file(main_file, "import 'package:logger/logger.dart';"): 
+        insert_strings_to_file_before(main_file, '''import 'package:logger/logger.dart';\n''', "Future<void> main() async {")
+
+    if not exist_line_in_file(main_file, "import 'package:flutter/foundation.dart';"): 
+        insert_strings_to_file_before(main_file, '''import 'package:flutter/foundation.dart';\n''', "Future<void> main() async {")
+
+    if not exist_line_in_file(main_file, "WidgetsFlutterBinding.ensureInitialized();"):
+        insert_strings_to_file_before(main_file, '''  WidgetsFlutterBinding.ensureInitialized();''', "await setupServices();")
+    
 
     # pub get
     command = f"{flutter_command} pub get"
@@ -237,7 +270,6 @@ elif task=="6":
         print(f"task '{task}' executed successfully.")
     else:
         print(f"Error: task '{task}' failed.")
-
 elif task=="7":
     print("7. add app preference")
     project_directory = input_directorypath("input project directory")
@@ -245,9 +277,19 @@ elif task=="7":
     print(f"flutter_generator_dir : {flutter_generator_dir}")
 
     # copy some files
-    os.makedirs("lib/src/data/preference/", exist_ok=True)
+    preference_dir = os.path.join(project_directory, "lib/src/data/preference")
+    os.makedirs(preference_dir, exist_ok=True)
     shutil.copyfile("../scripting-with-python/flutter_generator/app_preference.dart.txt", os.path.join(project_directory, "lib/src/data/preference/app_preference.dart"))
+    
+    main_file = os.path.join(project_directory, "lib/main.dart")
+    if not exist_line_in_file(main_file, "  inject.registerLazySingletonAsync<AppPreference>("):    
+        insert_strings_to_file_after(main_file, '''  //app preferences
+  inject.registerLazySingletonAsync<AppPreference>(() => AppPreference().initialize());''', "  inject.registerLazySingletonAsync<AppPreference>(")
 
+    project_name = get_project_name(project_directory)
+
+    if not exist_line_in_file(main_file, f"import 'package:{project_name}/src/data/preference/app_preference.dart';"):
+        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/src/data/preference/app_preference.dart';''', "runApp(")
 
     # add dependecy
     change_directory(project_directory)
@@ -261,10 +303,112 @@ elif task=="7":
         print(f"task '{task}' executed successfully.")
     else:
         print(f"Error: task '{task}' failed.")
-elif task=="7":
+elif task=="8":
+    print("8. add api package")
     project_directory = input_directorypath("input project directory")
     print(f"project_directory : {project_directory}")
-    print("Coming soon, please be patient")
+    print(f"flutter_generator_dir : {flutter_generator_dir}")
+
+
+    api_dir = os.path.join(project_directory, "lib/src/data/api")
+    env_dir = os.path.join(project_directory, "lib/env")
+    # copy some files
+    os.makedirs(api_dir, exist_ok=True)
+    shutil.copyfile("../scripting-with-python/flutter_generator/api_client.dio.dart.txt", os.path.join(project_directory, "lib/src/data/api/api_client.dart"))
+    shutil.copyfile("../scripting-with-python/flutter_generator/api_endpoint.dio.dart.txt", os.path.join(project_directory, "lib/src/data/api/api_endpoint.dart"))
+    shutil.copyfile("../scripting-with-python/flutter_generator/api_exception.dio.dart.txt", os.path.join(project_directory, "lib/src/data/api/api_exception.dart"))
+    os.makedirs(env_dir, exist_ok=True)
+    shutil.copyfile("../scripting-with-python/flutter_generator/env.dart.txt", os.path.join(project_directory, "lib/env/env.dart"))
+    shutil.copyfile("../scripting-with-python/flutter_generator/.env.txt", os.path.join(project_directory, ".env"))
+    
+
+    change_directory(project_directory)
+
+    # add deps
+    command = f"{flutter_command} pub add dio package_info_plus pretty_dio_logger envied dev:envied_generator dev:build_runner"
+    run_command(command)
+    
+   
+    api_client_file = os.path.join(project_directory, "lib/src/data/api/api_client.dart")
+    api_endpoint_file = os.path.join(project_directory, "lib/src/data/api/api_endpoint.dart")
+    pubspec_yaml_file = os.path.join(project_directory, "pubspec.yaml")
+    
+    # replace content some files
+    
+    project_name = get_project_name(project_directory)
+    replace_in_file(api_client_file,"{{project_name}}", project_name)
+    replace_in_file(api_endpoint_file,"{{project_name}}", project_name)
+
+    main_file = os.path.join(project_directory, "lib/main.dart")
+    if not exist_line_in_file(main_file, "inject.registerSingleton<ApiClient>"):
+        insert_strings_to_file_before(main_file, '''  //api client
+  final apiClient = ApiClient();
+  await apiClient.initialize();
+  inject.registerSingleton<ApiClient>(apiClient);\n''', "inject.registerLazySingleton(() => Logger());")
+
+    if not exist_line_in_file(main_file, f"import 'package:{project_name}/src/data/api/api_client.dart';"): 
+        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/src/data/api/api_client.dart';\n''', "Future<void> main() async {")
+    
+    
+    # build runner
+    command = "dart run build_runner build"
+    build_success = run_command(command)
+
+    # pub get
+    command = f"{flutter_command} pub get"
+    pubget_success = run_command(command)
+    if build_success and pubget_success:
+        print(f"task '{task}' executed successfully.")
+    else:
+        print(f"Error: task '{task}' failed.")
+
+elif task=="9":
+    print("9. add database")
+    project_directory = input_directorypath("input project directory")
+    print(f"project_directory : {project_directory}")
+    print(f"flutter_generator_dir : {flutter_generator_dir}")
+
+
+    database_dir = os.path.join(project_directory, "lib/src/data/database")
+    # copy some files
+    os.makedirs(database_dir, exist_ok=True)
+    shutil.copyfile("../scripting-with-python/flutter_generator/drift_provider.dart.txt", os.path.join(project_directory, "lib/src/data/database/drift_provider.dart"))
+    
+
+    change_directory(project_directory)
+    project_name = get_project_name(project_directory)
+
+    # add deps
+    command = f"{flutter_command} pub add drift path path_provider sqlite3_flutter_libs dev:drift_dev dev:build_runner"
+    run_command(command)
+    
+    
+    pubspec_yaml_file = os.path.join(project_directory, "pubspec.yaml")
+
+    main_file = os.path.join(project_directory, "lib/main.dart")
+ 
+    if not exist_line_in_file(main_file, "inject.registerLazySingleton<DriftProvider>("):
+        insert_strings_to_file_before(main_file, '''  inject.registerLazySingleton<DriftProvider>(() => DriftProvider());\n\n''', "inject.registerLazySingleton(() => Logger());")
+    
+
+    if not exist_line_in_file(main_file, f"import 'package:{project_name}/src/data/database/drift_provider.dart';"): 
+        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/src/data/database/drift_provider.dart';\n''', "Future<void> main() async {")
+   
+
+    
+    # build runner
+    command = "dart run build_runner build"
+    build_success = run_command(command)
+
+    # pub get
+    command = f"{flutter_command} pub get"
+    pubget_success = run_command(command)
+    
+    if build_success and pubget_success:
+        print(f"task '{task}' executed successfully.")
+    else:
+        print(f"Error: task '{task}' failed.")
+
 else:
     print("Thanks for using flutter generator")
     print("managed by ahsailabs")

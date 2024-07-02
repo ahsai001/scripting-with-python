@@ -3,6 +3,14 @@ import os
 import tkinter as tk
 from tkinter import filedialog
 
+def get_line_in_file(filename, line_number):
+  data = ""
+  with open(filename, 'r') as read_file:
+    for index, line in enumerate(read_file):
+      if line_number-1 == index:
+        data = line
+        break
+  return data 
 
 def exist_line_in_file(filename, line_string):
   exist = False
@@ -27,7 +35,7 @@ def replace_in_file(filename, old_string, new_string):
   with open(filename, 'r') as read_file, open(filename + '.bak', 'w') as write_file:
     for line in read_file:
       if old_string in line:
-        write_file.write(new_string)
+        write_file.write(line.replace(old_string, new_string))
       else:
         write_file.write(line)
   os.replace(filename + '.bak', filename)
