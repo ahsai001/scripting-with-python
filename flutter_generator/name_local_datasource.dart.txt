@@ -1,0 +1,6 @@
+import 'package:{{project_name}}/src/data/database/drift_provider.dart';
+
+class {{name}}LocalDatasource {
+  final DriftProvider myDatabase;
+  {{name}}LocalDatasource(this.myDatabase);
+}

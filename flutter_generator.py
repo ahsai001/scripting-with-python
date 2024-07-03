@@ -13,7 +13,9 @@ print("6. add DI")
 print("7. add app preference")
 print("8. add api package")
 print("9. add database package")
-print("10. generate datasource, repository and usecase")
+print("10. create new datasource and repository")
+print("11. create new model, entity and usecase")
+print("12. 1-2-3-4-6-7-8-9")
 print("press enter to exit")
 
 task = input("What do you want (1 or 2): ")
@@ -116,17 +118,6 @@ if task=="1":
     project_root_directory = os.path.join(dest_directory, project_directory_name)
     print(f"project_root_directory : {project_root_directory}")
 
-    # add launcher
-    add_launcher = input("do you want to add launcher icons (y/n): ")
-    if add_launcher=="y":
-        activate_launcher_icons(project_root_directory)
-
-    # add splash
-    add_splash = input("do you want to add native splash (y/n): ")
-    if add_splash=="y":
-        activate_native_splash(project_root_directory)
-
-
     # split main.dart and app.dart
     change_directory(project_root_directory)
     os.makedirs("lib/src", exist_ok=True)
@@ -222,6 +213,8 @@ elif task=="6":
     main_file = os.path.join(project_directory, "lib/main.dart")
     if not exist_line_in_file(main_file, "Future<void> setupServices() async {"):
         append_to_file(main_file, '''Future<void> setupServices() async {
+
+  //DO NOT REMOVE/CHANGE THIS : SETUP SERVICES
 }''')
         
     if not exist_line_in_file(main_file, "Future<void> registerDI() async {"):
@@ -235,8 +228,9 @@ elif task=="6":
   inject.registerLazySingleton(() => SerialNumberRemoteDatasource(inject()));
   inject.registerLazySingleton<ISerialNumberRepository>(() => SerialNumberRepository(inject()));
   inject.registerFactory(() => CheckAppUpdateUseCase(inject()));
-  inject.registerLazySingletonAsync<AppPreference>(() => AppPreference().initialize());
   */
+
+  //DO NOT REMOVE/CHANGE THIS : REGISTER DI
 }''')
 
     if not exist_line_in_file(main_file, "await registerDI();"):    
@@ -283,13 +277,13 @@ elif task=="7":
     
     main_file = os.path.join(project_directory, "lib/main.dart")
     if not exist_line_in_file(main_file, "  inject.registerLazySingletonAsync<AppPreference>("):    
-        insert_strings_to_file_after(main_file, '''  //app preferences
-  inject.registerLazySingletonAsync<AppPreference>(() => AppPreference().initialize());''', "  inject.registerLazySingletonAsync<AppPreference>(")
+        insert_strings_to_file_before(main_file, '''  //app preferences
+  inject.registerLazySingletonAsync<AppPreference>(() => AppPreference().initialize());\n\n''', "inject.registerLazySingleton(() => Logger());")
 
     project_name = get_project_name(project_directory)
 
     if not exist_line_in_file(main_file, f"import 'package:{project_name}/src/data/preference/app_preference.dart';"):
-        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/src/data/preference/app_preference.dart';''', "runApp(")
+        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/src/data/preference/app_preference.dart';\n\n''', "Future<void> main() async {")
 
     # add dependecy
     change_directory(project_directory)
@@ -315,7 +309,7 @@ elif task=="8":
     # copy some files
     os.makedirs(api_dir, exist_ok=True)
     shutil.copyfile("../scripting-with-python/flutter_generator/api_client.dio.dart.txt", os.path.join(project_directory, "lib/src/data/api/api_client.dart"))
-    shutil.copyfile("../scripting-with-python/flutter_generator/api_endpoint.dio.dart.txt", os.path.join(project_directory, "lib/src/data/api/api_endpoint.dart"))
+    shutil.copyfile("../scripting-with-python/flutter_generator/api_endpoint.dart.txt", os.path.join(project_directory, "lib/src/data/api/api_endpoint.dart"))
     shutil.copyfile("../scripting-with-python/flutter_generator/api_exception.dio.dart.txt", os.path.join(project_directory, "lib/src/data/api/api_exception.dart"))
     os.makedirs(env_dir, exist_ok=True)
     shutil.copyfile("../scripting-with-python/flutter_generator/env.dart.txt", os.path.join(project_directory, "lib/env/env.dart"))
@@ -361,7 +355,6 @@ elif task=="8":
         print(f"task '{task}' executed successfully.")
     else:
         print(f"Error: task '{task}' failed.")
-
 elif task=="9":
     print("9. add database")
     project_directory = input_directorypath("input project directory")
@@ -408,7 +401,127 @@ elif task=="9":
         print(f"task '{task}' executed successfully.")
     else:
         print(f"Error: task '{task}' failed.")
+elif task=="10":
+    print("10. create new datasource and repository")
+    project_directory = input_directorypath("input project directory")
+    print(f"project_directory : {project_directory}")
+    print(f"flutter_generator_dir : {flutter_generator_dir}")
+    name = input("input repository/datasource name: ").lower()
 
+    # make some folders
+    irepos_dir = os.path.join(project_directory, "lib/src/domain/irepositories")
+    os.makedirs(irepos_dir, exist_ok=True)
+    usecases_dir = os.path.join(project_directory, f"lib/src/domain/usecases/{name}")
+    os.makedirs(usecases_dir, exist_ok=True)
+    entities_dir = os.path.join(project_directory, f"lib/src/domain/entities/{name}")
+    os.makedirs(entities_dir, exist_ok=True)
+
+    repos_dir = os.path.join(project_directory, "lib/src/data/repositories")
+    os.makedirs(repos_dir, exist_ok=True)
+    datasources_dir = os.path.join(project_directory, f"lib/src/data/datasources/{name}")
+    os.makedirs(datasources_dir, exist_ok=True)
+    models_dir = os.path.join(project_directory, f"lib/src/data/models/{name}")
+    os.makedirs(models_dir, exist_ok=True)
+
+
+    # copy some files
+    shutil.copyfile("../scripting-with-python/flutter_generator/name_irepository.dart.txt", os.path.join(irepos_dir, f"{name}_irepository.dart"))
+    shutil.copyfile("../scripting-with-python/flutter_generator/name_repository.dart.txt", os.path.join(repos_dir, f"{name}_repository.dart"))
+    shutil.copyfile("../scripting-with-python/flutter_generator/name_local_datasource.dart.txt", os.path.join(datasources_dir, f"{name}_local_datasource.dart"))
+    shutil.copyfile("../scripting-with-python/flutter_generator/name_remote_datasource.dart.txt", os.path.join(datasources_dir, f"{name}_remote_datasource.dart"))
+
+    project_name = get_project_name(project_directory)
+
+    irepo_file = os.path.join(irepos_dir, f"{name}_irepository.dart")
+    replace_in_file(irepo_file,"{{name}}", name.capitalize())
+
+    repo_file = os.path.join(repos_dir, f"{name}_repository.dart")
+    replace_in_file(repo_file,"{{project_name}}", project_name)
+    replace_in_file(repo_file,"{{name}}", name.capitalize())
+    replace_in_file(repo_file,"{{name_lower}}", name)
+
+    local_datasource_file = os.path.join(datasources_dir, f"{name}_local_datasource.dart")
+    replace_in_file(local_datasource_file,"{{project_name}}", project_name)
+    replace_in_file(local_datasource_file,"{{name}}", name.capitalize())
+
+    remote_datasource_file = os.path.join(datasources_dir, f"{name}_remote_datasource.dart")
+    replace_in_file(remote_datasource_file,"{{project_name}}", project_name)
+    replace_in_file(remote_datasource_file,"{{name}}", name.capitalize())
+
+
+
+    main_file = os.path.join(project_directory, "lib/main.dart")
+ 
+    if not exist_line_in_file(main_file, f"  inject.registerLazySingleton(() => {name.capitalize()}LocalDatasource(inject()));"):
+        insert_strings_to_file_before(main_file, f'''  inject.registerLazySingleton(() => {name.capitalize()}LocalDatasource(inject()));\n\n''', "  //DO NOT REMOVE/CHANGE THIS : REGISTER DI")
+    if not exist_line_in_file(main_file, f"  inject.registerLazySingleton(() => {name.capitalize()}RemoteDatasource(inject()));"):
+        insert_strings_to_file_before(main_file, f'''  inject.registerLazySingleton(() => {name.capitalize()}RemoteDatasource(inject()));\n\n''', "  //DO NOT REMOVE/CHANGE THIS : REGISTER DI")
+    if not exist_line_in_file(main_file, f"  inject.registerLazySingleton<I{name.capitalize()}Repository>(() => {name.capitalize()}Repository(inject()));"):
+        insert_strings_to_file_before(main_file, f'''  inject.registerLazySingleton<I{name.capitalize()}Repository>(() => {name.capitalize()}Repository(inject(),inject()));\n\n''', "  //DO NOT REMOVE/CHANGE THIS : REGISTER DI")
+    
+
+    if not exist_line_in_file(main_file, f"import 'package:{project_name}/src/data/datasources/{name}/{name}_local_datasource.dart';"): 
+        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/src/data/datasources/{name}/{name}_local_datasource.dart';\n''', "Future<void> main() async {")
+   
+    if not exist_line_in_file(main_file, f"import 'package:{project_name}/src/data/datasources/{name}/{name}_remote_datasource.dart';"): 
+        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/src/data/datasources/{name}/{name}_remote_datasource.dart';\n''', "Future<void> main() async {")
+    
+    if not exist_line_in_file(main_file, f"import 'package:{project_name}/src/data/repositories/{name}_repository.dart';"): 
+        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/src/data/repositories/{name}_repository.dart';\n''', "Future<void> main() async {")
+
+    if not exist_line_in_file(main_file, f"import 'package:{project_name}/src/domain/irepositories/{name}_irepository.dart';"): 
+        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/src/domain/irepositories/{name}_irepository.dart';\n''', "Future<void> main() async {")
+
+    
+    change_directory(project_directory)
+    # pub get
+    command = f"{flutter_command} pub get"
+    pubget_success = run_command(command)
+    
+    if pubget_success:
+        print(f"task '{task}' executed successfully.")
+    else:
+        print(f"Error: task '{task}' failed.")
+elif task=="11":
+    import tkinter as tk
+
+    def get_input():
+        """
+        This function retrieves the user input from the entry fields and prints them.
+        """
+        string1 = entry1.get()
+        string2 = entry2.get()
+        print(f"String 1: {string1}")
+        print(f"String 2: {string2}")
+        window.destroy()
+        # Replace the print statements with your desired logic using the retrieved strings
+
+    # Create the main window
+    window = tk.Tk()
+    window.title("String Input")
+
+    window.attributes('-topmost', True)  # Set the dialog to be always on top
+
+    # Create labels for entry fields
+    label1 = tk.Label(window, text="Enter String 1:")
+    label1.pack()
+
+    # Create entry fields for user input
+    entry1 = tk.Text(window, width=40, height=10)
+    entry1.pack()
+
+    label2 = tk.Label(window, text="Enter String 2:")
+    label2.pack()
+
+    entry2 = tk.Text(window, width=40, height=10)
+    entry2.pack()
+
+    # Create a button to trigger input retrieval
+    button = tk.Button(window, text="Process Now", command=get_input)
+    button.pack()
+
+    # Run the main loop to display the GUI
+    window.mainloop()
 else:
     print("Thanks for using flutter generator")
     print("managed by ahsailabs")
