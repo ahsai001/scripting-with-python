@@ -1,3 +1,5 @@
 abstract class I{{name}}Repository {
   //Interface {{name}} Repository
+
+  //DO NOT REMOVE/CHANGE THIS : IREPOSITORY
 }

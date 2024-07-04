@@ -3,4 +3,6 @@ import 'package:{{project_name}}/src/data/api/api_client.dart';
 class {{name}}RemoteDatasource {
   final ApiClient apiClient;
   {{name}}RemoteDatasource(this.apiClient);
+
+  //DO NOT REMOVE/CHANGE THIS : REMOTEDATASOURCE
 }

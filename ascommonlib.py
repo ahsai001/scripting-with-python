@@ -223,3 +223,25 @@ def run_command(command: str):
   return False 
 
 
+
+def generate_class_from_json(json,project_directory,path_to_file, filename, target_file_format):
+  request_dir = os.path.join(project_directory, path_to_file)
+  os.makedirs(request_dir, exist_ok=True)
+  json_file_path = os.path.join(project_directory, f"{path_to_file}/{filename}.json")
+  output_file_path = os.path.join(project_directory, f"{path_to_file}/{filename}.{target_file_format}")
+  create_new_file(json_file_path, json)
+  command = f"quicktype {json_file_path} -o {output_file_path}"
+  run_command(command)
+  remove_file(json_file_path)
+
+
+def remove_file(fullpath):
+  try:
+    os.remove(fullpath)
+    print(f"File '{fullpath}' deleted successfully.")
+  except FileNotFoundError:
+    print(f"Error: File '{fullpath}' not found.")
+  except PermissionError:
+    print(f"Error: You don't have permission to delete '{fullpath}'.")
+  except OSError as e:
+    print(f"An error occurred while deleting the file: {e}")

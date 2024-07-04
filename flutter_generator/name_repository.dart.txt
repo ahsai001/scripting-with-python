@@ -7,4 +7,6 @@ class {{name}}Repository extends I{{name}}Repository {
   final {{name}}LocalDatasource {{name_lower}}LocalDatasource;
 
   {{name}}Repository(this.{{name_lower}}RemoteDatasource, this.{{name_lower}}LocalDatasource);
+
+  //DO NOT REMOVE/CHANGE THIS : REPOSITORY
 }

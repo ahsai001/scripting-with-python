@@ -1,7 +1,7 @@
 import os
 import shutil
 
-from ascommonlib import append_to_file, change_directory, choose_file, exist_line_in_file, get_line_in_file, input_directorypath, input_filepath, insert_strings_to_file_after, insert_strings_to_file_before, prepend_to_file, read_file, remove_all_after, remove_all_before, remove_multiline_strings, replace_in_file, run_command
+from ascommonlib import append_to_file, change_directory, choose_file, create_new_file, exist_line_in_file, generate_class_from_json, get_line_in_file, input_directorypath, input_filepath, insert_strings_to_file_after, insert_strings_to_file_before, prepend_to_file, read_file, remove_all_after, remove_all_before, remove_multiline_strings, replace_in_file, run_command
 
 print("Welcome in flutter generator: ")
 print("1. create flutter project")
@@ -485,39 +485,75 @@ elif task=="10":
 elif task=="11":
     import tkinter as tk
 
-    def get_input():
+    def do_process():
         """
         This function retrieves the user input from the entry fields and prints them.
         """
-        string1 = entry1.get()
-        string2 = entry2.get()
-        print(f"String 1: {string1}")
-        print(f"String 2: {string2}")
-        window.destroy()
-        # Replace the print statements with your desired logic using the retrieved strings
+        requestJson = requestText.get('1.0', tk.END)
+        responseJson = responseText.get('1.0', tk.END)
+        domain_name = domain_name_entry.get()
+        # print(f"Request Json: {requestJson}")
+        # print(f"Response Json: {responseJson}")
+
+        # create request file
+        loading_label = tk.Label(window, text="Loading...", font=("Arial", 12, "bold"))
+        loading_label.pack()
+        window.update_idletasks()
+        window.update()
+
+        generate_class_from_json(requestJson,project_directory,"lib/src/domain/entities",f"{domain_name}_request_entity","dart")
+        generate_class_from_json(responseJson,project_directory,"lib/src/domain/entities",f"{domain_name}_response_entity","dart")
+
+        # pub get
+        
+        change_directory(project_directory)
+        command = f"{flutter_command} pub get"
+        pubget_success = run_command(command)
+        
+        if pubget_success:
+            print(f"task '{task}' executed successfully.")
+        else:
+            print(f"Error: task '{task}' failed.")
+        
+        loading_label.pack_forget()
+        window.quit()
+
+
+    print("11. create new model, entity and usecase")
+    project_directory = input_directorypath("input project directory")
+    print(f"project_directory : {project_directory}")
+    print(f"flutter_generator_dir : {flutter_generator_dir}")
 
     # Create the main window
     window = tk.Tk()
-    window.title("String Input")
+    window.title("Request - Response Json")
 
     window.attributes('-topmost', True)  # Set the dialog to be always on top
 
     # Create labels for entry fields
-    label1 = tk.Label(window, text="Enter String 1:")
+    label1 = tk.Label(window, text="Request Json:")
     label1.pack()
 
     # Create entry fields for user input
-    entry1 = tk.Text(window, width=40, height=10)
-    entry1.pack()
+    requestText = tk.Text(window, width=100, height=15)
+    requestText.pack()
 
-    label2 = tk.Label(window, text="Enter String 2:")
+    label2 = tk.Label(window, text="Response Json:")
     label2.pack()
 
-    entry2 = tk.Text(window, width=40, height=10)
-    entry2.pack()
+    responseText = tk.Text(window, width=100, height=15)
+    responseText.pack()
+
+
+    
+    label3 = tk.Label(window, text="domain name: ")
+    label3.pack()
+
+    domain_name_entry = tk.Entry(window)
+    domain_name_entry.pack()
 
     # Create a button to trigger input retrieval
-    button = tk.Button(window, text="Process Now", command=get_input)
+    button = tk.Button(window, text="Generate all", command=do_process)
     button.pack()
 
     # Run the main loop to display the GUI
