@@ -186,7 +186,7 @@ def choose_file():
 
   root = tk.Tk()
   root.withdraw()  # Hide the main window
-  root.attributes('-topmost', True)  # Set the dialog to be always on top
+  root.wm_attributes('-topmost', True)  # Set the dialog to be always on top
 
   filepath = filedialog.askopenfilename()
   
@@ -203,7 +203,7 @@ def choose_directory():
 
   root = tk.Tk()
   root.withdraw()  # Hide the main window
-  root.attributes('-topmost', True)  # Set the dialog to be always on top
+  root.wm_attributes('-topmost', True)  # Set the dialog to be always on top
 
   directory_path = filedialog.askdirectory()
   normalized_path = os.path.normpath(directory_path)
@@ -225,14 +225,30 @@ def run_command(command: str):
 
 
 def generate_class_from_json(json,project_directory,path_to_file, filename, target_file_format):
-  request_dir = os.path.join(project_directory, path_to_file)
-  os.makedirs(request_dir, exist_ok=True)
+  old_dir = os.getcwd()
+
+  class_dir = os.path.join(project_directory, path_to_file)
+  os.makedirs(class_dir, exist_ok=True)
+
   json_file_path = os.path.join(project_directory, f"{path_to_file}/{filename}.json")
-  output_file_path = os.path.join(project_directory, f"{path_to_file}/{filename}.{target_file_format}")
   create_new_file(json_file_path, json)
-  command = f"quicktype {json_file_path} -o {output_file_path}"
+
+  change_directory(class_dir)
+
+  # quicktype user_response_entity.json -l schema -o schema.json
+  command = f"quicktype {filename}.json -l schema -o {filename}_schema.json"
+  run_command(command)
+  
+  # replace "required": into "requiredx":
+  schema_file_path = os.path.join(project_directory, f"{path_to_file}/{filename}_schema.json")
+  replace_in_file(schema_file_path, '''"required":''', '''"requiredx":''')
+
+  # quicktype -s schema schema.json -o user_response_entity3.dart
+  command = f"quicktype -s schema {filename}_schema.json -o {filename}.{target_file_format}"
   run_command(command)
   remove_file(json_file_path)
+  remove_file(schema_file_path)
+  change_directory(old_dir)
 
 
 def remove_file(fullpath):

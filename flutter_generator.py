@@ -501,8 +501,12 @@ elif task=="11":
         window.update_idletasks()
         window.update()
 
-        generate_class_from_json(requestJson,project_directory,"lib/src/domain/entities",f"{domain_name}_request_entity","dart")
-        generate_class_from_json(responseJson,project_directory,"lib/src/domain/entities",f"{domain_name}_response_entity","dart")
+        generate_class_from_json(requestJson,project_directory,f"lib/src/domain/entities/{domain_name}",f"{domain_name}_request_entity","dart")
+        generate_class_from_json(responseJson,project_directory,f"lib/src/domain/entities/{domain_name}",f"{domain_name}_response_entity","dart")
+
+        
+        generate_class_from_json(requestJson,project_directory,f"lib/src/data/models/{domain_name}",f"{domain_name}_request_model","dart")
+        generate_class_from_json(responseJson,project_directory,f"lib/src/data/models/{domain_name}",f"{domain_name}_response_model","dart")
 
         # pub get
         
@@ -528,7 +532,7 @@ elif task=="11":
     window = tk.Tk()
     window.title("Request - Response Json")
 
-    window.attributes('-topmost', True)  # Set the dialog to be always on top
+    window.wm_attributes('-topmost', True)  # Set the dialog to be always on top
 
     # Create labels for entry fields
     label1 = tk.Label(window, text="Request Json:")
