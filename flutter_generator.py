@@ -14,7 +14,7 @@ print("7. add app preference")
 print("8. add api package")
 print("9. add database package")
 print("10. create new datasource and repository")
-print("11. create new model, entity and usecase")
+print("11. create new model and/or entity")
 print("12. 1-2-3-4-6-7-8-9")
 print("press enter to exit")
 
@@ -492,7 +492,8 @@ elif task=="11":
         """
         requestJson = requestText.get('1.0', tk.END)
         responseJson = responseText.get('1.0', tk.END)
-        domain_name = domain_name_entry.get()
+        folder_path = folder_path_entry.get().lower()
+        entity_name = entity_name_entry.get().lower()
         # print(f"Request Json: {requestJson}")
         # print(f"Response Json: {responseJson}")
 
@@ -501,23 +502,27 @@ elif task=="11":
         loading_label.pack()
         window.update_idletasks()
 
+        entity_name_underlined = entity_name.replace(" ", "_")
+        entity_name_titlecased= entity_name.title().replace(" ", "")
+        entity_name_variablecased= entity_name_titlecased[0].lower()+entity_name_titlecased[1:]
+
         if entity_var.get()==1:
-            generate_class_from_json(requestJson,project_directory,f"lib/src/domain/entities/{domain_name}",f"{domain_name}_request_entity","dart")
-            generate_class_from_json(responseJson,project_directory,f"lib/src/domain/entities/{domain_name}",f"{domain_name}_response_entity","dart")
+            generate_class_from_json(requestJson,project_directory,f"lib/src/domain/entities/{folder_path}",f"{entity_name_underlined}_request_entity","dart")
+            generate_class_from_json(responseJson,project_directory,f"lib/src/domain/entities/{folder_path}",f"{entity_name_underlined}_response_entity","dart")
         
         if model_var.get()==1:
-            request_dart_file = generate_class_from_json(requestJson,project_directory,f"lib/src/data/models/{domain_name}",f"{domain_name}_request_model","dart")
-            response_dart_file = generate_class_from_json(responseJson,project_directory,f"lib/src/data/models/{domain_name}",f"{domain_name}_response_model","dart")
+            request_dart_file = generate_class_from_json(requestJson,project_directory,f"lib/src/data/models/{folder_path}",f"{entity_name_underlined}_request_model","dart")
+            response_dart_file = generate_class_from_json(responseJson,project_directory,f"lib/src/data/models/{folder_path}",f"{entity_name_underlined}_response_model","dart")
 
             if entity_var.get()==1:
                 project_name = get_project_name(project_directory)
-                insert_strings_to_file_before(request_dart_file, '''    static {{name}}RequestModel fromEntity({{name}}RequestEntity request) {return {{name}}RequestModel();}''',f"factory {domain_name.capitalize()}RequestModel.fromJson")
-                replace_in_file(request_dart_file, "{{name}}", domain_name.capitalize())
-                insert_strings_to_file_before(request_dart_file, f"import 'package:{project_name}/src/domain/entities/{domain_name}/{domain_name}_request_entity.dart';\n",f"{domain_name.capitalize()}RequestModel {domain_name}RequestModelFromJson")
+                insert_strings_to_file_before(request_dart_file, '''    static {{name}}RequestModel fromEntity({{name}}RequestEntity request) {return {{name}}RequestModel();}''',f"factory {entity_name_titlecased}RequestModel.fromJson")
+                replace_in_file(request_dart_file, "{{name}}", entity_name_titlecased)
+                insert_strings_to_file_before(request_dart_file, f"import 'package:{project_name}/src/domain/entities/{folder_path}/{entity_name_underlined}_request_entity.dart';\n",f"{entity_name_titlecased}RequestModel {entity_name_variablecased}RequestModelFromJson")
                 
-                insert_strings_to_file_before(response_dart_file, '''   {{name}}ResponseEntity toEntity() {return {{name}}ResponseEntity();}''',f"factory {domain_name.capitalize()}ResponseModel.fromJson")
-                replace_in_file(response_dart_file, "{{name}}", domain_name.capitalize())
-                insert_strings_to_file_before(response_dart_file, f"import 'package:{project_name}/src/domain/entities/{domain_name}/{domain_name}_response_entity.dart';\n",f"{domain_name.capitalize()}ResponseModel {domain_name}ResponseModelFromJson")
+                insert_strings_to_file_before(response_dart_file, '''   {{name}}ResponseEntity toEntity() {return {{name}}ResponseEntity();}''',f"factory {entity_name_titlecased}ResponseModel.fromJson")
+                replace_in_file(response_dart_file, "{{name}}", entity_name_titlecased)
+                insert_strings_to_file_before(response_dart_file, f"import 'package:{project_name}/src/domain/entities/{folder_path}/{entity_name_underlined}_response_entity.dart';\n",f"{entity_name_titlecased}ResponseModel {entity_name_variablecased}ResponseModelFromJson")
             
         # pub get
         change_directory(project_directory)
@@ -566,12 +571,17 @@ elif task=="11":
     responseText = tk.Text(window, width=100, height=15)
     responseText.pack()
 
-
-    label3 = tk.Label(window, text="domain name: ")
+    label3 = tk.Label(window, text="folder path (inside entities/models): ")
     label3.pack()
 
-    domain_name_entry = tk.Entry(window)
-    domain_name_entry.pack()
+    folder_path_entry = tk.Entry(window)
+    folder_path_entry.pack()
+
+    label4 = tk.Label(window, text="entity/model name: ")
+    label4.pack()
+
+    entity_name_entry = tk.Entry(window)
+    entity_name_entry.pack()
 
     panel_checkbox = tk.Frame(window)
     panel_checkbox.pack()
