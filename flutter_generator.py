@@ -25,7 +25,7 @@ flutter_generator_dir = os.path.join(script_directory,"flutter_generator")
 
 if task != "":
     flutter_command = input("input flutter command (fvm flutter/flutter, default flutter): ")
-    if(flutter_command==""):
+    if len(flutter_command)==0:
         flutter_command = "flutter"
 
 def activate_launcher_icons(project_directory):
@@ -495,10 +495,22 @@ elif task=="11":
     def do_process():
         """
         """
-        requestJson = requestText.get('1.0', tk.END)
-        responseJson = responseText.get('1.0', tk.END)
+        requestJson = requestText.get('1.0', tk.END).strip()
+        responseJson = responseText.get('1.0', tk.END).strip()
         folder_path = folder_path_entry.get().lower()
         entity_name = entity_name_entry.get().lower()
+        print("="*20)
+        print("json data before: "+requestJson)
+        print("="*20)
+
+        if len(requestJson) == 0:
+            requestJson = "{}"
+        if len(responseJson) == 0:
+            responseJson = "{}"
+
+        print("="*20)
+        print("json data after: "+requestJson)
+        print("="*20)
         # print(f"Request Json: {requestJson}")
         # print(f"Response Json: {responseJson}")
 
@@ -568,13 +580,13 @@ elif task=="11":
 
     # Create entry fields for user input
     requestText = tk.Text(window, width=100, height=15)
-    requestText.pack(expand=True)
+    requestText.pack()
 
     label2 = tk.Label(window, text="Response Json:")
     label2.pack()
 
     responseText = tk.Text(window, width=100, height=15)
-    responseText.pack()
+    responseText.pack(expand=True)
 
     label3 = tk.Label(window, text="folder path (inside entities/models): ")
     label3.pack()

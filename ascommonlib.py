@@ -171,13 +171,13 @@ def create_new_file(filename, content):
 
 def input_filepath(instruction):
   filepath = input(f"{instruction} or enter to open file picker: ")
-  if filepath=="":
+  if len(filepath)==0:
     filepath = choose_file()
   return filepath
 
 def input_directorypath(instruction):
   folderpath = input(f"{instruction} or enter to open directory picker: ")
-  if folderpath=="":
+  if len(folderpath)==0:
     folderpath = choose_directory()
   return folderpath
 
@@ -231,6 +231,11 @@ def generate_class_from_json(json,project_directory,path_to_file, filename, targ
   os.makedirs(class_dir, exist_ok=True)
 
   json_file_path = os.path.join(project_directory, f"{path_to_file}/{filename}.json")
+
+  print("="*20)
+  print("json data : "+json)
+  print("="*20)
+
   create_new_file(json_file_path, json)
 
   change_directory(class_dir)
