@@ -482,12 +482,13 @@ elif task=="10":
         print(f"task '{task}' executed successfully.")
     else:
         print(f"Error: task '{task}' failed.")
+
+
 elif task=="11":
     import tkinter as tk
 
     def do_process():
         """
-        This function retrieves the user input from the entry fields and prints them.
         """
         requestJson = requestText.get('1.0', tk.END)
         responseJson = responseText.get('1.0', tk.END)
@@ -499,17 +500,26 @@ elif task=="11":
         loading_label = tk.Label(window, text="Loading...", font=("Arial", 12, "bold"))
         loading_label.pack()
         window.update_idletasks()
-        window.update()
 
-        generate_class_from_json(requestJson,project_directory,f"lib/src/domain/entities/{domain_name}",f"{domain_name}_request_entity","dart")
-        generate_class_from_json(responseJson,project_directory,f"lib/src/domain/entities/{domain_name}",f"{domain_name}_response_entity","dart")
-
+        if entity_var.get()==1:
+            generate_class_from_json(requestJson,project_directory,f"lib/src/domain/entities/{domain_name}",f"{domain_name}_request_entity","dart")
+            generate_class_from_json(responseJson,project_directory,f"lib/src/domain/entities/{domain_name}",f"{domain_name}_response_entity","dart")
         
-        generate_class_from_json(requestJson,project_directory,f"lib/src/data/models/{domain_name}",f"{domain_name}_request_model","dart")
-        generate_class_from_json(responseJson,project_directory,f"lib/src/data/models/{domain_name}",f"{domain_name}_response_model","dart")
+        if model_var.get()==1:
+            request_dart_file = generate_class_from_json(requestJson,project_directory,f"lib/src/data/models/{domain_name}",f"{domain_name}_request_model","dart")
+            response_dart_file = generate_class_from_json(responseJson,project_directory,f"lib/src/data/models/{domain_name}",f"{domain_name}_response_model","dart")
 
+            if entity_var.get()==1:
+                project_name = get_project_name(project_directory)
+                insert_strings_to_file_before(request_dart_file, '''    static {{name}}RequestModel fromEntity({{name}}RequestEntity request) {return {{name}}RequestModel();}''',f"factory {domain_name.capitalize()}RequestModel.fromJson")
+                replace_in_file(request_dart_file, "{{name}}", domain_name.capitalize())
+                insert_strings_to_file_before(request_dart_file, f"import 'package:{project_name}/src/domain/entities/{domain_name}/{domain_name}_request_entity.dart';\n",f"{domain_name.capitalize()}RequestModel {domain_name}RequestModelFromJson")
+                
+                insert_strings_to_file_before(response_dart_file, '''   {{name}}ResponseEntity toEntity() {return {{name}}ResponseEntity();}''',f"factory {domain_name.capitalize()}ResponseModel.fromJson")
+                replace_in_file(response_dart_file, "{{name}}", domain_name.capitalize())
+                insert_strings_to_file_before(response_dart_file, f"import 'package:{project_name}/src/domain/entities/{domain_name}/{domain_name}_response_entity.dart';\n",f"{domain_name.capitalize()}ResponseModel {domain_name}ResponseModelFromJson")
+            
         # pub get
-        
         change_directory(project_directory)
         command = f"{flutter_command} pub get"
         pubget_success = run_command(command)
@@ -523,7 +533,7 @@ elif task=="11":
         window.quit()
 
 
-    print("11. create new model, entity and usecase")
+    print("11. create new model and/or entity")
     project_directory = input_directorypath("input project directory")
     print(f"project_directory : {project_directory}")
     print(f"flutter_generator_dir : {flutter_generator_dir}")
@@ -534,13 +544,21 @@ elif task=="11":
 
     window.wm_attributes('-topmost', True)  # Set the dialog to be always on top
 
+    # Handle the "X" button click (WM_DELETE_WINDOW event)
+    def on_closing():
+        if tk.messagebox.askokcancel("Quit", "Do you want to quit?"):
+            window.destroy()  # Close the window
+            exit()  # Exit the program
+
+    window.protocol("WM_DELETE_WINDOW", on_closing)
+
     # Create labels for entry fields
     label1 = tk.Label(window, text="Request Json:")
-    label1.pack()
+    label1.pack(expand=True)
 
     # Create entry fields for user input
     requestText = tk.Text(window, width=100, height=15)
-    requestText.pack()
+    requestText.pack(expand=True)
 
     label2 = tk.Label(window, text="Response Json:")
     label2.pack()
@@ -549,12 +567,29 @@ elif task=="11":
     responseText.pack()
 
 
-    
     label3 = tk.Label(window, text="domain name: ")
     label3.pack()
 
     domain_name_entry = tk.Entry(window)
     domain_name_entry.pack()
+
+    panel_checkbox = tk.Frame(window)
+    panel_checkbox.pack()
+    
+    entity_var = tk.IntVar(panel_checkbox, value=1)
+    model_var = tk.IntVar(panel_checkbox, value=0)
+
+    label_entity = tk.Label(panel_checkbox, text="entity ")
+    label_entity.pack(side="left")
+
+    entity_checkbox = tk.Checkbutton(panel_checkbox, variable=entity_var)
+    entity_checkbox.pack(side="left")
+
+    label_model = tk.Label(panel_checkbox, text="model ")
+    label_model.pack(side="left")
+
+    model_checkbox = tk.Checkbutton(panel_checkbox, variable=model_var)
+    model_checkbox.pack(side="left")
 
     # Create a button to trigger input retrieval
     button = tk.Button(window, text="Generate all", command=do_process)
@@ -562,6 +597,7 @@ elif task=="11":
 
     # Run the main loop to display the GUI
     window.mainloop()
+    
 else:
     print("Thanks for using flutter generator")
     print("managed by ahsailabs")

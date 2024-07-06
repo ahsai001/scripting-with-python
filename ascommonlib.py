@@ -5,7 +5,7 @@ from tkinter import filedialog
 
 def get_line_in_file(filename, line_number):
   data = ""
-  with open(filename, 'r') as read_file:
+  with open(filename, 'r', encoding="utf-8") as read_file:
     for index, line in enumerate(read_file):
       if line_number-1 == index:
         data = line
@@ -14,7 +14,7 @@ def get_line_in_file(filename, line_number):
 
 def exist_line_in_file(filename, line_string):
   exist = False
-  with open(filename, 'r') as read_file:
+  with open(filename, 'r', encoding="utf-8") as read_file:
     for line in read_file:
       if line_string in line:
         exist = True
@@ -23,7 +23,7 @@ def exist_line_in_file(filename, line_string):
 
 def exist_multiline_in_file(filename, multiline_string):
   exist = False
-  with open(filename, 'r') as read_file:
+  with open(filename, 'r', encoding="utf-8") as read_file:
     content: str = ''
     for line in read_file:
         content += line
@@ -32,7 +32,7 @@ def exist_multiline_in_file(filename, multiline_string):
   return exist
 
 def replace_in_file(filename, old_string, new_string):
-  with open(filename, 'r') as read_file, open(filename + '.bak', 'w') as write_file:
+  with open(filename, 'r', encoding="utf-8") as read_file, open(filename + '.bak', 'w', encoding="utf-8") as write_file:
     for line in read_file:
       if old_string in line:
         write_file.write(line.replace(old_string, new_string))
@@ -41,7 +41,7 @@ def replace_in_file(filename, old_string, new_string):
   os.replace(filename + '.bak', filename)
 
 def remove_all_before(filename, before_keyword, include_keyword=False):
-  with open(filename, 'r') as read_file, open(filename + '.bak', 'w') as write_file:
+  with open(filename, 'r', encoding="utf-8") as read_file, open(filename + '.bak', 'w', encoding="utf-8") as write_file:
     in_removal_zone = True 
     pending_once = False
     for line in read_file:
@@ -58,7 +58,7 @@ def remove_all_before(filename, before_keyword, include_keyword=False):
   os.replace(filename + '.bak', filename)
 
 def remove_all_after(filename, after_keyword, include_keyword=False):
-  with open(filename, 'r') as read_file, open(filename + '.bak', 'w') as write_file:
+  with open(filename, 'r', encoding="utf-8") as read_file, open(filename + '.bak', 'w', encoding="utf-8") as write_file:
     in_removal_zone = False 
     pending_once = False
     for line in read_file:
@@ -76,7 +76,7 @@ def remove_all_after(filename, after_keyword, include_keyword=False):
 
 
 def remove_multiline_strings(filename, strings):
-  with open(filename, 'r') as read_file, open(filename + '.bak', 'w') as write_file:
+  with open(filename, 'r', encoding="utf-8") as read_file, open(filename + '.bak', 'w', encoding="utf-8") as write_file:
     content: str = ''
     for line in read_file:
         content += line
@@ -88,7 +88,7 @@ def remove_multiline_strings(filename, strings):
 
 def read_file(filename):
     content: str = ''
-    with open(filename, 'r') as read_file:
+    with open(filename, 'r', encoding="utf-8") as read_file:
       content: str = ''
       for line in read_file:
           content += line
@@ -96,14 +96,14 @@ def read_file(filename):
 
 
 def prepend_to_file(filename, content):
-  with open(filename, 'r') as read_file, open(filename + '.bak', 'w') as write_file:
+  with open(filename, 'r', encoding="utf-8") as read_file, open(filename + '.bak', 'w', encoding="utf-8") as write_file:
     write_file.write(f"{content}\n")  # Write new content at the beginning
     write_file.writelines(read_file)  # Append existing file content
 
   os.replace(filename + '.bak', filename)
 
 def append_to_file(filename, content):
-  with open(filename, 'r') as read_file, open(filename + '.bak', 'w') as write_file:
+  with open(filename, 'r', encoding="utf-8") as read_file, open(filename + '.bak', 'w', encoding="utf-8") as write_file:
     write_file.writelines(read_file)  # Write existing file content
     write_file.write(f"{content}\n")  # Write new content at the end
 
@@ -112,7 +112,7 @@ def append_to_file(filename, content):
 
 
 def insert_strings_to_file_after(filename, strings, after_keyword):
-  with open(filename, 'r') as read_file, open(filename + '.bak', 'w') as write_file:
+  with open(filename, 'r', encoding="utf-8") as read_file, open(filename + '.bak', 'w', encoding="utf-8") as write_file:
     for line in read_file:
       if after_keyword in line:
         write_file.write(line)
@@ -122,7 +122,7 @@ def insert_strings_to_file_after(filename, strings, after_keyword):
   os.replace(filename + '.bak', filename)
 
 def insert_strings_to_file_before(filename, strings, before_keyword):
-  with open(filename, 'r') as read_file, open(filename + '.bak', 'w') as write_file:
+  with open(filename, 'r', encoding="utf-8") as read_file, open(filename + '.bak', 'w', encoding="utf-8") as write_file:
     for line in read_file:
       if before_keyword in line:
         write_file.write(strings+"\n")
@@ -133,7 +133,7 @@ def insert_strings_to_file_before(filename, strings, before_keyword):
 
 
 def insert_strings_to_file_line(filename, strings, line_number):
-  with open(filename, 'r') as read_file, open(filename + '.bak', 'w') as write_file:
+  with open(filename, 'r', encoding="utf-8") as read_file, open(filename + '.bak', 'w', encoding="utf-8") as write_file:
     for index, line in enumerate(read_file):
       if index == (line_number-1):
         write_file.write(strings+"\n")
@@ -162,7 +162,7 @@ def create_new_file(filename, content):
   """
 
   try:
-    with open(filename, "w") as file:
+    with open(filename, "w", encoding="utf-8") as file:
       file.write(content)
     print(f"File '{filename}' created successfully!")
   except OSError as error:
@@ -249,6 +249,7 @@ def generate_class_from_json(json,project_directory,path_to_file, filename, targ
   remove_file(json_file_path)
   remove_file(schema_file_path)
   change_directory(old_dir)
+  return os.path.join(project_directory, f"{path_to_file}/{filename}.{target_file_format}")
 
 
 def remove_file(fullpath):
