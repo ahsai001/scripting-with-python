@@ -1,5 +1,5 @@
-abstract class I{{name}}Repository {
-  //Interface {{name}} Repository
+abstract class I{{name_titlecased}}Repository {
+  //Interface {{name_titlecased}} Repository
 
   //DO NOT REMOVE/CHANGE THIS : IREPOSITORY
 }

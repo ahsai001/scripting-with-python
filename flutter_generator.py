@@ -408,69 +408,74 @@ elif task=="10":
     print(f"flutter_generator_dir : {flutter_generator_dir}")
     name = input("input repository/datasource name: ").lower()
 
+
+    name_underlined = name.replace(" ", "_")
+    name_titlecased= name.title().replace(" ", "")
+    name_variablecased= name_titlecased[0].lower()+name_titlecased[1:]
+
     # make some folders
     irepos_dir = os.path.join(project_directory, "lib/src/domain/irepositories")
     os.makedirs(irepos_dir, exist_ok=True)
-    usecases_dir = os.path.join(project_directory, f"lib/src/domain/usecases/{name}")
+    usecases_dir = os.path.join(project_directory, f"lib/src/domain/usecases/{name_underlined}")
     os.makedirs(usecases_dir, exist_ok=True)
-    entities_dir = os.path.join(project_directory, f"lib/src/domain/entities/{name}")
+    entities_dir = os.path.join(project_directory, f"lib/src/domain/entities/{name_underlined}")
     os.makedirs(entities_dir, exist_ok=True)
 
     repos_dir = os.path.join(project_directory, "lib/src/data/repositories")
     os.makedirs(repos_dir, exist_ok=True)
-    datasources_dir = os.path.join(project_directory, f"lib/src/data/datasources/{name}")
+    datasources_dir = os.path.join(project_directory, f"lib/src/data/datasources/{name_underlined}")
     os.makedirs(datasources_dir, exist_ok=True)
-    models_dir = os.path.join(project_directory, f"lib/src/data/models/{name}")
+    models_dir = os.path.join(project_directory, f"lib/src/data/models/{name_underlined}")
     os.makedirs(models_dir, exist_ok=True)
 
 
     # copy some files
-    shutil.copyfile("../scripting-with-python/flutter_generator/name_irepository.dart.txt", os.path.join(irepos_dir, f"{name}_irepository.dart"))
-    shutil.copyfile("../scripting-with-python/flutter_generator/name_repository.dart.txt", os.path.join(repos_dir, f"{name}_repository.dart"))
-    shutil.copyfile("../scripting-with-python/flutter_generator/name_local_datasource.dart.txt", os.path.join(datasources_dir, f"{name}_local_datasource.dart"))
-    shutil.copyfile("../scripting-with-python/flutter_generator/name_remote_datasource.dart.txt", os.path.join(datasources_dir, f"{name}_remote_datasource.dart"))
+    shutil.copyfile("../scripting-with-python/flutter_generator/name_irepository.dart.txt", os.path.join(irepos_dir, f"{name_underlined}_irepository.dart"))
+    shutil.copyfile("../scripting-with-python/flutter_generator/name_repository.dart.txt", os.path.join(repos_dir, f"{name_underlined}_repository.dart"))
+    shutil.copyfile("../scripting-with-python/flutter_generator/name_local_datasource.dart.txt", os.path.join(datasources_dir, f"{name_underlined}_local_datasource.dart"))
+    shutil.copyfile("../scripting-with-python/flutter_generator/name_remote_datasource.dart.txt", os.path.join(datasources_dir, f"{name_underlined}_remote_datasource.dart"))
 
     project_name = get_project_name(project_directory)
 
-    irepo_file = os.path.join(irepos_dir, f"{name}_irepository.dart")
-    replace_in_file(irepo_file,"{{name}}", name.capitalize())
+    irepo_file = os.path.join(irepos_dir, f"{name_underlined}_irepository.dart")
+    replace_in_file(irepo_file,"{{name_titlecased}}", name_titlecased)
 
-    repo_file = os.path.join(repos_dir, f"{name}_repository.dart")
+    repo_file = os.path.join(repos_dir, f"{name_underlined}_repository.dart")
     replace_in_file(repo_file,"{{project_name}}", project_name)
-    replace_in_file(repo_file,"{{name}}", name.capitalize())
-    replace_in_file(repo_file,"{{name_lower}}", name)
+    replace_in_file(repo_file,"{{name_titlecased}}", name_titlecased)
+    replace_in_file(repo_file,"{{name_variablecased}}", name_variablecased)
+    replace_in_file(repo_file,"{{name_underlined}}", name_underlined)
 
-    local_datasource_file = os.path.join(datasources_dir, f"{name}_local_datasource.dart")
+    local_datasource_file = os.path.join(datasources_dir, f"{name_underlined}_local_datasource.dart")
     replace_in_file(local_datasource_file,"{{project_name}}", project_name)
-    replace_in_file(local_datasource_file,"{{name}}", name.capitalize())
+    replace_in_file(local_datasource_file,"{{name_titlecased}}", name_titlecased)
 
-    remote_datasource_file = os.path.join(datasources_dir, f"{name}_remote_datasource.dart")
+    remote_datasource_file = os.path.join(datasources_dir, f"{name_underlined}_remote_datasource.dart")
     replace_in_file(remote_datasource_file,"{{project_name}}", project_name)
-    replace_in_file(remote_datasource_file,"{{name}}", name.capitalize())
-
+    replace_in_file(remote_datasource_file,"{{name_titlecased}}", name_titlecased)
 
 
     main_file = os.path.join(project_directory, "lib/main.dart")
  
-    if not exist_line_in_file(main_file, f"  inject.registerLazySingleton(() => {name.capitalize()}LocalDatasource(inject()));"):
-        insert_strings_to_file_before(main_file, f'''  inject.registerLazySingleton(() => {name.capitalize()}LocalDatasource(inject()));\n\n''', "  //DO NOT REMOVE/CHANGE THIS : REGISTER DI")
-    if not exist_line_in_file(main_file, f"  inject.registerLazySingleton(() => {name.capitalize()}RemoteDatasource(inject()));"):
-        insert_strings_to_file_before(main_file, f'''  inject.registerLazySingleton(() => {name.capitalize()}RemoteDatasource(inject()));\n\n''', "  //DO NOT REMOVE/CHANGE THIS : REGISTER DI")
-    if not exist_line_in_file(main_file, f"  inject.registerLazySingleton<I{name.capitalize()}Repository>(() => {name.capitalize()}Repository(inject()));"):
-        insert_strings_to_file_before(main_file, f'''  inject.registerLazySingleton<I{name.capitalize()}Repository>(() => {name.capitalize()}Repository(inject(),inject()));\n\n''', "  //DO NOT REMOVE/CHANGE THIS : REGISTER DI")
+    if not exist_line_in_file(main_file, f"  inject.registerLazySingleton(() => {name_titlecased}LocalDatasource(inject()));"):
+        insert_strings_to_file_before(main_file, f'''  inject.registerLazySingleton(() => {name_titlecased}LocalDatasource(inject()));\n\n''', "  //DO NOT REMOVE/CHANGE THIS : REGISTER DI")
+    if not exist_line_in_file(main_file, f"  inject.registerLazySingleton(() => {name_titlecased}RemoteDatasource(inject()));"):
+        insert_strings_to_file_before(main_file, f'''  inject.registerLazySingleton(() => {name_titlecased}RemoteDatasource(inject()));\n\n''', "  //DO NOT REMOVE/CHANGE THIS : REGISTER DI")
+    if not exist_line_in_file(main_file, f"  inject.registerLazySingleton<I{name_titlecased}Repository>(() => {name_titlecased}Repository(inject()));"):
+        insert_strings_to_file_before(main_file, f'''  inject.registerLazySingleton<I{name_titlecased}Repository>(() => {name_titlecased}Repository(inject(),inject()));\n\n''', "  //DO NOT REMOVE/CHANGE THIS : REGISTER DI")
     
 
-    if not exist_line_in_file(main_file, f"import 'package:{project_name}/src/data/datasources/{name}/{name}_local_datasource.dart';"): 
-        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/src/data/datasources/{name}/{name}_local_datasource.dart';\n''', "Future<void> main() async {")
+    if not exist_line_in_file(main_file, f"import 'package:{project_name}/src/data/datasources/{name_underlined}/{name_underlined}_local_datasource.dart';"): 
+        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/src/data/datasources/{name_underlined}/{name_underlined}_local_datasource.dart';\n''', "Future<void> main() async {")
    
-    if not exist_line_in_file(main_file, f"import 'package:{project_name}/src/data/datasources/{name}/{name}_remote_datasource.dart';"): 
-        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/src/data/datasources/{name}/{name}_remote_datasource.dart';\n''', "Future<void> main() async {")
+    if not exist_line_in_file(main_file, f"import 'package:{project_name}/src/data/datasources/{name_underlined}/{name_underlined}_remote_datasource.dart';"): 
+        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/src/data/datasources/{name_underlined}/{name_underlined}_remote_datasource.dart';\n''', "Future<void> main() async {")
     
-    if not exist_line_in_file(main_file, f"import 'package:{project_name}/src/data/repositories/{name}_repository.dart';"): 
-        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/src/data/repositories/{name}_repository.dart';\n''', "Future<void> main() async {")
+    if not exist_line_in_file(main_file, f"import 'package:{project_name}/src/data/repositories/{name_underlined}_repository.dart';"): 
+        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/src/data/repositories/{name_underlined}_repository.dart';\n''', "Future<void> main() async {")
 
-    if not exist_line_in_file(main_file, f"import 'package:{project_name}/src/domain/irepositories/{name}_irepository.dart';"): 
-        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/src/domain/irepositories/{name}_irepository.dart';\n''', "Future<void> main() async {")
+    if not exist_line_in_file(main_file, f"import 'package:{project_name}/src/domain/irepositories/{name_underlined}_irepository.dart';"): 
+        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/src/domain/irepositories/{name_underlined}_irepository.dart';\n''', "Future<void> main() async {")
 
     
     change_directory(project_directory)

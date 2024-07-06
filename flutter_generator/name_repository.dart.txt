@@ -1,12 +1,12 @@
-import 'package:{{project_name}}/src/data/datasources/{{name_lower}}/{{name_lower}}_local_datasource.dart';
-import 'package:{{project_name}}/src/data/datasources/{{name_lower}}/{{name_lower}}_remote_datasource.dart';
-import 'package:{{project_name}}/src/domain/irepositories/{{name_lower}}_irepository.dart';
+import 'package:{{project_name}}/src/data/datasources/{{name_underlined}}/{{name_underlined}}_local_datasource.dart';
+import 'package:{{project_name}}/src/data/datasources/{{name_underlined}}/{{name_underlined}}_remote_datasource.dart';
+import 'package:{{project_name}}/src/domain/irepositories/{{name_underlined}}_irepository.dart';
 
-class {{name}}Repository extends I{{name}}Repository {
-  final {{name}}RemoteDatasource {{name_lower}}RemoteDatasource;
-  final {{name}}LocalDatasource {{name_lower}}LocalDatasource;
+class {{name_titlecased}}Repository extends I{{name_titlecased}}Repository {
+  final {{name_titlecased}}RemoteDatasource {{name_variablecased}}RemoteDatasource;
+  final {{name_titlecased}}LocalDatasource {{name_variablecased}}LocalDatasource;
 
-  {{name}}Repository(this.{{name_lower}}RemoteDatasource, this.{{name_lower}}LocalDatasource);
+  {{name_titlecased}}Repository(this.{{name_variablecased}}RemoteDatasource, this.{{name_variablecased}}LocalDatasource);
 
   //DO NOT REMOVE/CHANGE THIS : REPOSITORY
 }

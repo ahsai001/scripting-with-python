@@ -1,8 +1,8 @@
 import 'package:{{project_name}}/src/data/database/drift_provider.dart';
 
-class {{name}}LocalDatasource {
+class {{name_titlecased}}LocalDatasource {
   final DriftProvider myDatabase;
-  {{name}}LocalDatasource(this.myDatabase);
+  {{name_titlecased}}LocalDatasource(this.myDatabase);
 
   //DO NOT REMOVE/CHANGE THIS : LOCALDATASOURCE
 }
