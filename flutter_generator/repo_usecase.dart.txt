@@ -1,0 +1,14 @@
+import 'package:{{project_name}}/src/domain/entities/{{entity_folder}}/{{entity_name}}_request_entity.dart';
+import 'package:{{project_name}}/src/domain/entities/{{entity_folder}}/{{entity_name}}_response_entity.dart';
+import 'package:{{project_name}}/src/domain/irepositories/{{repo_name}}_irepository.dart';
+import 'package:{{project_name}}/src/domain/usecases/general_usecase.dart';
+
+class {{usecase_name_class}}Usecase extends IUseCase<{{entity_name_class}}RequestEntity,
+    Future<{{entity_name_class}}ResponseEntity>> {
+  I{{repo_name_class}}Repository {{repo_name_var}}Repository;
+  {{usecase_name_class}}Usecase(this.{{repo_name_var}}Repository);
+  @override
+  Future<{{entity_name_class}}ResponseEntity> execute({{entity_name_class}}RequestEntity request) {
+    return {{repo_name_var}}Repository.{{usecase_name_var}}(request);
+  }
+}

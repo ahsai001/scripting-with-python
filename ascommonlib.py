@@ -191,6 +191,7 @@ def choose_file():
   filepath = filedialog.askopenfilename()
   
   normalized_path = os.path.normpath(filepath)
+  root.quit()
   if normalized_path:
     print(f"You selected file : {normalized_path}")
     return normalized_path
@@ -207,6 +208,7 @@ def choose_directory():
 
   directory_path = filedialog.askdirectory()
   normalized_path = os.path.normpath(directory_path)
+  root.quit()
   if normalized_path:
     print(f"You selected directory : {normalized_path}")
     return normalized_path
@@ -267,3 +269,22 @@ def remove_file(fullpath):
     print(f"Error: You don't have permission to delete '{fullpath}'.")
   except OSError as e:
     print(f"An error occurred while deleting the file: {e}")
+
+
+class EntryWithDialog(tk.Frame):
+    def __init__(self, master=None, initialdir=None):
+      super().__init__(master)
+      self.entry = tk.Entry(self)
+      self.open_button = tk.Button(self, text="Open", command=self.open_dialog)
+      self.entry.pack(side=tk.LEFT, fill=tk.X, expand=True)
+      self.open_button.pack(side=tk.RIGHT)
+      self.initialdir = initialdir
+
+    def open_dialog(self):
+      filename = filedialog.askopenfilename(initialdir=self.initialdir)
+      if filename:
+          self.entry.delete(0, tk.END)
+          self.entry.insert(0, filename)
+
+    def get(self):
+      return self.entry.get()

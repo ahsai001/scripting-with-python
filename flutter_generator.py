@@ -1,7 +1,7 @@
 import os
 import shutil
 
-from ascommonlib import append_to_file, change_directory, choose_file, create_new_file, exist_line_in_file, generate_class_from_json, get_line_in_file, input_directorypath, input_filepath, insert_strings_to_file_after, insert_strings_to_file_before, prepend_to_file, read_file, remove_all_after, remove_all_before, remove_multiline_strings, replace_in_file, run_command
+from ascommonlib import EntryWithDialog, append_to_file, change_directory, choose_file, create_new_file, exist_line_in_file, generate_class_from_json, get_line_in_file, input_directorypath, input_filepath, insert_strings_to_file_after, insert_strings_to_file_before, prepend_to_file, read_file, remove_all_after, remove_all_before, remove_multiline_strings, replace_in_file, run_command
 
 print("Welcome in flutter generator: ")
 print("1. create flutter project")
@@ -13,9 +13,9 @@ print("6. add DI")
 print("7. add app preference")
 print("8. add api package")
 print("9. add database package")
-print("10. create new datasource and repository")
-print("11. create new model and/or entity")
-print("12. 1-2-3-4-6-7-8-9")
+print("10. create new repository and datasource")
+print("11. create new entity and/or model")
+print("12. create usecase")
 print("press enter to exit")
 
 task = input("What do you want (1 or 2): ")
@@ -99,6 +99,48 @@ def get_project_name(project_directory):
     line_1_pubspec = get_line_in_file(pubspec_yaml_file, 1)
     project_name = line_1_pubspec.split(": ")[1].strip()
     return project_name
+
+
+def generateEntityAndModel(project_directory, requestJson,responseJson, folder_path, entity_name, is_create_entity,  is_create_model):
+    print("="*20)
+    print("json data before: "+requestJson)
+    print("="*20)
+
+    if len(requestJson) == 0:
+        requestJson = "{}"
+    if len(responseJson) == 0:
+        responseJson = "{}"
+
+    print("="*20)
+    print("json data after: "+requestJson)
+    print("="*20)
+    # print(f"Request Json: {requestJson}")
+    # print(f"Response Json: {responseJson}")
+
+    # create request file
+
+    entity_name_underlined = entity_name.replace(" ", "_")
+    entity_name_titlecased= entity_name.title().replace(" ", "")
+    entity_name_variablecased= entity_name_titlecased[0].lower()+entity_name_titlecased[1:]
+
+    if is_create_entity:
+        generate_class_from_json(requestJson,project_directory,f"lib/src/domain/entities/{folder_path}",f"{entity_name_underlined}_request_entity","dart")
+        generate_class_from_json(responseJson,project_directory,f"lib/src/domain/entities/{folder_path}",f"{entity_name_underlined}_response_entity","dart")
+    
+    if is_create_model:
+        request_dart_file = generate_class_from_json(requestJson,project_directory,f"lib/src/data/models/{folder_path}",f"{entity_name_underlined}_request_model","dart")
+        response_dart_file = generate_class_from_json(responseJson,project_directory,f"lib/src/data/models/{folder_path}",f"{entity_name_underlined}_response_model","dart")
+
+        if is_create_entity:
+            project_name = get_project_name(project_directory)
+            insert_strings_to_file_before(request_dart_file, '''    static {{name}}RequestModel fromEntity({{name}}RequestEntity request) {return {{name}}RequestModel();}''',f"factory {entity_name_titlecased}RequestModel.fromJson")
+            replace_in_file(request_dart_file, "{{name}}", entity_name_titlecased)
+            insert_strings_to_file_before(request_dart_file, f"import 'package:{project_name}/src/domain/entities/{folder_path}/{entity_name_underlined}_request_entity.dart';\n",f"{entity_name_titlecased}RequestModel {entity_name_variablecased}RequestModelFromJson")
+            
+            insert_strings_to_file_before(response_dart_file, '''   {{name}}ResponseEntity toEntity() {return {{name}}ResponseEntity();}''',f"factory {entity_name_titlecased}ResponseModel.fromJson")
+            replace_in_file(response_dart_file, "{{name}}", entity_name_titlecased)
+            insert_strings_to_file_before(response_dart_file, f"import 'package:{project_name}/src/domain/entities/{folder_path}/{entity_name_underlined}_response_entity.dart';\n",f"{entity_name_titlecased}ResponseModel {entity_name_variablecased}ResponseModelFromJson")
+        
 
 if task=="1":  
     print("1. create flutter project")
@@ -499,48 +541,13 @@ elif task=="11":
         responseJson = responseText.get('1.0', tk.END).strip()
         folder_path = folder_path_entry.get().lower()
         entity_name = entity_name_entry.get().lower()
-        print("="*20)
-        print("json data before: "+requestJson)
-        print("="*20)
-
-        if len(requestJson) == 0:
-            requestJson = "{}"
-        if len(responseJson) == 0:
-            responseJson = "{}"
-
-        print("="*20)
-        print("json data after: "+requestJson)
-        print("="*20)
-        # print(f"Request Json: {requestJson}")
-        # print(f"Response Json: {responseJson}")
-
-        # create request file
+        
         loading_label = tk.Label(window, text="Loading...", font=("Arial", 12, "bold"))
         loading_label.pack()
         window.update_idletasks()
-
-        entity_name_underlined = entity_name.replace(" ", "_")
-        entity_name_titlecased= entity_name.title().replace(" ", "")
-        entity_name_variablecased= entity_name_titlecased[0].lower()+entity_name_titlecased[1:]
-
-        if entity_var.get()==1:
-            generate_class_from_json(requestJson,project_directory,f"lib/src/domain/entities/{folder_path}",f"{entity_name_underlined}_request_entity","dart")
-            generate_class_from_json(responseJson,project_directory,f"lib/src/domain/entities/{folder_path}",f"{entity_name_underlined}_response_entity","dart")
-        
-        if model_var.get()==1:
-            request_dart_file = generate_class_from_json(requestJson,project_directory,f"lib/src/data/models/{folder_path}",f"{entity_name_underlined}_request_model","dart")
-            response_dart_file = generate_class_from_json(responseJson,project_directory,f"lib/src/data/models/{folder_path}",f"{entity_name_underlined}_response_model","dart")
-
-            if entity_var.get()==1:
-                project_name = get_project_name(project_directory)
-                insert_strings_to_file_before(request_dart_file, '''    static {{name}}RequestModel fromEntity({{name}}RequestEntity request) {return {{name}}RequestModel();}''',f"factory {entity_name_titlecased}RequestModel.fromJson")
-                replace_in_file(request_dart_file, "{{name}}", entity_name_titlecased)
-                insert_strings_to_file_before(request_dart_file, f"import 'package:{project_name}/src/domain/entities/{folder_path}/{entity_name_underlined}_request_entity.dart';\n",f"{entity_name_titlecased}RequestModel {entity_name_variablecased}RequestModelFromJson")
-                
-                insert_strings_to_file_before(response_dart_file, '''   {{name}}ResponseEntity toEntity() {return {{name}}ResponseEntity();}''',f"factory {entity_name_titlecased}ResponseModel.fromJson")
-                replace_in_file(response_dart_file, "{{name}}", entity_name_titlecased)
-                insert_strings_to_file_before(response_dart_file, f"import 'package:{project_name}/src/domain/entities/{folder_path}/{entity_name_underlined}_response_entity.dart';\n",f"{entity_name_titlecased}ResponseModel {entity_name_variablecased}ResponseModelFromJson")
             
+        generateEntityAndModel(project_directory, requestJson, responseJson, folder_path, entity_name, entity_var.get()==1, model_var.get()==1)
+        
         # pub get
         change_directory(project_directory)
         command = f"{flutter_command} pub get"
@@ -550,19 +557,18 @@ elif task=="11":
             print(f"task '{task}' executed successfully.")
         else:
             print(f"Error: task '{task}' failed.")
-        
+
         loading_label.pack_forget()
         window.quit()
 
-
-    print("11. create new model and/or entity")
+    print("11. create new entity and/or model")
     project_directory = input_directorypath("input project directory")
     print(f"project_directory : {project_directory}")
     print(f"flutter_generator_dir : {flutter_generator_dir}")
 
     # Create the main window
     window = tk.Tk()
-    window.title("Request - Response Json")
+    window.title("Create entity and/or model")
 
     window.wm_attributes('-topmost', True)  # Set the dialog to be always on top
 
@@ -574,33 +580,37 @@ elif task=="11":
 
     window.protocol("WM_DELETE_WINDOW", on_closing)
 
+
+    panel_main = tk.Frame(window, padx=20, pady=20)
+    panel_main.pack(fill=tk.BOTH, expand=True)
+
     # Create labels for entry fields
-    label1 = tk.Label(window, text="Request Json:")
+    label1 = tk.Label(panel_main, text="Request Json:")
     label1.pack(expand=True)
 
     # Create entry fields for user input
-    requestText = tk.Text(window, width=100, height=15)
+    requestText = tk.Text(panel_main, width=40, height=7)
     requestText.pack()
 
-    label2 = tk.Label(window, text="Response Json:")
+    label2 = tk.Label(panel_main, text="Response Json:")
     label2.pack()
 
-    responseText = tk.Text(window, width=100, height=15)
+    responseText = tk.Text(panel_main, width=40, height=7)
     responseText.pack(expand=True)
 
-    label3 = tk.Label(window, text="folder path (inside entities/models): ")
+    label3 = tk.Label(panel_main, text="folder path (inside entities/models): ")
     label3.pack()
 
-    folder_path_entry = tk.Entry(window)
+    folder_path_entry = tk.Entry(panel_main)
     folder_path_entry.pack()
 
-    label4 = tk.Label(window, text="entity/model name: ")
+    label4 = tk.Label(panel_main, text="entity/model name: ")
     label4.pack()
 
-    entity_name_entry = tk.Entry(window)
+    entity_name_entry = tk.Entry(panel_main)
     entity_name_entry.pack()
 
-    panel_checkbox = tk.Frame(window)
+    panel_checkbox = tk.Frame(panel_main)
     panel_checkbox.pack()
     
     entity_var = tk.IntVar(panel_checkbox, value=1)
@@ -619,12 +629,350 @@ elif task=="11":
     model_checkbox.pack(side="left")
 
     # Create a button to trigger input retrieval
-    button = tk.Button(window, text="Generate all", command=do_process)
+    button = tk.Button(panel_main, text="Generate all", command=do_process)
     button.pack()
 
     # Run the main loop to display the GUI
     window.mainloop()
+
+elif task=="12":
+    import tkinter as tk
+
+    def do_process():
+        """
+        """
+        usecase_path = usecase_folder_path_entry.get()
+        usecase_name = usecase_name_entry.get().lower()
+        usecase_name_class = usecase_name.title().replace(" ", "")
+        usecase_name_var = usecase_name_class[0].lower()+usecase_name_class[1:]
+
+       
+        loading_label = tk.Label(window, text="Loading...", font=("Arial", 12, "bold"))
+        loading_label.pack()
+        window.update_idletasks()
+
+        project_name = get_project_name(project_directory)
+
+        usecase_file_dir =  os.path.join(usecase_dir,usecase_path)
+        os.makedirs(usecase_file_dir, exist_ok=True)
+        usecase_file = os.path.join(usecase_file_dir,usecase_name.replace(" ", "_")+"_usecase.dart")
+
+        if use_repo_selected_option.get()=="userepodatasource":
+            # use repo/datasource
+            
+            datasource_filepath = datasource_text.get()
+            datasource_path_to_filename = datasource_filepath.split("/lib/src/data/datasources/")[1].replace("_remote_datasource.dart", "")
+            datasource_path_to_filename_array = datasource_path_to_filename.split("/")
+            datasource_name = datasource_path_to_filename_array[-1].replace("_", " ")
+            datasource_path_to_filename_array.pop()
+            datasource_folder_path = "/".join(datasource_path_to_filename_array)
+
+            irepo_filepath = os.path.join(project_directory, f"lib/src/domain/irepositories/{datasource_name.replace(" ","_")}_irepository.dart")
+
+            entity_name = "" # app online
+            entity_folder_path = "" #path/to/folder
+            
+            if request_entity_selected_option.get()=="request_entity_create_new":
+                requestJson = request_entity_option1_text.get('1.0', tk.END).strip()
+                responseJson = response_entity_option1_text.get('1.0', tk.END).strip()
+                entity_folder_path = entity_folder_path_entry.get().lower()
+                entity_name = entity_name_entry.get().lower()
+
+                generateEntityAndModel(project_directory, requestJson, responseJson, entity_folder_path, entity_name, True, True)
+            else:
+                full_request_entity_path = request_entity_option2_text.get()
+                path_to_file_request_entity = full_request_entity_path.split("/lib/src/domain/entities/")[1]
+                path_to_file_request_entity = path_to_file_request_entity.replace("_request_entity.dart", "").replace("_response_entity.dart", "")
+                request_entity_path_array = path_to_file_request_entity.split("/")
+                entity_name = request_entity_path_array[-1].replace("_", " ")
+                request_entity_path_array.pop() # remove last element (entity name)
+                entity_folder_path = "/".join(request_entity_path_array)
+
+            
+            datasource_name_class = datasource_name.title().replace(" ", "")
+            datasource_name_var = datasource_name_class[0].lower()+datasource_name_class[1:]
+
+            entity_name_class = entity_name.title().replace(" ", "")
+            entity_name_var = entity_name_class[0].lower()+entity_name_class[1:]
+
+            # generate usecase
+            shutil.copyfile("../scripting-with-python/flutter_generator/repo_usecase.dart.txt",usecase_file)
+            replace_in_file(usecase_file, "{{project_name}}", project_name)
+            replace_in_file(usecase_file, "{{usecase_name_class}}", usecase_name_class)
+            replace_in_file(usecase_file, "{{usecase_name_var}}", usecase_name_var)
+
+            replace_in_file(usecase_file, "{{entity_folder}}", entity_folder_path)
+            replace_in_file(usecase_file, "{{repo_name}}", datasource_name.replace(" ", "_"))
+            replace_in_file(usecase_file, "{{entity_name_class}}",entity_name_class)
+            replace_in_file(usecase_file, "{{entity_name}}", entity_name.replace(" ", "_"))
+            replace_in_file(usecase_file, "{{repo_name_class}}", datasource_name_class)
+            replace_in_file(usecase_file, "{{repo_name_var}}", datasource_name_var)
+
+            entity_name_file = entity_name.replace(" ", "_")
+
+            # update irepo
+            insert_strings_to_file_before(irepo_filepath, f'''Future<{entity_name_class}ResponseEntity> {usecase_name_var}({entity_name_class}RequestEntity request);\n''', "  //DO NOT REMOVE/CHANGE THIS : IREPOSITORY")
+            
+            import_request_entity = f'''import 'package:{project_name}/src/domain/entities/{entity_folder_path}/{entity_name_file}_request_entity.dart';'''
+            import_response_entity = f'''import 'package:{project_name}/src/domain/entities/{entity_folder_path}/{entity_name_file}_response_entity.dart';\n'''
+            import_request_model = f'''import 'package:{project_name}/src/data/models/{entity_folder_path}/{entity_name_file}_request_model.dart';'''
+            import_response_model = f'''import 'package:{project_name}/src/data/models/{entity_folder_path}/{entity_name_file}_response_model.dart';\n'''
+
+            if not exist_line_in_file(irepo_filepath, import_request_entity): 
+                insert_strings_to_file_before(irepo_filepath, import_request_entity, f"abstract class I{datasource_name_class}Repository")
+            if not exist_line_in_file(irepo_filepath, import_response_entity): 
+                insert_strings_to_file_before(irepo_filepath, import_response_entity, f"abstract class I{datasource_name_class}Repository")
+
+            # update repo
+            repo_filepath = os.path.join(project_directory, f"lib/src/data/repositories/{datasource_name.replace(" ", "_")}_repository.dart")
+            
+            method_at_repo = '''  @override
+  Future<{{entity_name_class}}ResponseEntity> {{usecase_name_var}}({{entity_name_class}}RequestEntity request) async {
+    {{entity_name_class}}ResponseModel response = await {{repo_name_var}}RemoteDatasource.{{usecase_name_var}}({{entity_name_class}}RequestModel.fromEntity(request));
+    return response.toEntity();
+  }\n'''
+            insert_strings_to_file_before(repo_filepath, method_at_repo, "  //DO NOT REMOVE/CHANGE THIS : REPOSITORY")
+            replace_in_file(repo_filepath, "{{entity_name_class}}", entity_name_class)
+            replace_in_file(repo_filepath, "{{usecase_name_var}}", usecase_name_var)
+            replace_in_file(repo_filepath, "{{repo_name_var}}", datasource_name_var)
+
+            
+            if not exist_line_in_file(repo_filepath, import_request_entity): 
+                insert_strings_to_file_before(repo_filepath, import_request_entity, f"class {datasource_name_class}Repository extends I{datasource_name_class}Repository")
+            if not exist_line_in_file(repo_filepath, import_response_entity): 
+                insert_strings_to_file_before(repo_filepath, import_response_entity, f"class {datasource_name_class}Repository extends I{datasource_name_class}Repository")
+            if not exist_line_in_file(repo_filepath, import_request_model): 
+                insert_strings_to_file_before(repo_filepath, import_request_model, f"class {datasource_name_class}Repository extends I{datasource_name_class}Repository")
+            if not exist_line_in_file(repo_filepath, import_response_model): 
+                insert_strings_to_file_before(repo_filepath, import_response_model, f"class {datasource_name_class}Repository extends I{datasource_name_class}Repository")
+
+            # update datasources
+            remote_datasource_filepath = os.path.join(project_directory, f"lib/src/data/datasources/{datasource_folder_path}/{datasource_name.replace(" ", "_")}_remote_datasource.dart")
+            
+            method_at_datasource = '''  Future<{{entity_name_class}}ResponseModel> {{usecase_name_var}}(
+      {{entity_name_class}}RequestModel fromEntity) async {
+    try {
+      final response = await apiClient.get(ApiEndPoint.chekSerialNumber, queryParameters: {
+        "param1": "",
+      });
+
+      return compute({{entity_name_var}}ResponseModelFromJson, response);
+    } catch (e) {
+      return Future.error(e);
+    }
+  }\n'''
+            
+            insert_strings_to_file_before(remote_datasource_filepath, method_at_datasource, "  //DO NOT REMOVE/CHANGE THIS : REMOTEDATASOURCE")
+            replace_in_file(remote_datasource_filepath, "{{entity_name_class}}", entity_name_class)
+            replace_in_file(remote_datasource_filepath, "{{usecase_name_var}}", usecase_name_var)
+            replace_in_file(remote_datasource_filepath, "{{entity_name_var}}", entity_name_var)
+
+            if not exist_line_in_file(remote_datasource_filepath, import_request_model): 
+                insert_strings_to_file_before(remote_datasource_filepath, import_request_model, f"class {datasource_name_class}RemoteDatasource")
+            if not exist_line_in_file(remote_datasource_filepath, import_response_model): 
+                insert_strings_to_file_before(remote_datasource_filepath, import_response_model, f"class {datasource_name_class}RemoteDatasource")
+            if not exist_line_in_file(remote_datasource_filepath, "import 'package:flutter/foundation.dart';"): 
+                insert_strings_to_file_before(remote_datasource_filepath, "import 'package:flutter/foundation.dart';", f"class {datasource_name_class}RemoteDatasource")
+            if not exist_line_in_file(remote_datasource_filepath, f"import 'package:{project_name}/src/data/api/api_endpoint.dart';"): 
+                insert_strings_to_file_before(remote_datasource_filepath, f"import 'package:{project_name}/src/data/api/api_endpoint.dart';\n", f"class {datasource_name_class}RemoteDatasource")
+
+
+
+
+        else:
+            # without repo/datasource
+            shutil.copyfile("../scripting-with-python/flutter_generator/only_usecase.dart.txt", usecase_file)
+            replace_in_file(usecase_file, "{{project_name}}", project_name)
+            replace_in_file(usecase_file, "{{name}}", usecase_name_class)
+            print("")
+
+        # pub get
+        change_directory(project_directory)
+        command = f"{flutter_command} pub get"
+        pubget_success = run_command(command)
+
+        if pubget_success:
+            print(f"task '{task}' executed successfully.")
+        else:
+            print(f"Error: task '{task}' failed.")
+        
+        loading_label.pack_forget()
+        window.quit()
+
+    print("12. create usecase")
+    project_directory = input_directorypath("input project directory")
+    print(f"project_directory : {project_directory}")
+    print(f"flutter_generator_dir : {flutter_generator_dir}")
+
+    entity_dir = os.path.join(project_directory, "lib/src/domain/entities")
+    irepo_dir = os.path.join(project_directory, "lib/src/domain/irepositories")
+    datasource_dir = os.path.join(project_directory, "lib/src/data/datasources")
+    usecase_dir = os.path.join(project_directory, "lib/src/domain/usecases")
+
+    # Create the main window
+    window = tk.Tk()
+    window.title("Create UseCase")
+
+    window.wm_attributes('-topmost', True)  # Set the dialog to be always on top
+
+    # Handle the "X" button click (WM_DELETE_WINDOW event)
+    def on_closing():
+        if tk.messagebox.askokcancel("Quit", "Do you want to quit?"):
+            window.destroy()  #  Close the window
+            exit()  # Exit the program
+
+    window.protocol("WM_DELETE_WINDOW", on_closing)
+
+
+    #main panel
+    panel_main = tk.Frame(window, padx=20, pady=20) 
+    panel_main.pack(fill="both")
+
     
+    ## usecase panel
+    panel_usecase = tk.Frame(panel_main, padx=20)
+    panel_usecase.pack()
+
+
+    usecase_folder_path_label = tk.Label(panel_usecase, text="folder path (inside usecases): ")
+    usecase_folder_path_label.pack()
+
+    usecase_folder_path_entry = tk.Entry(panel_usecase)
+    usecase_folder_path_entry.pack()
+
+    label_usecase = tk.Label(panel_usecase, text="usecase name: ")
+    label_usecase.pack(side="left")
+
+    usecase_name_entry = tk.Entry(panel_usecase)
+    usecase_name_entry.pack(side="left", fill="x")
+
+    ## radio repo panel
+    panel_radio_repo = tk.Frame(panel_main, padx=20)
+    panel_radio_repo.pack()
+
+    use_repo_selected_option = tk.StringVar(panel_radio_repo,value="withoutrepodatasource")
+    def handle_selection_use_repo(value):
+        use_repo_selected_option.set(value)
+        if value == "userepodatasource":
+            panel_entity.pack(fill="x")
+        elif value == "withoutrepodatasource":
+            panel_entity.pack_forget()
+        button.pack_forget()
+        button.pack(pady=30)
+    use_repo_option1_button = tk.Radiobutton(panel_radio_repo, text="Use Repo/Datasource", variable=use_repo_selected_option, value="userepodatasource", command=lambda: handle_selection_use_repo("userepodatasource"))
+    use_repo_option2_button = tk.Radiobutton(panel_radio_repo, text="Without Repo/Datasource", variable=use_repo_selected_option, value="withoutrepodatasource", command=lambda: handle_selection_use_repo("withoutrepodatasource"))
+    use_repo_option1_button.pack(side="left")
+    use_repo_option2_button.pack(side="left")
+    
+
+    ## usecase panel
+    panel_entity = tk.Frame(panel_main)
+    panel_entity.pack_forget()
+
+
+    datasource_label = tk.Label(panel_entity, text="Remote Datasource Path:")
+    datasource_label.pack()
+
+    datasource_text = EntryWithDialog(panel_entity, initialdir=datasource_dir)
+    datasource_text.pack()
+
+    ### radio create new or existing panel
+    panel_radio_create_or_use = tk.Frame(panel_entity)
+    panel_radio_create_or_use.pack()
+    request_entity_selected_option = tk.StringVar(panel_radio_create_or_use,value="request_entity_use_existing")
+    def handle_selection(value):
+        request_entity_selected_option.set(value)
+        if value == "request_entity_create_new":
+            request_entity_option1_label.pack(fill="x")
+            request_entity_option1_text.pack(fill="x")
+            request_entity_option2_label.pack_forget()
+            request_entity_option2_text.pack_forget()
+            response_entity_option1_label.pack(fill="x")
+            response_entity_option1_text.pack(fill="x")
+
+            entity_folder_path_label.pack()
+            entity_folder_path_entry.pack()
+            entity_label.pack()
+            entity_name_entry.pack()
+        elif value == "request_entity_use_existing":
+            request_entity_option2_label.pack(fill="x")
+            request_entity_option2_text.pack(fill="x")
+            request_entity_option1_label.pack_forget()
+            request_entity_option1_text.pack_forget()
+            response_entity_option1_label.pack_forget()
+            response_entity_option1_text.pack_forget()
+
+            entity_folder_path_label.pack_forget()
+            entity_folder_path_entry.pack_forget()
+            entity_label.pack_forget()
+            entity_name_entry.pack_forget()
+        button.pack_forget()
+        button.pack(pady=30)
+        
+
+    # Radio buttons with different text and variable values
+    request_entity_option1_button = tk.Radiobutton(panel_radio_create_or_use, text="Create New Entity/Model", variable=request_entity_selected_option, value="request_entity_create_new", command=lambda: handle_selection("request_entity_create_new"))
+    request_entity_option2_button = tk.Radiobutton(panel_radio_create_or_use, text="Use Existing Entity/Model", variable=request_entity_selected_option, value="request_entity_use_existing", command=lambda: handle_selection("request_entity_use_existing"))
+    
+    # Pack the buttons to display them in the window
+    request_entity_option1_button.pack(side="left")
+    request_entity_option2_button.pack(side="left")
+
+   
+
+
+    request_entity_option1_label = tk.Label(panel_entity, text="Request Json:")
+    request_entity_option1_label.pack_forget()
+
+    request_entity_option1_text = tk.Text(panel_entity, width=40, height=7)
+    request_entity_option1_text.pack_forget()
+
+
+    request_entity_option2_label = tk.Label(panel_entity, text="Request Entity Path:")
+    request_entity_option2_label.pack()
+
+    request_entity_option2_text = EntryWithDialog(panel_entity, initialdir=entity_dir)
+    request_entity_option2_text.pack()
+
+
+    
+    response_entity_option1_label = tk.Label(panel_entity, text="Response Json:")
+    response_entity_option1_label.pack_forget()
+
+    response_entity_option1_text = tk.Text(panel_entity, width=40, height=7)
+    response_entity_option1_text.pack_forget()
+
+
+    entity_folder_path_label = tk.Label(panel_entity, text="folder path (inside entities/models): ")
+    entity_folder_path_label.pack_forget()
+
+    entity_folder_path_entry = tk.Entry(panel_entity)
+    entity_folder_path_entry.pack_forget()
+
+    entity_label = tk.Label(panel_entity, text="entity/model name: ")
+    entity_label.pack_forget()
+
+    entity_name_entry = tk.Entry(panel_entity)
+    entity_name_entry.pack_forget()
+
+   
+
+    ## model panel
+    panel_request_model = tk.Frame(panel_main)
+    panel_request_model.pack()
+
+    panel_response_model = tk.Frame(panel_main)
+    panel_response_model.pack()
+
+    # Create a button to trigger input retrieval
+    button = tk.Button(panel_main, text="Generate all", command=do_process)
+    button.pack(pady=30)
+
+    # Run the main loop to display the GUI
+    window.mainloop()
+    
+elif task=="13":
+    print("")
 else:
     print("Thanks for using flutter generator")
     print("managed by ahsailabs")
