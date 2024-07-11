@@ -102,6 +102,7 @@ class ApiClient {
     Map<String, dynamic>? headerParameters,
     int attemptIndex = 0,
     Options? options,
+    bool? isMultipart,
     // CancelToken? cancelToken,
     // ProgressCallback? onSendProgress,
     // ProgressCallback? onReceiveProgress,
@@ -114,6 +115,11 @@ class ApiClient {
 
       options ??= Options();
       options.headers = headerParameters;
+      if (isMultipart ?? false) {
+        options.sendTimeout = const Duration(seconds: 50);
+        options.receiveTimeout = const Duration(seconds: 50);
+        options.contentType = Headers.multipartFormDataContentType;
+      }
 
       final Response response = await _dio.post(
         url,

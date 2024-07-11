@@ -749,7 +749,7 @@ elif task=="12":
             # update datasources
             remote_datasource_filepath = os.path.join(project_directory, f"lib/src/data/datasources/{datasource_folder_path}/{datasource_name.replace(" ", "_")}_remote_datasource.dart")
             
-            method_at_datasource = '''  Future<{{entity_name_class}}ResponseModel> {{usecase_name_var}}(
+            method_get_at_datasource = '''  Future<{{entity_name_class}}ResponseModel> {{usecase_name_var}}(
       {{entity_name_class}}RequestModel fromEntity) async {
     try {
       final response = await apiClient.get(ApiEndPoint.chekSerialNumber, queryParameters: {
@@ -761,6 +761,28 @@ elif task=="12":
       return Future.error(e);
     }
   }\n'''
+            method_post_at_datasource = '''  Future<{{entity_name_class}}ResponseModel> {{usecase_name_var}}(
+      {{entity_name_class}}RequestModel request) async {
+    try {
+      var formData = {
+        'param1': "",
+        'files[]': ["", ""]
+            .map((file) => FileUploadData(file, basename(file)))
+            .toList(),
+      };
+      final response = await apiClient.post(ApiEndPoint.chekSerialNumber,
+          data: formData, isMultipart: true);
+
+      return compute({{entity_name_var}}ResponseModelFromJson, response);
+    } catch (e) {
+      return Future.error(e);
+    }
+  }\n'''
+            method_at_datasource = ""
+            if(get_or_post_selected_option.get()=="get"):
+                method_at_datasource  = method_get_at_datasource
+            else:
+                method_at_datasource  = method_post_at_datasource
             
             insert_strings_to_file_before(remote_datasource_filepath, method_at_datasource, "  //DO NOT REMOVE/CHANGE THIS : REMOTEDATASOURCE")
             replace_in_file(remote_datasource_filepath, "{{entity_name_class}}", entity_name_class)
@@ -775,9 +797,13 @@ elif task=="12":
                 insert_strings_to_file_before(remote_datasource_filepath, "import 'package:flutter/foundation.dart';", f"class {datasource_name_class}RemoteDatasource")
             if not exist_line_in_file(remote_datasource_filepath, f"import 'package:{project_name}/src/data/api/api_endpoint.dart';"): 
                 insert_strings_to_file_before(remote_datasource_filepath, f"import 'package:{project_name}/src/data/api/api_endpoint.dart';\n", f"class {datasource_name_class}RemoteDatasource")
+            
+            if(get_or_post_selected_option.get()=="post"):
+                if not exist_line_in_file(remote_datasource_filepath, "import 'package:path/path.dart';"): 
+                    insert_strings_to_file_before(remote_datasource_filepath, "import 'package:path/path.dart';\n", f"class {datasource_name_class}RemoteDatasource")
 
 
-
+            # import 'package:path/path.dart';
 
         else:
             # without repo/datasource
@@ -875,6 +901,17 @@ elif task=="12":
 
     datasource_text = EntryWithDialog(panel_entity, initialdir=datasource_dir)
     datasource_text.pack()
+
+    panel_radio_get_or_post = tk.Frame(panel_entity, padx=20)
+    panel_radio_get_or_post.pack()
+    get_or_post_selected_option = tk.StringVar(panel_radio_get_or_post,value="get")
+    def handle_selection_get_post(value):
+        get_or_post_selected_option.set(value)
+    get_or_post_option1_button = tk.Radiobutton(panel_radio_get_or_post, text="get", variable=get_or_post_selected_option, value="get", command=lambda: handle_selection_get_post("get"))
+    get_or_post_option2_button = tk.Radiobutton(panel_radio_get_or_post, text="post", variable=get_or_post_selected_option, value="post", command=lambda: handle_selection_get_post("post"))
+    get_or_post_option1_button.pack(side="left")
+    get_or_post_option2_button.pack(side="left")
+
 
     ### radio create new or existing panel
     panel_radio_create_or_use = tk.Frame(panel_entity)
