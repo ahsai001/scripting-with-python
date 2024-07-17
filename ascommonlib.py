@@ -31,7 +31,18 @@ def exist_multiline_in_file(filename, multiline_string):
     exist = True
   return exist
 
-def replace_in_file(filename, old_string, new_string):
+def replace_in_file_multiline_string(filename, old_string, new_string):
+  with open(filename, 'r', encoding="utf-8") as read_file, open(filename + '.bak', 'w', encoding="utf-8") as write_file:
+    content: str = ''
+    for line in read_file:
+        content += line
+
+    new_content = content.replace(old_string,new_string)
+    write_file.write(new_content)
+
+  os.replace(filename + '.bak', filename)
+
+def replace_in_file_singleline_string(filename, old_string, new_string):
   with open(filename, 'r', encoding="utf-8") as read_file, open(filename + '.bak', 'w', encoding="utf-8") as write_file:
     for line in read_file:
       if old_string in line:
@@ -76,20 +87,18 @@ def remove_all_after(filename, after_keyword, include_keyword=False):
 
 
 def remove_multiline_strings(filename, strings):
+  replace_in_file_multiline_string(filename, strings, "")
+
+def remove_line_contains(filename, line_string):
   with open(filename, 'r', encoding="utf-8") as read_file, open(filename + '.bak', 'w', encoding="utf-8") as write_file:
-    content: str = ''
     for line in read_file:
-        content += line
-
-    new_content = content.replace(strings,"")
-    write_file.write(new_content)
-
+      if line_string not in line:
+        write_file.write(line)
   os.replace(filename + '.bak', filename)
 
 def read_file(filename):
     content: str = ''
     with open(filename, 'r', encoding="utf-8") as read_file:
-      content: str = ''
       for line in read_file:
           content += line
     return content
@@ -248,7 +257,7 @@ def generate_class_from_json(json,project_directory,path_to_file, filename, targ
   
   # replace "required": into "requiredx":
   schema_file_path = os.path.join(project_directory, f"{path_to_file}/{filename}_schema.json")
-  replace_in_file(schema_file_path, '''"required":''', '''"requiredx":''')
+  replace_in_file_singleline_string(schema_file_path, '''"required":''', '''"requiredx":''')
 
   # quicktype -s schema schema.json -o user_response_entity3.dart
   command = f"quicktype -s schema {filename}_schema.json -o {filename}.{target_file_format}"

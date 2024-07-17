@@ -1,0 +1,21 @@
+import 'package:flutter/material.dart';
+
+class InformationPage extends StatelessWidget {
+  final String? info;
+  const InformationPage({super.key, this.info});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        //forceMaterialTransparency: true,
+        title: const Text("Informasi"),
+      ),
+      body: Center(
+        child: Text(
+          info ?? "Page Not found",
+        ),
+      ),
+    );
+  }
+}

@@ -1,7 +1,7 @@
 import os
 import shutil
 
-from ascommonlib import EntryWithDialog, append_to_file, change_directory, choose_file, create_new_file, exist_line_in_file, generate_class_from_json, get_line_in_file, input_directorypath, input_filepath, insert_strings_to_file_after, insert_strings_to_file_before, prepend_to_file, read_file, remove_all_after, remove_all_before, remove_multiline_strings, replace_in_file, run_command
+from ascommonlib import EntryWithDialog, append_to_file, change_directory, choose_file, create_new_file, exist_line_in_file, generate_class_from_json, get_line_in_file, input_directorypath, input_filepath, insert_strings_to_file_after, insert_strings_to_file_before, prepend_to_file, read_file, remove_all_after, remove_all_before, remove_line_contains, remove_multiline_strings, replace_in_file_multiline_string, replace_in_file_singleline_string, run_command
 
 print("Welcome in flutter generator: ")
 print("1. create flutter project")
@@ -12,10 +12,12 @@ print("5. add flutter alcore")
 print("6. add DI")
 print("7. add app preference")
 print("8. add api package")
-print("9. add database package")
+print("9. add local database package")
 print("10. create new repository and datasource")
 print("11. create new entity and/or model")
 print("12. create usecase")
+print("13. activate gorouter + firebase auth")
+print("14. enable path url for web")
 print("press enter to exit")
 
 task = input("What do you want (1 or 2): ")
@@ -134,11 +136,11 @@ def generateEntityAndModel(project_directory, requestJson,responseJson, folder_p
         if is_create_entity:
             project_name = get_project_name(project_directory)
             insert_strings_to_file_before(request_dart_file, '''    static {{name}}RequestModel fromEntity({{name}}RequestEntity request) {return {{name}}RequestModel();}''',f"factory {entity_name_titlecased}RequestModel.fromJson")
-            replace_in_file(request_dart_file, "{{name}}", entity_name_titlecased)
+            replace_in_file_singleline_string(request_dart_file, "{{name}}", entity_name_titlecased)
             insert_strings_to_file_before(request_dart_file, f"import 'package:{project_name}/src/domain/entities/{folder_path}/{entity_name_underlined}_request_entity.dart';\n",f"{entity_name_titlecased}RequestModel {entity_name_variablecased}RequestModelFromJson")
             
             insert_strings_to_file_before(response_dart_file, '''   {{name}}ResponseEntity toEntity() {return {{name}}ResponseEntity();}''',f"factory {entity_name_titlecased}ResponseModel.fromJson")
-            replace_in_file(response_dart_file, "{{name}}", entity_name_titlecased)
+            replace_in_file_singleline_string(response_dart_file, "{{name}}", entity_name_titlecased)
             insert_strings_to_file_before(response_dart_file, f"import 'package:{project_name}/src/domain/entities/{folder_path}/{entity_name_underlined}_response_entity.dart';\n",f"{entity_name_titlecased}ResponseModel {entity_name_variablecased}ResponseModelFromJson")
         
 
@@ -172,7 +174,7 @@ if task=="1":
     prepend_to_file(main_file, f"import 'package:{project_name}/src/app.dart';")
     
     test_file = os.path.join(project_root_directory, "test/widget_test.dart")
-    replace_in_file(test_file,f"import 'package:{project_name}/main.dart';",f"import 'package:{project_name}/src/app.dart';\n")
+    replace_in_file_singleline_string(test_file,f"import 'package:{project_name}/main.dart';",f"import 'package:{project_name}/src/app.dart';\n")
 
     # pub get
     command = f"{flutter_command} pub get"
@@ -284,7 +286,8 @@ elif task=="6":
     if not exist_line_in_file(main_file, "await setupServices();"): 
         insert_strings_to_file_before(main_file, '''\n  await setupServices();''', "runApp(")
 
-    replace_in_file(main_file, "void main() {", "Future<void> main() async {")
+    replace_in_file_singleline_string(main_file, "void main() {", "Future<void> main() async {")
+    replace_in_file_singleline_string(main_file, "void main() async {", "Future<void> main() async {")
 
     if not exist_line_in_file(main_file, "import 'package:get_it/get_it.dart';"): 
         insert_strings_to_file_before(main_file, '''import 'package:get_it/get_it.dart';\n''', "Future<void> main() async {")
@@ -372,8 +375,8 @@ elif task=="8":
     # replace content some files
     
     project_name = get_project_name(project_directory)
-    replace_in_file(api_client_file,"{{project_name}}", project_name)
-    replace_in_file(api_endpoint_file,"{{project_name}}", project_name)
+    replace_in_file_singleline_string(api_client_file,"{{project_name}}", project_name)
+    replace_in_file_singleline_string(api_endpoint_file,"{{project_name}}", project_name)
 
     main_file = os.path.join(project_directory, "lib/main.dart")
     if not exist_line_in_file(main_file, "inject.registerSingleton<ApiClient>"):
@@ -398,7 +401,7 @@ elif task=="8":
     else:
         print(f"Error: task '{task}' failed.")
 elif task=="9":
-    print("9. add database")
+    print("9. add database database")
     project_directory = input_directorypath("input project directory")
     print(f"project_directory : {project_directory}")
     print(f"flutter_generator_dir : {flutter_generator_dir}")
@@ -480,21 +483,21 @@ elif task=="10":
     project_name = get_project_name(project_directory)
 
     irepo_file = os.path.join(irepos_dir, f"{name_underlined}_irepository.dart")
-    replace_in_file(irepo_file,"{{name_titlecased}}", name_titlecased)
+    replace_in_file_singleline_string(irepo_file,"{{name_titlecased}}", name_titlecased)
 
     repo_file = os.path.join(repos_dir, f"{name_underlined}_repository.dart")
-    replace_in_file(repo_file,"{{project_name}}", project_name)
-    replace_in_file(repo_file,"{{name_titlecased}}", name_titlecased)
-    replace_in_file(repo_file,"{{name_variablecased}}", name_variablecased)
-    replace_in_file(repo_file,"{{name_underlined}}", name_underlined)
+    replace_in_file_singleline_string(repo_file,"{{project_name}}", project_name)
+    replace_in_file_singleline_string(repo_file,"{{name_titlecased}}", name_titlecased)
+    replace_in_file_singleline_string(repo_file,"{{name_variablecased}}", name_variablecased)
+    replace_in_file_singleline_string(repo_file,"{{name_underlined}}", name_underlined)
 
     local_datasource_file = os.path.join(datasources_dir, f"{name_underlined}_local_datasource.dart")
-    replace_in_file(local_datasource_file,"{{project_name}}", project_name)
-    replace_in_file(local_datasource_file,"{{name_titlecased}}", name_titlecased)
+    replace_in_file_singleline_string(local_datasource_file,"{{project_name}}", project_name)
+    replace_in_file_singleline_string(local_datasource_file,"{{name_titlecased}}", name_titlecased)
 
     remote_datasource_file = os.path.join(datasources_dir, f"{name_underlined}_remote_datasource.dart")
-    replace_in_file(remote_datasource_file,"{{project_name}}", project_name)
-    replace_in_file(remote_datasource_file,"{{name_titlecased}}", name_titlecased)
+    replace_in_file_singleline_string(remote_datasource_file,"{{project_name}}", project_name)
+    replace_in_file_singleline_string(remote_datasource_file,"{{name_titlecased}}", name_titlecased)
 
 
     main_file = os.path.join(project_directory, "lib/main.dart")
@@ -697,16 +700,16 @@ elif task=="12":
 
             # generate usecase
             shutil.copyfile("../scripting-with-python/flutter_generator/repo_usecase.dart.txt",usecase_file)
-            replace_in_file(usecase_file, "{{project_name}}", project_name)
-            replace_in_file(usecase_file, "{{usecase_name_class}}", usecase_name_class)
-            replace_in_file(usecase_file, "{{usecase_name_var}}", usecase_name_var)
+            replace_in_file_singleline_string(usecase_file, "{{project_name}}", project_name)
+            replace_in_file_singleline_string(usecase_file, "{{usecase_name_class}}", usecase_name_class)
+            replace_in_file_singleline_string(usecase_file, "{{usecase_name_var}}", usecase_name_var)
 
-            replace_in_file(usecase_file, "{{entity_folder}}", entity_folder_path)
-            replace_in_file(usecase_file, "{{repo_name}}", datasource_name.replace(" ", "_"))
-            replace_in_file(usecase_file, "{{entity_name_class}}",entity_name_class)
-            replace_in_file(usecase_file, "{{entity_name}}", entity_name.replace(" ", "_"))
-            replace_in_file(usecase_file, "{{repo_name_class}}", datasource_name_class)
-            replace_in_file(usecase_file, "{{repo_name_var}}", datasource_name_var)
+            replace_in_file_singleline_string(usecase_file, "{{entity_folder}}", entity_folder_path)
+            replace_in_file_singleline_string(usecase_file, "{{repo_name}}", datasource_name.replace(" ", "_"))
+            replace_in_file_singleline_string(usecase_file, "{{entity_name_class}}",entity_name_class)
+            replace_in_file_singleline_string(usecase_file, "{{entity_name}}", entity_name.replace(" ", "_"))
+            replace_in_file_singleline_string(usecase_file, "{{repo_name_class}}", datasource_name_class)
+            replace_in_file_singleline_string(usecase_file, "{{repo_name_var}}", datasource_name_var)
 
             entity_name_file = entity_name.replace(" ", "_")
 
@@ -732,9 +735,9 @@ elif task=="12":
     return response.toEntity();
   }\n'''
             insert_strings_to_file_before(repo_filepath, method_at_repo, "  //DO NOT REMOVE/CHANGE THIS : REPOSITORY")
-            replace_in_file(repo_filepath, "{{entity_name_class}}", entity_name_class)
-            replace_in_file(repo_filepath, "{{usecase_name_var}}", usecase_name_var)
-            replace_in_file(repo_filepath, "{{repo_name_var}}", datasource_name_var)
+            replace_in_file_singleline_string(repo_filepath, "{{entity_name_class}}", entity_name_class)
+            replace_in_file_singleline_string(repo_filepath, "{{usecase_name_var}}", usecase_name_var)
+            replace_in_file_singleline_string(repo_filepath, "{{repo_name_var}}", datasource_name_var)
 
             
             if not exist_line_in_file(repo_filepath, import_request_entity): 
@@ -785,9 +788,9 @@ elif task=="12":
                 method_at_datasource  = method_post_at_datasource
             
             insert_strings_to_file_before(remote_datasource_filepath, method_at_datasource, "  //DO NOT REMOVE/CHANGE THIS : REMOTEDATASOURCE")
-            replace_in_file(remote_datasource_filepath, "{{entity_name_class}}", entity_name_class)
-            replace_in_file(remote_datasource_filepath, "{{usecase_name_var}}", usecase_name_var)
-            replace_in_file(remote_datasource_filepath, "{{entity_name_var}}", entity_name_var)
+            replace_in_file_singleline_string(remote_datasource_filepath, "{{entity_name_class}}", entity_name_class)
+            replace_in_file_singleline_string(remote_datasource_filepath, "{{usecase_name_var}}", usecase_name_var)
+            replace_in_file_singleline_string(remote_datasource_filepath, "{{entity_name_var}}", entity_name_var)
 
             if not exist_line_in_file(remote_datasource_filepath, import_request_model): 
                 insert_strings_to_file_before(remote_datasource_filepath, import_request_model, f"class {datasource_name_class}RemoteDatasource")
@@ -808,8 +811,8 @@ elif task=="12":
         else:
             # without repo/datasource
             shutil.copyfile("../scripting-with-python/flutter_generator/only_usecase.dart.txt", usecase_file)
-            replace_in_file(usecase_file, "{{project_name}}", project_name)
-            replace_in_file(usecase_file, "{{name}}", usecase_name_class)
+            replace_in_file_singleline_string(usecase_file, "{{project_name}}", project_name)
+            replace_in_file_singleline_string(usecase_file, "{{name}}", usecase_name_class)
             print("")
 
         # pub get
@@ -1009,7 +1012,205 @@ elif task=="12":
     window.mainloop()
     
 elif task=="13":
-    print("")
+    print("13. activate gorouter + firebase auth")
+    project_directory = input_directorypath("input project directory")
+    print(f"project_directory : {project_directory}")
+    print(f"flutter_generator_dir : {flutter_generator_dir}")
+
+    change_directory(project_directory)
+    command = f"{flutter_command} pub add go_router firebase_core firebase_auth firebase_ui_auth firebase_ui_oauth_google"
+    run_command(command)
+
+
+    app_file = os.path.join(project_directory, "lib/src/app.dart")
+
+    replace_in_file_singleline_string(app_file,"    return MaterialApp(", "    return MaterialApp.router(")
+
+    insert_strings_to_file_before(app_file,'''    final providers = [
+      GoogleProvider(
+          clientId:
+              "375290265425-qpci8sha4m4vumj5lgvvuu8c5u0d3gqi.apps.googleusercontent.com"),
+    ];''',"    return MaterialApp.router(")
+
+
+    insert_strings_to_file_after(app_file, '''      routerConfig: GoRouter(
+          initialLocation: '/',
+          errorBuilder: (context, state) {
+            return const InformationPage();
+          },
+          routes: [
+            GoRoute(
+              path: "/signin",
+              builder: (context, state) {
+                return SignInScreen(
+                  providers: providers,
+                  headerBuilder: (context, constraints, shrinkOffset) {
+                    return const Center(child: FlutterLogo());
+                  },
+                  sideBuilder: (context, constraints) {
+                    return const Center(child: FlutterLogo());
+                  },
+                  actions: [
+                    AuthStateChangeAction<SignedIn>((context, state) {
+                      if (state.user != null) {
+                        context.go('/');
+                      }
+                    }),
+                  ],
+                );
+              },
+            ),
+            GoRoute(
+                path: "/",
+                redirect: (context, state) {
+                  if (FirebaseAuth.instance.currentUser == null) {
+                    return '/signin';
+                  }
+                  return null;
+                },
+                builder: (context, state) {
+                  return HomePage();
+                },
+                routes: [
+                  GoRoute(
+                    path: "profile",
+                    builder: (context, state) {
+                      return ProfileScreen(
+                        providers: providers,
+                        appBar: AppBar(
+                          //foregroundColor: context.primaryColor,
+                          forceMaterialTransparency: true,
+                        ),
+                        actions: [
+                          SignedOutAction((context) {
+                            context.go('/signin');
+                          }),
+                        ],
+                        children: [
+                          ElevatedButton(
+                              onPressed: () {
+                                
+                              },
+                              child: const Text("Application History"))
+                        ],
+                      );
+                    },
+                  ),
+                ])
+          ]),''',"    return MaterialApp.router(")
+    
+
+    remove_line_contains(app_file, "home: ")
+
+     # copy some files
+    change_directory(script_directory)
+
+    information_directory = os.path.join(project_directory, "lib/src/app/pages/information")
+    print(f"information_directory : {information_directory}")
+    os.makedirs(information_directory, exist_ok=True)
+    shutil.copyfile("../scripting-with-python/flutter_generator/information_page.dart.txt", os.path.join(information_directory, "information_page.dart"))
+
+    homepage_directory = os.path.join(project_directory, "lib/src/app/pages/home")
+    print(f"homepage_directory : {homepage_directory}")
+    os.makedirs(homepage_directory, exist_ok=True)
+    shutil.copyfile("../scripting-with-python/flutter_generator/home_page.dart.txt", os.path.join(homepage_directory, "home_page.dart"))
+
+    # import 'package:firebase_auth/firebase_auth.dart';
+    # import 'package:firebase_ui_auth/firebase_ui_auth.dart';
+    # import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
+    # import 'package:nasab/src/app/pages/information/information_page.dart';
+    # import 'package:go_router/go_router.dart';
+    # import 'package:nasab/src/app/pages/home/home_page.dart';
+
+    project_name = get_project_name(project_directory)
+
+    if not exist_line_in_file(app_file, "import 'package:firebase_auth/firebase_auth.dart';"): 
+        insert_strings_to_file_before(app_file, "import 'package:firebase_auth/firebase_auth.dart';\n", "class MyApp extends State")
+    if not exist_line_in_file(app_file, "import 'package:firebase_ui_auth/firebase_ui_auth.dart';"): 
+        insert_strings_to_file_before(app_file, "import 'package:firebase_ui_auth/firebase_ui_auth.dart';\n", "class MyApp extends State")
+    if not exist_line_in_file(app_file, "import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';"): 
+        insert_strings_to_file_before(app_file, "import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';\n", "class MyApp extends State")
+    if not exist_line_in_file(app_file, f"import 'package:{project_name}/src/app/pages/information/information_page.dart';"): 
+        insert_strings_to_file_before(app_file, f"import 'package:{project_name}/src/app/pages/information/information_page.dart';\n", "class MyApp extends State")
+    if not exist_line_in_file(app_file, "import 'import 'package:go_router/go_router.dart';"): 
+        insert_strings_to_file_before(app_file, "import 'package:go_router/go_router.dart';\n", "class MyApp extends State")
+    if not exist_line_in_file(app_file, f"import 'package:{project_name}/src/app/pages/home/home_page.dart';"): 
+        insert_strings_to_file_before(app_file, f"import 'package:{project_name}/src/app/pages/home/home_page.dart';\n", "class MyApp extends State")
+    
+
+
+    main_file = os.path.join(project_directory, "lib/main.dart")
+    if not exist_line_in_file(main_file, "Future<void> registerFirebase() async {"):
+        append_to_file(main_file, '''Future<void> registerFirebase() async {
+    //firebase and the children
+    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+    }''')
+
+    if not exist_line_in_file(main_file, "await registerFirebase();"):
+        insert_strings_to_file_before(main_file, '''  await registerFirebase();\n''', "  //DO NOT REMOVE/CHANGE THIS : SETUP SERVICES")
+
+    if not exist_line_in_file(main_file, "import 'package:firebase_core/firebase_core.dart';"): 
+        insert_strings_to_file_before(main_file, "import 'package:firebase_core/firebase_core.dart';\n", "Future<void> main() async {")
+    if not exist_line_in_file(main_file, f"import 'package:{project_name}/firebase_options.dart';"): 
+        insert_strings_to_file_before(main_file, f"import 'package:{project_name}/firebase_options.dart';\n", "Future<void> main() async {")
+    
+
+
+    change_directory(project_directory)
+
+    command = f"flutterfire configure"
+    run_command(command)
+
+    command = f"{flutter_command} pub get"
+    pubget_success = run_command(command)
+    
+    if pubget_success:
+        print(f"task '{task}' executed successfully.")
+    else:
+        print(f"Error: task '{task}' failed.")
+
+    
+elif task=="14":
+    print("14. enable path url for web")
+    project_directory = input_directorypath("input project directory")
+    print(f"project_directory : {project_directory}")
+    print(f"flutter_generator_dir : {flutter_generator_dir}")
+
+    
+    pubspec_yaml_file = os.path.join(project_directory, "pubspec.yaml")
+    
+
+    replace_in_file_multiline_string(pubspec_yaml_file,'''  flutter:
+    sdk: flutter''','''  flutter:
+    sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter''')
+
+    
+    main_file = os.path.join(project_directory, "lib/main.dart")
+
+    if not exist_line_in_file(main_file, "  usePathUrlStrategy();"): 
+        insert_strings_to_file_after(main_file, "  usePathUrlStrategy();", "Future<void> main() async {")
+    if not exist_line_in_file(main_file, "  usePathUrlStrategy();"): 
+        insert_strings_to_file_after(main_file, "  usePathUrlStrategy();", "void main() async {")
+    if not exist_line_in_file(main_file, "  usePathUrlStrategy();"): 
+        insert_strings_to_file_after(main_file, "  usePathUrlStrategy();", "void main() {")
+
+    if not exist_line_in_file(main_file, "import 'package:flutter_web_plugins/url_strategy.dart';"): 
+        insert_strings_to_file_before(main_file, "import 'package:flutter_web_plugins/url_strategy.dart';\n", "Future<void> main() async {")
+    if not exist_line_in_file(main_file, "import 'package:flutter_web_plugins/url_strategy.dart';"): 
+        insert_strings_to_file_before(main_file, "import 'package:flutter_web_plugins/url_strategy.dart';\n", "void main() async {")
+    if not exist_line_in_file(main_file, "import 'package:flutter_web_plugins/url_strategy.dart';"): 
+        insert_strings_to_file_before(main_file, "import 'package:flutter_web_plugins/url_strategy.dart';\n", "void main() {")
+    
+    change_directory(project_directory)
+    command = f"{flutter_command} pub get"
+    pubget_success = run_command(command)
+    
+    if pubget_success:
+        print(f"task '{task}' executed successfully.")
+    else:
+        print(f"Error: task '{task}' failed.")
 else:
     print("Thanks for using flutter generator")
     print("managed by ahsailabs")
