@@ -1158,8 +1158,12 @@ elif task=="13":
 
     change_directory(project_directory)
 
-    command = f"flutterfire configure"
-    run_command(command)
+
+    run_flutterfire_configure = input("run  flutterfire configure (yes/no)")
+
+    if(run_flutterfire_configure in "yes"):
+        command = f"flutterfire configure"
+        run_command(command)
 
     command = f"{flutter_command} pub get"
     pubget_success = run_command(command)
