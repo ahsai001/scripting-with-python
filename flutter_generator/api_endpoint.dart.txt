@@ -18,8 +18,8 @@ class ApiEndPoint {
 
   static String get baseAuthority => baseAuthorityList[_baseAuthorityIndex];
 
-  static String get apiPath => "/syshabapi/api/";
-  static String get imagePath => "/syshabapi/assets/poto_profile/";
+  static String get apiPath => "/api/";
+  static String get imagePath => "/assets/poto_profile/";
 
   static String get chekSerialNumber =>
       "$protocol://$baseAuthority${apiPath}CekSerial";

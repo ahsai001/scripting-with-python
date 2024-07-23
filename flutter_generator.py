@@ -473,6 +473,30 @@ elif task=="10":
     models_dir = os.path.join(project_directory, f"lib/src/data/models/{name_underlined}")
     os.makedirs(models_dir, exist_ok=True)
 
+    utils_dir = os.path.join(project_directory, "lib/src/utils")
+    os.makedirs(utils_dir, exist_ok=True)
+
+    widget_util_file = os.path.join(utils_dir, "widget_util.dart")
+    is_internet_connected_function = '''Future<bool> isInternetConnected() async {
+  bool isDeviceConnected = false;
+  final connectionStatus = await Connectivity().checkConnectivity();
+  if (connectionStatus != ConnectivityResult.none) {
+    isDeviceConnected = await InternetConnectionChecker().hasConnection;
+  }
+  return isDeviceConnected;
+}
+'''
+    if os.path.exists(widget_util_file):
+        if not exist_line_in_file(widget_util_file,"Future<bool> isInternetConnected() async {"):
+            append_to_file(widget_util_file, is_internet_connected_function)
+    else:
+        create_new_file(widget_util_file, is_internet_connected_function)
+
+    if not exist_line_in_file(widget_util_file, "import 'package:connectivity_plus/connectivity_plus.dart';"): 
+        prepend_to_file(widget_util_file, '''import 'package:connectivity_plus/connectivity_plus.dart';''')
+    if not exist_line_in_file(widget_util_file, "import 'package:internet_connection_checker/internet_connection_checker.dart';"): 
+        prepend_to_file(widget_util_file, '''import 'package:internet_connection_checker/internet_connection_checker.dart';''')
+
 
     # copy some files
     shutil.copyfile("../scripting-with-python/flutter_generator/name_irepository.dart.txt", os.path.join(irepos_dir, f"{name_underlined}_irepository.dart"))
@@ -524,6 +548,11 @@ elif task=="10":
 
     
     change_directory(project_directory)
+
+    # add deps
+    command = f"{flutter_command} pub add connectivity_plus internet_connection_checker"
+    run_command(command)
+
     # pub get
     command = f"{flutter_command} pub get"
     pubget_success = run_command(command)
@@ -749,7 +778,7 @@ elif task=="12":
             if not exist_line_in_file(repo_filepath, import_response_model): 
                 insert_strings_to_file_before(repo_filepath, import_response_model, f"class {datasource_name_class}Repository extends I{datasource_name_class}Repository")
 
-            # update datasources
+            # update remote datasources
             remote_datasource_filepath = os.path.join(project_directory, f"lib/src/data/datasources/{datasource_folder_path}/{datasource_name.replace(" ", "_")}_remote_datasource.dart")
             
             method_get_at_datasource = '''  Future<{{entity_name_class}}ResponseModel> {{usecase_name_var}}(
@@ -781,13 +810,13 @@ elif task=="12":
       return Future.error(e);
     }
   }\n'''
-            method_at_datasource = ""
+            method_at_remote_datasource = ""
             if(get_or_post_selected_option.get()=="get"):
-                method_at_datasource  = method_get_at_datasource
+                method_at_remote_datasource  = method_get_at_datasource
             else:
-                method_at_datasource  = method_post_at_datasource
+                method_at_remote_datasource  = method_post_at_datasource
             
-            insert_strings_to_file_before(remote_datasource_filepath, method_at_datasource, "  //DO NOT REMOVE/CHANGE THIS : REMOTEDATASOURCE")
+            insert_strings_to_file_before(remote_datasource_filepath, method_at_remote_datasource, "  //DO NOT REMOVE/CHANGE THIS : REMOTEDATASOURCE")
             replace_in_file_singleline_string(remote_datasource_filepath, "{{entity_name_class}}", entity_name_class)
             replace_in_file_singleline_string(remote_datasource_filepath, "{{usecase_name_var}}", usecase_name_var)
             replace_in_file_singleline_string(remote_datasource_filepath, "{{entity_name_var}}", entity_name_var)
@@ -806,7 +835,64 @@ elif task=="12":
                     insert_strings_to_file_before(remote_datasource_filepath, "import 'package:path/path.dart';\n", f"class {datasource_name_class}RemoteDatasource")
 
 
-            # import 'package:path/path.dart';
+            # update local datasources
+            method_at_local_datasource = '''  Future<{{entity_name_class}}ResponseModel> getCacheOf{{usecase_name_class}}(
+      {{entity_name_class}}RequestModel request) async {
+    try {
+      final localList = await myDatabase.select(myDatabase.dataUnits).get();
+      {{entity_name_class}}ResponseModel response = {{entity_name_class}}ResponseModel();
+      for (var element in localList) {
+        //response.output!.add(ProjectArea1.fromJson(element.toJson()));
+      }
+      return response;
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
+
+  Future<int> saveCacheOf{{usecase_name_class}}(
+      {{entity_name_class}}RequestModel request, {{entity_name_class}}ResponseModel response) async {
+    int totalOfSuccess = 0;
+    try {
+      List<String> list = [];
+      await myDatabase.transaction(() async {
+        for (final element in list) {
+          try {
+            final rowId = await myDatabase.into(myDatabase.dataUnits).insert(
+                DataUnitsCompanion.insert(
+                    unitCode: '',
+                    unitName: '',
+                    model: '',
+                    project: '',
+                    costCenter: ''),
+                mode: InsertMode.insertOrReplace);
+            if (rowId > 0) {
+              totalOfSuccess++;
+            }
+          } catch (e) {
+            debugPrint(e.toString());
+          }
+        }
+      });
+
+      return totalOfSuccess;
+    } catch (e) {
+      return Future.error(e);
+    }
+  }\n'''
+            local_datasource_filepath = os.path.join(project_directory, f"lib/src/data/datasources/{datasource_folder_path}/{datasource_name.replace(" ", "_")}_local_datasource.dart")
+            insert_strings_to_file_before(local_datasource_filepath, method_at_local_datasource, "  //DO NOT REMOVE/CHANGE THIS : LOCALDATASOURCE")
+            replace_in_file_singleline_string(local_datasource_filepath, "{{entity_name_class}}", entity_name_class)
+            replace_in_file_singleline_string(local_datasource_filepath, "{{usecase_name_class}}", usecase_name_class)
+
+
+            if not exist_line_in_file(local_datasource_filepath, "import 'package:flutter/foundation.dart';"): 
+                insert_strings_to_file_before(local_datasource_filepath, "import 'package:flutter/foundation.dart';", f"class {datasource_name_class}LocalDatasource")
+            if not exist_line_in_file(local_datasource_filepath, import_request_model): 
+                insert_strings_to_file_before(local_datasource_filepath, import_request_model, f"class {datasource_name_class}LocalDatasource")
+            if not exist_line_in_file(local_datasource_filepath, import_response_model): 
+                insert_strings_to_file_before(local_datasource_filepath, import_response_model, f"class {datasource_name_class}LocalDatasource")
+            
 
         else:
             # without repo/datasource
