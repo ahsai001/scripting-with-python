@@ -251,27 +251,59 @@ extension FileUploadDataMap on Map {
     for (var i = 0; i < keyList.length; i++) {
       var key = keyList[i];
       var value = this[key];
-      if (value is FileUploadData) {
-        value = await MultipartFile.fromFile(value.filePath,
-            filename: value.fileName);
-      } else if (value is List<FileUploadData>) {
-        int length = value.length;
-        final fileList = <MultipartFile>[];
-        for (var j = 0; j < length; j++) {
-          final FileUploadData fileData = value[j];
-          fileList.add(await MultipartFile.fromFile(fileData.filePath,
-              filename: fileData.fileName));
 
-          // files.add(MapEntry(
-          //   "$key",
-          //   MultipartFile.fromFileSync(fileData.filePath,
-          //       filename: fileData.fileName),
-          // ));
+      if (value is List<dynamic>) {
+        for (var (index, item) in value.indexed) {
+          if (item is int || item is String) {
+            data.putIfAbsent("$key[$index]", () => item);
+          } else if (item is List<dynamic>) {
+            for (var (index2, item2) in item.indexed) {
+              data.putIfAbsent("$key[$index][$index2]", () => item2);
+            }
+          } else if (item is Map<dynamic, dynamic>) {
+            for (var item2 in item.entries) {
+              data.putIfAbsent("$key[$index][${item2.key}]", () => item2.value);
+            }
+          }
         }
-        //continue;
-        value = fileList;
+      } else if (value is Map<dynamic, dynamic>) {
+        for (var item in value.entries) {
+          if (item.value is int || item.value is String) {
+            data.putIfAbsent("$key[${item.key}]", () => item.value);
+          } else if (item.value is List<dynamic>) {
+            for (var (index2, item2) in (item.value as List<dynamic>).indexed) {
+              data.putIfAbsent("$key[${item.key}][$index2]", () => item2);
+            }
+          } else if (item.value is Map<dynamic, dynamic>) {
+            for (var item2 in (item.value as Map<dynamic, dynamic>).entries) {
+              data.putIfAbsent(
+                  "$key[${item.key}][${item2.key}]", () => item2.value);
+            }
+          }
+        }
+      } else {
+        if (value is FileUploadData) {
+          value = await MultipartFile.fromFile(value.filePath,
+              filename: value.fileName);
+        } else if (value is List<FileUploadData>) {
+          int length = value.length;
+          final fileList = <MultipartFile>[];
+          for (var j = 0; j < length; j++) {
+            final FileUploadData fileData = value[j];
+            fileList.add(await MultipartFile.fromFile(fileData.filePath,
+                filename: fileData.fileName));
+
+            // files.add(MapEntry(
+            //   "$key",
+            //   MultipartFile.fromFileSync(fileData.filePath,
+            //       filename: fileData.fileName),
+            // ));
+          }
+          //continue;
+          value = fileList;
+        }
+        data.putIfAbsent(key, () => value ?? "");
       }
-      data.putIfAbsent(key, () => value ?? "");
     }
     final formData = FormData.fromMap(data);
 
