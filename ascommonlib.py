@@ -280,6 +280,35 @@ def remove_file(fullpath):
     print(f"An error occurred while deleting the file: {e}")
 
 
+def rename_files(folder_path, remove_chars="!@#$%^&*()_+-=[]{}|;:'\",./<>?"):
+  """Mengganti nama file dalam folder dan subfoldernya, mempertahankan ekstensi file.
+
+  Args:
+    folder_path: Path ke folder yang ingin diproses.
+    remove_chars: Karakter yang ingin dihapus dari nama file.
+  """
+
+  for root, dirs, files in os.walk(folder_path):
+    for file in files:
+      # Pisahkan nama file dan ekstensi
+      name, ext = os.path.splitext(file)
+
+      # Ubah nama file sesuai aturan
+      new_name = ""
+      for char in name:
+        if char not in remove_chars:
+          new_name += char.lower()
+      new_name = new_name.replace(" ", "_")
+
+      # Gabungkan nama baru dengan ekstensi asli
+      new_file_name = new_name + ext
+
+      old_path = os.path.join(root, file)
+      new_path = os.path.join(root, new_file_name)
+      os.rename(old_path, new_path)
+      print(f"Mengubah nama {old_path} menjadi {new_path}")
+
+
 class EntryWithDialog(tk.Frame):
     def __init__(self, master=None, initialdir=None):
       super().__init__(master)
