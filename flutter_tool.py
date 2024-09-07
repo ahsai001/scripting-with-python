@@ -32,6 +32,10 @@ if task != "":
     if len(flutter_command)==0:
         flutter_command = "flutter"
 
+    dart_command = input("input dart command (fvm dart/dart, default dart): ")
+    if len(dart_command)==0:
+        dart_command = "dart"
+
 def activate_launcher_icons(project_directory):
     change_directory(project_directory)
     command = f"{flutter_command} pub add dev:flutter_launcher_icons"
@@ -64,7 +68,7 @@ def activate_launcher_icons(project_directory):
     launcher_config_content = launcher_config_content.replace("{{icon_asset_path}}", f"{asset_dir_name}/{launcher_icon_filename}").replace("{{background_color}}", background_color).replace("{{theme_color}}", theme_color)
     append_to_file(pubspec_yaml, launcher_config_content)
 
-    command = f"dart run flutter_launcher_icons"
+    command = f"{dart_command} run flutter_launcher_icons"
     run_command(command)
 
 def activate_native_splash(project_directory):
@@ -95,7 +99,7 @@ def activate_native_splash(project_directory):
     splash_config_content = splash_config_content.replace("{{splash_asset_path}}", f"{asset_dir_name}/{splash_icon_filename}").replace("{{background_color}}", background_color)
     append_to_file(pubspec_yaml, splash_config_content)
 
-    command = f"dart run flutter_native_splash:create"
+    command = f"{dart_command} run flutter_native_splash:create"
     run_command(command)
 
 def get_project_name(project_directory):
@@ -392,7 +396,7 @@ elif task=="8":
     
     
     # build runner
-    command = "dart run build_runner build"
+    command = f"{dart_command} run build_runner build"
     build_success = run_command(command)
 
     # pub get
@@ -437,7 +441,7 @@ elif task=="9":
 
     
     # build runner
-    command = "dart run build_runner build"
+    command = f"{dart_command} run build_runner build"
     build_success = run_command(command)
 
     # pub get
@@ -1320,7 +1324,7 @@ elif task=="15":
     command = f"{flutter_command} pub get"
     pubget_success = run_command(command)
 
-    command = f'dart run rename_app:main all="{new_name}"'
+    command = f'{dart_command} run rename_app:main all="{new_name}"'
     run_command(command)
 
     print(f"task '{task}' executed successfully.")
@@ -1340,7 +1344,7 @@ elif task=="16":
     command = f"{flutter_command} pub get"
     pubget_success = run_command(command)
 
-    command = f'dart run change_app_package_name:main {new_package_name}"'
+    command = f'{dart_command} run change_app_package_name:main {new_package_name}"'
     run_command(command)
 
     print(f"task '{task}' executed successfully.")
