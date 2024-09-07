@@ -3,7 +3,7 @@ import shutil
 
 from ascommonlib import EntryWithDialog, append_to_file, change_directory, choose_file, create_new_file, exist_line_in_file, generate_class_from_json, get_line_in_file, input_directorypath, input_filepath, insert_strings_to_file_after, insert_strings_to_file_before, prepend_to_file, read_file, remove_all_after, remove_all_before, remove_line_contains, remove_multiline_strings, replace_in_file_multiline_string, replace_in_file_singleline_string, run_command
 
-print("Welcome in flutter generator: ")
+print("Welcome in flutter tool: ")
 print("1. create flutter project")
 print("2. init folder lib with clean architecture")
 print("3. activate launcher icon")
@@ -18,6 +18,8 @@ print("11. create new entity and/or model")
 print("12. create usecase")
 print("13. activate gorouter + firebase auth")
 print("14. enable path url for web")
+print("15. change application name")
+print("16. change package name or application id")
 print("press enter to exit")
 
 task = input("What do you want (1 or 2): ")
@@ -1301,6 +1303,48 @@ elif task=="14":
         print(f"task '{task}' executed successfully.")
     else:
         print(f"Error: task '{task}' failed.")
+
+
+elif task=="15":
+    print("15. change application name")
+    project_directory = input_directorypath("input project directory")
+    print(f"project_directory : {project_directory}")
+    print(f"flutter_generator_dir : {flutter_generator_dir}")
+
+    new_name = input("new name : ")
+
+    change_directory(project_directory)
+    command = f"{flutter_command} pub add dev:rename_app"
+    run_command(command)
+
+    command = f"{flutter_command} pub get"
+    pubget_success = run_command(command)
+
+    command = f'dart run rename_app:main all="{new_name}"'
+    run_command(command)
+
+    print(f"task '{task}' executed successfully.")
+
+elif task=="16":
+    print("16. change package name or application id")
+    project_directory = input_directorypath("input project directory")
+    print(f"project_directory : {project_directory}")
+    print(f"flutter_generator_dir : {flutter_generator_dir}")
+
+    new_package_name = input("new package name : ")
+
+    change_directory(project_directory)
+    command = f"{flutter_command} pub add dev:change_app_package_name "
+    run_command(command)
+
+    command = f"{flutter_command} pub get"
+    pubget_success = run_command(command)
+
+    command = f'dart run change_app_package_name:main {new_package_name}"'
+    run_command(command)
+
+    print(f"task '{task}' executed successfully.")
+
 else:
-    print("Thanks for using flutter generator")
-    print("managed by ahsailabs")
+    print("Thanks for using flutter tool")
+    print("managed by ahsailabs (https://ahsai.my.id)")
