@@ -47,26 +47,30 @@ def _send_fcm_message(fcm_message):
     print('Unable to send message to Firebase')
     print(resp.text)
 
-def _build_common_message(token: string, title: string, body: string, image_url: string = None):
+def _build_common_message(token: string, title: string, body: string, image_url: string = None, data: string = "{}"):
   """Construct common notifiation message.
 
   Construct a JSON object that will be used to define the
   common parts of a notification message that will be sent
   to any app instance subscribed to the news topic.
   """
-  return {
-   "message":{
-      "token":f"{token}",
-      "data":{
-          "click_action":"FLUTTER_NOTIFICATION_CLICK"
-      },
-      "notification":{
-        "title":f"{title}",
-        "body":f"{body}",
-        "image":f"{image_url}"
-      }
-   }
-}
+  result  = {
+    "message":{
+        "token":f"{token}",
+        "data":{
+            "click_action":"FLUTTER_NOTIFICATION_CLICK"
+        },
+        "notification":{
+          "title":f"{title}",
+          "body":f"{body}",
+          "image":f"{image_url}"
+        }
+    }
+  }
+  data_object = json.loads(data)
+  result['message']['data'].update(data_object)
+
+  return result
 
 def _build_override_message():
   """Construct common notification message with overrides.
@@ -105,10 +109,11 @@ def main():
   parser.add_argument('--title')
   parser.add_argument('--body')
   parser.add_argument('--imageurl')
+  parser.add_argument('--data')
 
   args = parser.parse_args()
   if args.token and args.title and args.body:
-    common_message = _build_common_message(args.token, args.title, args.body, args.imageurl)
+    common_message = _build_common_message(args.token, args.title, args.body, args.imageurl, args.data)
     _send_fcm_message(common_message)
   else:
     print('''Invalid command. Please use the following commands:
