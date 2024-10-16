@@ -1,45 +1,81 @@
 import 'package:dio/dio.dart';
 
 class ApiExceptions implements Exception {
-  late String message;
+  String message = "Unexpected exception";
 
-  ApiExceptions.fromDioError(DioException dioError) {
-    switch (dioError.type) {
-      case DioExceptionType.cancel:
-        message = "Request to API server was cancelled";
-        break;
+  /*
+
+Detailed Breakdown of Each Type:
+
+connectionTimeout:
+When it occurs: This error occurs when the connection to the server takes too long to establish.
+Common causes: Network issues, server overload, or slow internet connection.
+
+sendTimeout:
+When it occurs: This error occurs when the client takes too long to send the request to the server.
+Common causes: Network issues, large request payloads, or server-side limitations.
+
+receiveTimeout:
+When it occurs: This error occurs when the server takes too long to respond to the request.
+Common causes: Server load, network congestion, or slow server processing.
+
+badCertificate:
+When it occurs: This error occurs when there's a problem with the SSL/TLS certificate used to secure the connection.
+Common causes: Invalid certificates, expired certificates, or certificate chain issues.
+
+badResponse:
+When it occurs: This error occurs when the server returns a status code that is considered an error (e.g., 400, 500).
+Common causes: Invalid requests, server-side errors, or authentication issues.
+
+cancel:
+When it occurs: This error occurs when the request is manually canceled by the user or the application.
+Common causes: User interaction, timeouts, or programmatic cancellation.
+
+connectionError:
+When it occurs: This error occurs when there's a general connection error, such as a socket exception.
+Common causes: Network issues, firewall restrictions, or server downtime.
+
+unknown:
+When it occurs: This error is used as a catch-all for any other type of error that doesn't fit into the previous categories.
+  
+  */
+
+  ApiExceptions.fromDioError(DioException dioException) {
+    switch (dioException.type) {
       case DioExceptionType.connectionTimeout:
-        message = "Connection timeout with API server";
-        break;
-      case DioExceptionType.receiveTimeout:
-        message = "Receive timeout in connection with API server";
+        message = "Connection timeout";
         break;
       case DioExceptionType.sendTimeout:
-        message = "Send timeout in connection with API server";
+        message = "Send timeout";
+        break;
+      case DioExceptionType.receiveTimeout:
+        message = "Receive timeout";
+        break;
+      case DioExceptionType.badCertificate:
+        message = "Bad Certificate";
         break;
       case DioExceptionType.badResponse:
         message = _handleError(
-          dioError.response?.statusCode,
-          dioError.response?.data,
+          dioException.response?.statusCode,
+          dioException.response?.data,
         );
-        break;
-      case DioExceptionType.connectionError:
-      case DioExceptionType.unknown:
-        if (dioError.message?.contains("SocketException") ?? false) {
-          message = 'No Internet';
+        if (message == "") {
+          message = "Something went wrong code 24";
           break;
         }
-        message = _handleError(
-          dioError.response?.statusCode,
-          dioError.response?.data,
-        );
-        //message = "Unexpected error occurred";
+
+      case DioExceptionType.cancel:
+        message = "Request to server was cancelled";
+        break;
+      case DioExceptionType.connectionError:
+        message = "Connection Error";
+        break;
+      case DioExceptionType.unknown:
+        message =
+            "Unexpected error : ${dioException.message} || ${dioException.error.toString()}";
         break;
       default:
-        message = _handleError(
-          dioError.response?.statusCode,
-          dioError.response?.data,
-        );
+        message = "Something went wrong code 25";
         break;
     }
   }
@@ -53,13 +89,18 @@ class ApiExceptions implements Exception {
       case 403:
         return 'Forbidden';
       case 404:
-        return error['message'];
+        if (error is String) {
+          return error;
+        } else if (error is Map<String, dynamic>) {
+          return error['message'] ?? "Something went wrong code 21";
+        }
+        return "Something went wrong code 22";
       case 500:
         return 'Internal server error';
       case 502:
         return 'Bad gateway';
       default:
-        return 'Oops something went wrong';
+        return 'Something went wrong code 23';
     }
   }
 
