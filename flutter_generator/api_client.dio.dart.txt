@@ -11,6 +11,59 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 class ApiClient {
   final _dio = Dio();
 
+
+
+   final Map<String, CancelToken> cancelTokenMap = {};
+  final Map<String, int> cancelCountMap = {};
+
+  CancelToken getCancelToken(String url) {
+    final list = url.split(ApiEndPoint.apiPath);
+    String tag = list[1];
+    var cancelToken = cancelTokenMap[tag];
+    if (cancelToken == null) {
+      cancelToken = CancelToken();
+      cancelTokenMap[tag] = cancelToken;
+      cancelCountMap[tag] = 1;
+    } else {
+      cancelCountMap[tag] = (cancelCountMap[tag] ?? 0) + 1;
+    }
+    return cancelToken;
+  }
+
+  bool cancelRequest(String url, [String? reason]) {
+    final list = url.split(ApiEndPoint.apiPath);
+    String tag = list[1];
+    var cancelToken = cancelTokenMap[tag];
+    if (cancelToken != null) {
+      cancelToken.cancel(reason);
+      return true;
+    }
+    return false;
+  }
+
+  void cancelAllRequest([String? reason]) {
+    for (var element in cancelTokenMap.entries) {
+      var cancelToken = element.value;
+      cancelToken.cancel(reason);
+    }
+  }
+
+  bool removeCancelToken(String url) {
+    final list = url.split(ApiEndPoint.apiPath);
+    String tag = list[1];
+    var cancelToken = cancelTokenMap[tag];
+    if (cancelToken != null) {
+      cancelCountMap[tag] = (cancelCountMap[tag] ?? 0) - 1;
+      if ((cancelCountMap[tag] ?? 0) <= 0) {
+        cancelTokenMap.remove(tag);
+        cancelCountMap.remove(tag);
+      }
+      return true;
+    }
+    return false;
+  }
+
+
   Future<void> initialize(
       {Duration? connectTimeout,
       Duration? sendTimeout,
@@ -65,8 +118,8 @@ class ApiClient {
     Map<String, dynamic>? headerParameters,
     int attemptIndex = 0,
     Options? options,
-    // CancelToken? cancelToken,
-    // ProgressCallback? onReceiveProgress,
+    CancelToken? cancelToken,
+    ProgressCallback? onReceiveProgress,
   }) async {
     try {
       options ??= Options();
@@ -76,12 +129,14 @@ class ApiClient {
         url,
         queryParameters: queryParameters,
         options: options,
-        // cancelToken: cancelToken,
-        // onReceiveProgress: onReceiveProgress,
+        cancelToken: cancelToken ?? getCancelToken(url),
+        onReceiveProgress: onReceiveProgress,
       );
+      removeCancelToken(url);
       //return response.toString();
       return jsonEncode(response.data);
     } on DioException catch (e) {
+      removeCancelToken(url);
       final errorMessage = ApiExceptions.fromDioError(e).message;
       var newUrl = newUrlForHandleRTO(e, attemptIndex, url);
       if (newUrl != null) {
@@ -103,9 +158,9 @@ class ApiClient {
     int attemptIndex = 0,
     Options? options,
     bool? isMultipart,
-    // CancelToken? cancelToken,
-    // ProgressCallback? onSendProgress,
-    // ProgressCallback? onReceiveProgress,
+    CancelToken? cancelToken,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
   }) async {
     try {
       FormData? newData;
@@ -126,12 +181,14 @@ class ApiClient {
         data: newData ?? data,
         queryParameters: queryParameters,
         options: options,
-        // cancelToken: cancelToken,
-        // onSendProgress: onSendProgress,
-        // onReceiveProgress: onReceiveProgress,
+        cancelToken: cancelToken ?? getCancelToken(url),
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress,
       );
+      removeCancelToken(url);
       return jsonEncode(response.data);
     } on DioException catch (e) {
+      removeCancelToken(url);
       final errorMessage = ApiExceptions.fromDioError(e).message;
       var newUrl = newUrlForHandleRTO(e, attemptIndex, url);
       if (newUrl != null) {
@@ -153,9 +210,9 @@ class ApiClient {
     Map<String, dynamic>? headerParameters,
     int attemptIndex = 0,
     Options? options,
-    // CancelToken? cancelToken,
-    // ProgressCallback? onSendProgress,
-    // ProgressCallback? onReceiveProgress,
+    CancelToken? cancelToken,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
   }) async {
     try {
       FormData? newData;
@@ -171,12 +228,14 @@ class ApiClient {
         data: newData ?? data,
         queryParameters: queryParameters,
         options: options,
-        // cancelToken: cancelToken,
-        // onSendProgress: onSendProgress,
-        // onReceiveProgress: onReceiveProgress,
+        cancelToken: cancelToken ?? getCancelToken(url),
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress,
       );
+      removeCancelToken(url);
       return jsonEncode(response.data);
     } on DioException catch (e) {
+      removeCancelToken(url);
       final errorMessage = ApiExceptions.fromDioError(e).message;
       var newUrl = newUrlForHandleRTO(e, attemptIndex, url);
       if (newUrl != null) {
@@ -198,9 +257,7 @@ class ApiClient {
     Map<String, dynamic>? headerParameters,
     int attemptIndex = 0,
     Options? options,
-    // CancelToken? cancelToken,
-    // ProgressCallback? onSendProgress,
-    // ProgressCallback? onReceiveProgress,
+    CancelToken? cancelToken,
   }) async {
     try {
       FormData? newData;
@@ -216,11 +273,13 @@ class ApiClient {
         data: newData ?? data,
         queryParameters: queryParameters,
         options: options,
-        // cancelToken: cancelToken,
+        cancelToken: cancelToken ?? getCancelToken(url),
       );
+      removeCancelToken(url);
       //return response.data;
       return jsonEncode(response.data);
     } on DioException catch (e) {
+      removeCancelToken(url);
       final errorMessage = ApiExceptions.fromDioError(e).message;
       var newUrl = newUrlForHandleRTO(e, attemptIndex, url);
       if (newUrl != null) {
