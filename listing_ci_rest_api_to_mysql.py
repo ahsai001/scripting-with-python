@@ -52,12 +52,17 @@ def insert_into_db(functions_list):
 
         cursor = connection.cursor()
 
-        # SQL query untuk memasukkan data
-        sql = "INSERT INTO api (api_path, api_method) VALUES (%s, %s)"
-        
-        # Loop untuk setiap fungsi dan metode
+        sql_check_duplicate = "SELECT COUNT(*) FROM api WHERE api_path = %s AND api_method = %s"
+        sql_insert = "INSERT INTO api (api_path, api_method) VALUES (%s, %s)"
+
         for item in functions_list:
-            cursor.execute(sql, (item['function'], item['method']))
+            cursor.execute(sql_check_duplicate, (item['function'], item['method']))
+            result = cursor.fetchone()
+            if result[0] == 0:  # No duplicate found
+                cursor.execute(sql_insert, (item['function'], item['method']))
+                print(f"Inserted: {item['function']} - {item['method']}")
+            else:
+                print(f"Duplicate found: {item['function']} - {item['method']}")
 
         # Commit transaksi
         connection.commit()

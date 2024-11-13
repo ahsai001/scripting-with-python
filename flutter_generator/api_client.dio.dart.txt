@@ -13,7 +13,7 @@ class ApiClient {
 
 
 
-   final Map<String, CancelToken> cancelTokenMap = {};
+  final Map<String, CancelToken> cancelTokenMap = {};
   final Map<String, int> cancelCountMap = {};
 
   CancelToken getCancelToken(String url) {
