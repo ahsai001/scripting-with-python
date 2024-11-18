@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 
 class ApiExceptions implements Exception {
@@ -80,20 +82,29 @@ When it occurs: This error is used as a catch-all for any other type of error th
     }
   }
 
-  String _handleError(int? statusCode, dynamic error) {
+  String _handleError(int? statusCode, dynamic data) {
+    if (data != null) {
+      if (data is String) {
+        try {
+          final dataMap = json.decode(data);
+          if (dataMap['message'] != null) {
+            return dataMap['message']!;
+          }
+        } catch (e) {
+          //
+        }
+      } else if (data is Map<String, dynamic> && data['message'] != null) {
+        return data['message'];
+      }
+    }
     switch (statusCode) {
       case 400:
         return 'Bad request';
       case 401:
         return 'Unauthorized';
       case 403:
-        return 'Forbidden';
+        return 'Access Denied'; //Forbidden
       case 404:
-        if (error is String) {
-          return error;
-        } else if (error is Map<String, dynamic>) {
-          return error['message'] ?? "Something went wrong code 21";
-        }
         return "Something went wrong code 22";
       case 500:
         return 'Internal server error';

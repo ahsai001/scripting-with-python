@@ -8,10 +8,38 @@ import 'package:{{project_name}}/src/data/api/api_exception.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+class JwtHandlerInterceptor extends Interceptor {
+  @override
+  Future<void> onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
+    options.headers['Authorization'] = 'Bearer ';
+    super.onRequest(options, handler);
+  }
+
+  @override
+  void onResponse(Response response, ResponseInterceptorHandler handler) {
+    if (kDebugMode) {
+      print('Response [${response.statusCode}] => DATA: ${response.data}');
+    }
+    super.onResponse(response, handler);
+  }
+
+  @override
+  void onError(DioException err, ErrorInterceptorHandler handler) {
+    if (kDebugMode) {
+      print('Error [${err.response?.statusCode}] => MESSAGE: ${err.message}');
+    }
+
+    if (err.response?.statusCode == 401) {
+      // Token expired misalnya, lakukan refresh token atau redirect ke login
+      
+    }
+    super.onError(err, handler);
+  }
+}
+
 class ApiClient {
   final _dio = Dio();
-
-
 
   final Map<String, CancelToken> cancelTokenMap = {};
   final Map<String, int> cancelCountMap = {};
@@ -89,7 +117,8 @@ class ApiClient {
         receiveTimeout: receiveTimeout ?? const Duration(seconds: 15),
         headers: baseHeader,
         contentType: Headers.formUrlEncodedContentType,
-        responseType: ResponseType.json);
+        responseType: ResponseType.plain //use plain instead of json, decoded to json took place in datasource
+        );
     _dio.options = options;
     if (kDebugMode) {
       _dio.interceptors
