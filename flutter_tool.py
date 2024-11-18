@@ -406,7 +406,7 @@ elif task=="8":
     else:
         print(f"Error: task '{task}' failed.")
 elif task=="9":
-    print("9. add database database")
+    print("9. add local database package")
     project_directory = input_directorypath("input project directory")
     print(f"project_directory : {project_directory}")
     print(f"flutter_generator_dir : {flutter_generator_dir}")
