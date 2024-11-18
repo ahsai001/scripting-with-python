@@ -1,7 +1,6 @@
 import os
-import shutil
 
-from ascommonlib import EntryWithDialog, append_to_file, change_directory, choose_file, create_new_file, exist_line_in_file, generate_class_from_json, get_line_in_file, input_directorypath, input_filepath, insert_strings_to_file_after, insert_strings_to_file_before, prepend_to_file, read_file, remove_all_after, remove_all_before, remove_line_contains, remove_multiline_strings, replace_in_file_multiline_string, replace_in_file_singleline_string, run_command
+from ascommonlib import EntryWithDialog, append_to_file, change_directory, choose_file, copy_file, create_new_file, exist_line_in_file, generate_class_from_json, get_line_in_file, input_directorypath, input_filepath, insert_strings_to_file_after, insert_strings_to_file_before, prepend_to_file, read_file, remove_all_after, remove_all_before, remove_line_contains, remove_multiline_strings, replace_in_file_multiline_string, replace_in_file_singleline_string, run_command
 
 print("Welcome in flutter tool: ")
 print("1. create flutter project")
@@ -56,7 +55,7 @@ def activate_launcher_icons(project_directory):
     launcher_filepath_local = os.path.join(asset_directory,launcher_icon_filename)
     print(f"launcher_filepath_local : {launcher_filepath_local}")
     
-    shutil.copyfile(launcher_filepath, launcher_filepath_local)
+    copy_file(launcher_filepath, launcher_filepath_local)
 
 
     pubspec_yaml = os.path.join(project_directory, "pubspec.yaml")
@@ -88,7 +87,7 @@ def activate_native_splash(project_directory):
     splash_filepath_local = os.path.join(asset_directory,splash_icon_filename)
     print(f"splash_filepath_local : {splash_filepath_local}")
     
-    shutil.copyfile(splash_filepath, splash_filepath_local)
+    copy_file(splash_filepath, splash_filepath_local)
 
 
     pubspec_yaml = os.path.join(project_directory, "pubspec.yaml")
@@ -171,7 +170,7 @@ if task=="1":
     # split main.dart and app.dart
     change_directory(project_root_directory)
     os.makedirs("lib/src", exist_ok=True)
-    shutil.copyfile("lib/main.dart", "lib/src/app.dart")
+    copy_file("lib/main.dart", "lib/src/app.dart")
     main_file = os.path.join(project_root_directory, "lib/main.dart")
     app_file = os.path.join(project_root_directory, "lib/src/app.dart")
     remove_all_before(app_file, "class MyApp extends StatelessWidget {")
@@ -217,7 +216,7 @@ elif task=="2":
         os.makedirs(full_path, exist_ok=True)
 
     # copy some files
-    shutil.copyfile("../scripting-with-python/flutter_generator/general_usecase.dart.txt", os.path.join(project_dir, "lib/src/domain/usecases/general_usecase.dart"))
+    copy_file("../scripting-with-python/flutter_generator/general_usecase.dart.txt", os.path.join(project_dir, "lib/src/domain/usecases/general_usecase.dart"))
 
     print(f"Clean architecture folders created at: {project_dir}")
 elif task=="3":
@@ -324,7 +323,7 @@ elif task=="7":
     # copy some files
     preference_dir = os.path.join(project_directory, "lib/src/data/preference")
     os.makedirs(preference_dir, exist_ok=True)
-    shutil.copyfile("../scripting-with-python/flutter_generator/app_preference.dart.txt", os.path.join(project_directory, "lib/src/data/preference/app_preference.dart"))
+    copy_file("../scripting-with-python/flutter_generator/app_preference.dart.txt", os.path.join(project_directory, "lib/src/data/preference/app_preference.dart"))
     
     main_file = os.path.join(project_directory, "lib/main.dart")
     if not exist_line_in_file(main_file, "  inject.registerLazySingletonAsync<AppPreference>("):    
@@ -359,12 +358,12 @@ elif task=="8":
     env_dir = os.path.join(project_directory, "lib/env")
     # copy some files
     os.makedirs(api_dir, exist_ok=True)
-    shutil.copyfile("../scripting-with-python/flutter_generator/api_client.dio.dart.txt", os.path.join(project_directory, "lib/src/data/api/api_client.dart"))
-    shutil.copyfile("../scripting-with-python/flutter_generator/api_endpoint.dart.txt", os.path.join(project_directory, "lib/src/data/api/api_endpoint.dart"))
-    shutil.copyfile("../scripting-with-python/flutter_generator/api_exception.dio.dart.txt", os.path.join(project_directory, "lib/src/data/api/api_exception.dart"))
+    copy_file("../scripting-with-python/flutter_generator/api_client.dio.dart.txt", os.path.join(project_directory, "lib/src/data/api/api_client.dart"))
+    copy_file("../scripting-with-python/flutter_generator/api_endpoint.dart.txt", os.path.join(project_directory, "lib/src/data/api/api_endpoint.dart"))
+    copy_file("../scripting-with-python/flutter_generator/api_exception.dio.dart.txt", os.path.join(project_directory, "lib/src/data/api/api_exception.dart"))
     os.makedirs(env_dir, exist_ok=True)
-    shutil.copyfile("../scripting-with-python/flutter_generator/env.dart.txt", os.path.join(project_directory, "lib/env/env.dart"))
-    shutil.copyfile("../scripting-with-python/flutter_generator/.env.txt", os.path.join(project_directory, ".env"))
+    copy_file("../scripting-with-python/flutter_generator/env.dart.txt", os.path.join(project_directory, "lib/env/env.dart"))
+    copy_file("../scripting-with-python/flutter_generator/.env.txt", os.path.join(project_directory, ".env"))
     
 
     change_directory(project_directory)
@@ -416,7 +415,7 @@ elif task=="9":
     database_dir = os.path.join(project_directory, "lib/src/data/database")
     # copy some files
     os.makedirs(database_dir, exist_ok=True)
-    shutil.copyfile("../scripting-with-python/flutter_generator/drift_provider.dart.txt", os.path.join(project_directory, "lib/src/data/database/drift_provider.dart"))
+    copy_file("../scripting-with-python/flutter_generator/drift_provider.dart.txt", os.path.join(project_directory, "lib/src/data/database/drift_provider.dart"))
     
 
     change_directory(project_directory)
@@ -505,10 +504,10 @@ elif task=="10":
 
 
     # copy some files
-    shutil.copyfile("../scripting-with-python/flutter_generator/name_irepository.dart.txt", os.path.join(irepos_dir, f"{name_underlined}_irepository.dart"))
-    shutil.copyfile("../scripting-with-python/flutter_generator/name_repository.dart.txt", os.path.join(repos_dir, f"{name_underlined}_repository.dart"))
-    shutil.copyfile("../scripting-with-python/flutter_generator/name_local_datasource.dart.txt", os.path.join(datasources_dir, f"{name_underlined}_local_datasource.dart"))
-    shutil.copyfile("../scripting-with-python/flutter_generator/name_remote_datasource.dart.txt", os.path.join(datasources_dir, f"{name_underlined}_remote_datasource.dart"))
+    copy_file("../scripting-with-python/flutter_generator/name_irepository.dart.txt", os.path.join(irepos_dir, f"{name_underlined}_irepository.dart"))
+    copy_file("../scripting-with-python/flutter_generator/name_repository.dart.txt", os.path.join(repos_dir, f"{name_underlined}_repository.dart"))
+    copy_file("../scripting-with-python/flutter_generator/name_local_datasource.dart.txt", os.path.join(datasources_dir, f"{name_underlined}_local_datasource.dart"))
+    copy_file("../scripting-with-python/flutter_generator/name_remote_datasource.dart.txt", os.path.join(datasources_dir, f"{name_underlined}_remote_datasource.dart"))
 
     project_name = get_project_name(project_directory)
 
@@ -734,7 +733,7 @@ elif task=="12":
             entity_name_var = entity_name_class[0].lower()+entity_name_class[1:]
 
             # generate usecase
-            shutil.copyfile("../scripting-with-python/flutter_generator/repo_usecase.dart.txt",usecase_file)
+            copy_file("../scripting-with-python/flutter_generator/repo_usecase.dart.txt",usecase_file)
             replace_in_file_singleline_string(usecase_file, "{{project_name}}", project_name)
             replace_in_file_singleline_string(usecase_file, "{{usecase_name_class}}", usecase_name_class)
             replace_in_file_singleline_string(usecase_file, "{{usecase_name_var}}", usecase_name_var)
@@ -902,7 +901,7 @@ elif task=="12":
 
         else:
             # without repo/datasource
-            shutil.copyfile("../scripting-with-python/flutter_generator/only_usecase.dart.txt", usecase_file)
+            copy_file("../scripting-with-python/flutter_generator/only_usecase.dart.txt", usecase_file)
             replace_in_file_singleline_string(usecase_file, "{{project_name}}", project_name)
             replace_in_file_singleline_string(usecase_file, "{{name}}", usecase_name_class)
             print("")
@@ -1200,12 +1199,12 @@ elif task=="13":
     information_directory = os.path.join(project_directory, "lib/src/app/pages/information")
     print(f"information_directory : {information_directory}")
     os.makedirs(information_directory, exist_ok=True)
-    shutil.copyfile("../scripting-with-python/flutter_generator/information_page.dart.txt", os.path.join(information_directory, "information_page.dart"))
+    copy_file("../scripting-with-python/flutter_generator/information_page.dart.txt", os.path.join(information_directory, "information_page.dart"))
 
     homepage_directory = os.path.join(project_directory, "lib/src/app/pages/home")
     print(f"homepage_directory : {homepage_directory}")
     os.makedirs(homepage_directory, exist_ok=True)
-    shutil.copyfile("../scripting-with-python/flutter_generator/home_page.dart.txt", os.path.join(homepage_directory, "home_page.dart"))
+    copy_file("../scripting-with-python/flutter_generator/home_page.dart.txt", os.path.join(homepage_directory, "home_page.dart"))
 
     # import 'package:firebase_auth/firebase_auth.dart';
     # import 'package:firebase_ui_auth/firebase_ui_auth.dart';

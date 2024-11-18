@@ -1,5 +1,6 @@
 import os
 
+import shutil
 import tkinter as tk
 from tkinter import filedialog
 
@@ -307,6 +308,12 @@ def rename_files(folder_path, remove_chars="!@#$%^&*()_+-=[]{}|;:'\",./<>?"):
       new_path = os.path.join(root, new_file_name)
       os.rename(old_path, new_path)
       print(f"Mengubah nama {old_path} menjadi {new_path}")
+
+def copy_file(source, destination):
+  if not os.path.exists(destination):
+    shutil.copyfile(source, destination)
+  else:
+    print("File already exists: ", destination)
 
 
 class EntryWithDialog(tk.Frame):
