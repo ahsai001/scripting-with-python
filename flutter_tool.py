@@ -1343,7 +1343,7 @@ elif task=="16":
     command = f"{flutter_command} pub get"
     pubget_success = run_command(command)
 
-    command = f'{dart_command} run change_app_package_name:main {new_package_name}"'
+    command = f'{dart_command} run change_app_package_name:main {new_package_name}'
     run_command(command)
 
     print(f"task '{task}' executed successfully.")
