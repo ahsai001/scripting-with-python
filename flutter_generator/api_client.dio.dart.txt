@@ -102,7 +102,7 @@ class ApiClient {
     final baseHeader = {
       'Accept': 'application/json; charset=UTF-8',
       'APIKEY': ApiEndPoint.apiKey,
-      'x-platform': Platform.operatingSystem,
+      'x-platform': kIsWeb ? "web" : Platform.operatingSystem,
       'x-appname': packageInfo.appName,
       'x-packagename': packageInfo.packageName,
       'x-version': packageInfo.version,
@@ -120,6 +120,7 @@ class ApiClient {
         responseType: ResponseType.plain //use plain instead of json, decoded to json took place in datasource
         );
     _dio.options = options;
+    //_dio.httpClientAdapter = BrowserHttpClientAdapter(withCredentials: true);
     if (kDebugMode) {
       _dio.interceptors
           .add(PrettyDioLogger(requestHeader: true, requestBody: true));
