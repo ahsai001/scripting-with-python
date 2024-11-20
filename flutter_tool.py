@@ -140,11 +140,11 @@ def generateEntityAndModel(project_directory, requestJson,responseJson, folder_p
 
         if is_create_entity:
             project_name = get_project_name(project_directory)
-            insert_strings_to_file_before(request_dart_file, '''    static {{name}}RequestModel fromEntity({{name}}RequestEntity request) {return {{name}}RequestModel();}''',f"factory {entity_name_titlecased}RequestModel.fromJson")
+            insert_strings_to_file_before(request_dart_file, '''    static {{name}}RequestModel fromEntity({{name}}RequestEntity request) {return {{name}}RequestModel.fromJson(request.toJson());}''',f"factory {entity_name_titlecased}RequestModel.fromJson")
             replace_in_file_singleline_string(request_dart_file, "{{name}}", entity_name_titlecased)
             insert_strings_to_file_before(request_dart_file, f"import 'package:{project_name}/src/domain/entities/{folder_path}/{entity_name_underlined}_request_entity.dart';\n",f"{entity_name_titlecased}RequestModel {entity_name_variablecased}RequestModelFromJson")
             
-            insert_strings_to_file_before(response_dart_file, '''   {{name}}ResponseEntity toEntity() {return {{name}}ResponseEntity();}''',f"factory {entity_name_titlecased}ResponseModel.fromJson")
+            insert_strings_to_file_before(response_dart_file, '''   {{name}}ResponseEntity toEntity() {return {{name}}ResponseEntity.fromJson(toJson());}''',f"factory {entity_name_titlecased}ResponseModel.fromJson")
             replace_in_file_singleline_string(response_dart_file, "{{name}}", entity_name_titlecased)
             insert_strings_to_file_before(response_dart_file, f"import 'package:{project_name}/src/domain/entities/{folder_path}/{entity_name_underlined}_response_entity.dart';\n",f"{entity_name_titlecased}ResponseModel {entity_name_variablecased}ResponseModelFromJson")
         
