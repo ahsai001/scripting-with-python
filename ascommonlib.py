@@ -186,9 +186,11 @@ def input_filepath(instruction):
   return filepath
 
 def input_directorypath(instruction):
-  folderpath = input(f"{instruction} or enter to open directory picker: ")
+  folderpath = input(f"{instruction} or type . then enter to use current directory or just enter to open directory picker: ")
   if len(folderpath)==0:
     folderpath = choose_directory()
+  if len(folderpath)==1 and folderpath == ".":
+    folderpath = os.getcwd()
   return folderpath
 
 def choose_file():

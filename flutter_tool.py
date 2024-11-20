@@ -23,7 +23,8 @@ print("press enter to exit")
 
 task = input("What do you want (1 or 2): ")
 
-script_directory = os.getcwd()
+
+script_directory = os.path.dirname(__file__)
 flutter_generator_dir = os.path.join(script_directory,"flutter_generator")
 
 if task != "":
@@ -216,7 +217,7 @@ elif task=="2":
         os.makedirs(full_path, exist_ok=True)
 
     # copy some files
-    copy_file("../scripting-with-python/flutter_generator/general_usecase.dart.txt", os.path.join(project_dir, "lib/src/domain/usecases/general_usecase.dart"))
+    copy_file(os.path.join(flutter_generator_dir,"general_usecase.dart.txt"), os.path.join(project_dir, "lib/src/domain/usecases/general_usecase.dart"))
 
     print(f"Clean architecture folders created at: {project_dir}")
 elif task=="3":
@@ -323,7 +324,7 @@ elif task=="7":
     # copy some files
     preference_dir = os.path.join(project_directory, "lib/src/data/preference")
     os.makedirs(preference_dir, exist_ok=True)
-    copy_file("../scripting-with-python/flutter_generator/app_preference.dart.txt", os.path.join(project_directory, "lib/src/data/preference/app_preference.dart"))
+    copy_file(os.path.join(flutter_generator_dir,"app_preference.dart.txt"), os.path.join(project_directory, "lib/src/data/preference/app_preference.dart"))
     
     main_file = os.path.join(project_directory, "lib/main.dart")
     if not exist_line_in_file(main_file, "  inject.registerLazySingletonAsync<AppPreference>("):    
@@ -358,12 +359,12 @@ elif task=="8":
     env_dir = os.path.join(project_directory, "lib/env")
     # copy some files
     os.makedirs(api_dir, exist_ok=True)
-    copy_file("../scripting-with-python/flutter_generator/api_client.dio.dart.txt", os.path.join(project_directory, "lib/src/data/api/api_client.dart"))
-    copy_file("../scripting-with-python/flutter_generator/api_endpoint.dart.txt", os.path.join(project_directory, "lib/src/data/api/api_endpoint.dart"))
-    copy_file("../scripting-with-python/flutter_generator/api_exception.dio.dart.txt", os.path.join(project_directory, "lib/src/data/api/api_exception.dart"))
+    copy_file(os.path.join(flutter_generator_dir,"api_client.dio.dart.txt"), os.path.join(project_directory, "lib/src/data/api/api_client.dart"))
+    copy_file(os.path.join(flutter_generator_dir,"api_endpoint.dart.txt"), os.path.join(project_directory, "lib/src/data/api/api_endpoint.dart"))
+    copy_file(os.path.join(flutter_generator_dir,"api_exception.dio.dart.txt"), os.path.join(project_directory, "lib/src/data/api/api_exception.dart"))
     os.makedirs(env_dir, exist_ok=True)
-    copy_file("../scripting-with-python/flutter_generator/env.dart.txt", os.path.join(project_directory, "lib/env/env.dart"))
-    copy_file("../scripting-with-python/flutter_generator/.env.txt", os.path.join(project_directory, ".env"))
+    copy_file(os.path.join(flutter_generator_dir,"env.dart.txt"), os.path.join(project_directory, "lib/env/env.dart"))
+    copy_file(os.path.join(flutter_generator_dir,".env.txt"), os.path.join(project_directory, ".env"))
     
 
     change_directory(project_directory)
@@ -415,7 +416,7 @@ elif task=="9":
     database_dir = os.path.join(project_directory, "lib/src/data/database")
     # copy some files
     os.makedirs(database_dir, exist_ok=True)
-    copy_file("../scripting-with-python/flutter_generator/drift_provider.dart.txt", os.path.join(project_directory, "lib/src/data/database/drift_provider.dart"))
+    copy_file(os.path.join(flutter_generator_dir,"drift_provider.dart.txt"), os.path.join(project_directory, "lib/src/data/database/drift_provider.dart"))
     
 
     change_directory(project_directory)
@@ -504,10 +505,10 @@ elif task=="10":
 
 
     # copy some files
-    copy_file("../scripting-with-python/flutter_generator/name_irepository.dart.txt", os.path.join(irepos_dir, f"{name_underlined}_irepository.dart"))
-    copy_file("../scripting-with-python/flutter_generator/name_repository.dart.txt", os.path.join(repos_dir, f"{name_underlined}_repository.dart"))
-    copy_file("../scripting-with-python/flutter_generator/name_local_datasource.dart.txt", os.path.join(datasources_dir, f"{name_underlined}_local_datasource.dart"))
-    copy_file("../scripting-with-python/flutter_generator/name_remote_datasource.dart.txt", os.path.join(datasources_dir, f"{name_underlined}_remote_datasource.dart"))
+    copy_file(os.path.join(flutter_generator_dir,"name_irepository.dart.txt"), os.path.join(irepos_dir, f"{name_underlined}_irepository.dart"))
+    copy_file(os.path.join(flutter_generator_dir,"name_repository.dart.txt"), os.path.join(repos_dir, f"{name_underlined}_repository.dart"))
+    copy_file(os.path.join(flutter_generator_dir,"name_local_datasource.dart.txt"), os.path.join(datasources_dir, f"{name_underlined}_local_datasource.dart"))
+    copy_file(os.path.join(flutter_generator_dir,"name_remote_datasource.dart.txt"), os.path.join(datasources_dir, f"{name_underlined}_remote_datasource.dart"))
 
     project_name = get_project_name(project_directory)
 
@@ -566,8 +567,6 @@ elif task=="10":
         print(f"task '{task}' executed successfully.")
     else:
         print(f"Error: task '{task}' failed.")
-
-
 elif task=="11":
     import tkinter as tk
 
@@ -671,7 +670,6 @@ elif task=="11":
 
     # Run the main loop to display the GUI
     window.mainloop()
-
 elif task=="12":
     import tkinter as tk
 
@@ -733,7 +731,7 @@ elif task=="12":
             entity_name_var = entity_name_class[0].lower()+entity_name_class[1:]
 
             # generate usecase
-            copy_file("../scripting-with-python/flutter_generator/repo_usecase.dart.txt",usecase_file)
+            copy_file(os.path.join(flutter_generator_dir,"repo_usecase.dart.txt"),usecase_file)
             replace_in_file_singleline_string(usecase_file, "{{project_name}}", project_name)
             replace_in_file_singleline_string(usecase_file, "{{usecase_name_class}}", usecase_name_class)
             replace_in_file_singleline_string(usecase_file, "{{usecase_name_var}}", usecase_name_var)
@@ -902,7 +900,7 @@ elif task=="12":
 
         else:
             # without repo/datasource
-            copy_file("../scripting-with-python/flutter_generator/only_usecase.dart.txt", usecase_file)
+            copy_file(os.path.join(flutter_generator_dir,"only_usecase.dart.txt"), usecase_file)
             replace_in_file_singleline_string(usecase_file, "{{project_name}}", project_name)
             replace_in_file_singleline_string(usecase_file, "{{name}}", usecase_name_class)
             print("")
@@ -1101,8 +1099,7 @@ elif task=="12":
     button.pack(pady=30)
 
     # Run the main loop to display the GUI
-    window.mainloop()
-    
+    window.mainloop()   
 elif task=="13":
     print("13. activate gorouter + firebase auth")
     project_directory = input_directorypath("input project directory")
@@ -1200,12 +1197,12 @@ elif task=="13":
     information_directory = os.path.join(project_directory, "lib/src/app/pages/information")
     print(f"information_directory : {information_directory}")
     os.makedirs(information_directory, exist_ok=True)
-    copy_file("../scripting-with-python/flutter_generator/information_page.dart.txt", os.path.join(information_directory, "information_page.dart"))
+    copy_file(os.path.join(flutter_generator_dir,"information_page.dart.txt"), os.path.join(information_directory, "information_page.dart"))
 
     homepage_directory = os.path.join(project_directory, "lib/src/app/pages/home")
     print(f"homepage_directory : {homepage_directory}")
     os.makedirs(homepage_directory, exist_ok=True)
-    copy_file("../scripting-with-python/flutter_generator/home_page.dart.txt", os.path.join(homepage_directory, "home_page.dart"))
+    copy_file(os.path.join(flutter_generator_dir,"home_page.dart.txt"), os.path.join(homepage_directory, "home_page.dart"))
 
     # import 'package:firebase_auth/firebase_auth.dart';
     # import 'package:firebase_ui_auth/firebase_ui_auth.dart';
@@ -1263,9 +1260,7 @@ elif task=="13":
     if pubget_success:
         print(f"task '{task}' executed successfully.")
     else:
-        print(f"Error: task '{task}' failed.")
-
-    
+        print(f"Error: task '{task}' failed.")    
 elif task=="14":
     print("14. enable path url for web")
     project_directory = input_directorypath("input project directory")
@@ -1307,8 +1302,6 @@ elif task=="14":
         print(f"task '{task}' executed successfully.")
     else:
         print(f"Error: task '{task}' failed.")
-
-
 elif task=="15":
     print("15. change application name")
     project_directory = input_directorypath("input project directory")
@@ -1328,7 +1321,6 @@ elif task=="15":
     run_command(command)
 
     print(f"task '{task}' executed successfully.")
-
 elif task=="16":
     print("16. change package name or application id")
     project_directory = input_directorypath("input project directory")
