@@ -890,7 +890,8 @@ elif task=="12":
             replace_in_file_singleline_string(local_datasource_filepath, "{{entity_name_class}}", entity_name_class)
             replace_in_file_singleline_string(local_datasource_filepath, "{{usecase_name_class}}", usecase_name_class)
 
-
+            if not exist_line_in_file(local_datasource_filepath, "import 'package:drift/drift.dart';"): 
+                insert_strings_to_file_before(local_datasource_filepath, "import 'package:drift/drift.dart';", f"class {datasource_name_class}LocalDatasource")
             if not exist_line_in_file(local_datasource_filepath, "import 'package:flutter/foundation.dart';"): 
                 insert_strings_to_file_before(local_datasource_filepath, "import 'package:flutter/foundation.dart';", f"class {datasource_name_class}LocalDatasource")
             if not exist_line_in_file(local_datasource_filepath, import_request_model): 
