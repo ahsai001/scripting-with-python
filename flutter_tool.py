@@ -785,7 +785,7 @@ elif task=="12":
             remote_datasource_filepath = os.path.join(project_directory, f"lib/src/data/datasources/{datasource_folder_path}/{datasource_name.replace(" ", "_")}_remote_datasource.dart")
             
             method_get_at_datasource = '''  Future<{{entity_name_class}}ResponseModel> {{usecase_name_var}}(
-      {{entity_name_class}}RequestModel fromEntity) async {
+      {{entity_name_class}}RequestModel request) async {
     try {
       final response = await apiClient.get(ApiEndPoint.chekSerialNumber, queryParameters: {
         "param1": "",
