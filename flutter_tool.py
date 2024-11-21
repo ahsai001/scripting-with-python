@@ -275,9 +275,9 @@ elif task=="6":
   /* // use like this : inject()
   
   // examples :
-  inject.registerLazySingleton(() => SerialNumberRemoteDatasource(inject()));
-  inject.registerLazySingleton<ISerialNumberRepository>(() => SerialNumberRepository(inject()));
-  inject.registerFactory(() => CheckAppUpdateUseCase(inject()));
+  inject.registerLazySingleton(() => SerialANumberRemoteDatasource(inject()));
+  inject.registerLazySingleton<ISerialNumberRepository>(() => SerialANumberRepository(inject()));
+  inject.registerFactory(() => CheckAppAUpdateUseCase(inject()));
   */
 
   //DO NOT REMOVE/CHANGE THIS : REGISTER DI
