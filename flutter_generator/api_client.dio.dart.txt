@@ -173,7 +173,7 @@ class ApiClient {
         onReceiveProgress: onReceiveProgress,
       );
       removeCancelToken(url, "get", tag);
-      return getString(response.data);
+      return getString(response);
     } on DioException catch (e) {
       removeCancelToken(url, "get", tag);
       final errorMessage = ApiExceptions.fromDioError(e).message;
@@ -226,7 +226,7 @@ class ApiClient {
         onReceiveProgress: onReceiveProgress,
       );
       removeCancelToken(url, "post", tag);
-      return getString(response.data);
+      return getString(response);
     } on DioException catch (e) {
       removeCancelToken(url, "post", tag);
       final errorMessage = ApiExceptions.fromDioError(e).message;
@@ -276,7 +276,7 @@ class ApiClient {
         onReceiveProgress: onReceiveProgress,
       );
       removeCancelToken(url, "put", tag);
-      return getString(response.data);
+      return getString(response);
     } on DioException catch (e) {
       removeCancelToken(url, "put", tag);
       final errorMessage = ApiExceptions.fromDioError(e).message;
@@ -321,7 +321,7 @@ class ApiClient {
         cancelToken: getCancelToken(url, "delete", tag),
       );
       removeCancelToken(url, "delete", tag);
-      return getString(response.data);
+      return getString(response);
     } on DioException catch (e) {
       removeCancelToken(url, "delete", tag);
       final errorMessage = ApiExceptions.fromDioError(e).message;
