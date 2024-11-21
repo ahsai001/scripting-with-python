@@ -678,6 +678,8 @@ elif task=="12":
         """
         usecase_path = usecase_folder_path_entry.get()
         usecase_name = usecase_name_entry.get().lower()
+        
+        usecase_name_underlined = usecase_name.replace(" ", "_")
         usecase_name_class = usecase_name.title().replace(" ", "")
         usecase_name_var = usecase_name_class[0].lower()+usecase_name_class[1:]
 
@@ -904,6 +906,21 @@ elif task=="12":
             replace_in_file_singleline_string(usecase_file, "{{project_name}}", project_name)
             replace_in_file_singleline_string(usecase_file, "{{name}}", usecase_name_class)
             print("")
+
+
+        # insert to DI in main
+        main_file = os.path.join(project_directory, "lib/main.dart")
+ 
+        if use_repo_selected_option.get()=="userepodatasource":
+            if not exist_line_in_file(main_file, f"  inject.registerFactory(() => {usecase_name_class}Usecase(inject()));"):
+                insert_strings_to_file_before(main_file, f'''  inject.registerFactory(() => {usecase_name_class}Usecase(inject()));\n\n''', "  //DO NOT REMOVE/CHANGE THIS : REGISTER DI")
+        else:
+            if not exist_line_in_file(main_file, f"  inject.registerFactory(() => {usecase_name_class}Usecase());"):
+                insert_strings_to_file_before(main_file, f'''  inject.registerFactory(() => {usecase_name_class}Usecase());\n\n''', "  //DO NOT REMOVE/CHANGE THIS : REGISTER DI")
+
+        if not exist_line_in_file(main_file, f"import 'package:{project_name}/src/domain/usecases/{usecase_path}/{usecase_name_underlined}_usecase.dart';"):
+            insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/src/domain/usecases/{usecase_path}/{usecase_name_underlined}_usecase.dart';\n''', "Future<void> main() async {")
+    
 
         # pub get
         change_directory(project_directory)
