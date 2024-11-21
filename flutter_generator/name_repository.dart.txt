@@ -1,6 +1,6 @@
-import 'package:{{project_name}}/src/data/datasources/{{name_underlined}}/{{name_underlined}}_local_datasource.dart';
-import 'package:{{project_name}}/src/data/datasources/{{name_underlined}}/{{name_underlined}}_remote_datasource.dart';
-import 'package:{{project_name}}/src/domain/irepositories/{{name_underlined}}_irepository.dart';
+import 'package:{{project_name}}/app/data/datasources/{{name_underlined}}/{{name_underlined}}_local_datasource.dart';
+import 'package:{{project_name}}/app/data/datasources/{{name_underlined}}/{{name_underlined}}_remote_datasource.dart';
+import 'package:{{project_name}}/app/domain/irepositories/{{name_underlined}}_irepository.dart';
 
 class {{name_titlecased}}Repository extends I{{name_titlecased}}Repository {
   final {{name_titlecased}}RemoteDatasource {{name_variablecased}}RemoteDatasource;

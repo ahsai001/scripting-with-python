@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:{{project_name}}/src/data/api/api_endpoint.dart';
-import 'package:{{project_name}}/src/data/api/api_exception.dart';
+import 'package:{{project_name}}/app/data/providers/api/api_endpoint.dart';
+import 'package:{{project_name}}/app/data/providers/api/api_exception.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 

@@ -1,4 +1,4 @@
-import 'package:{{project_name}}/src/data/api/api_client.dart';
+import 'package:{{project_name}}/app/data/providers/api/api_client.dart';
 
 class {{name_titlecased}}RemoteDatasource {
   final ApiClient apiClient;

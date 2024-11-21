@@ -1,4 +1,4 @@
-import 'package:{{project_name}}/src/domain/usecases/general_usecase.dart';
+import 'package:{{project_name}}/app/domain/usecases/general_usecase.dart';
 
 class {{name}}Usecase extends IUseCase<void, void> {
   @override

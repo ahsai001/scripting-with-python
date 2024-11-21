@@ -132,22 +132,22 @@ def generateEntityAndModel(project_directory, requestJson,responseJson, folder_p
     entity_name_variablecased= entity_name_titlecased[0].lower()+entity_name_titlecased[1:]
 
     if is_create_entity:
-        generate_class_from_json(requestJson,project_directory,f"lib/src/domain/entities/{folder_path}",f"{entity_name_underlined}_request_entity","dart")
-        generate_class_from_json(responseJson,project_directory,f"lib/src/domain/entities/{folder_path}",f"{entity_name_underlined}_response_entity","dart")
+        generate_class_from_json(requestJson,project_directory,f"lib/app/domain/entities/{folder_path}",f"{entity_name_underlined}_request_entity","dart")
+        generate_class_from_json(responseJson,project_directory,f"lib/app/domain/entities/{folder_path}",f"{entity_name_underlined}_response_entity","dart")
     
     if is_create_model:
-        request_dart_file = generate_class_from_json(requestJson,project_directory,f"lib/src/data/models/{folder_path}",f"{entity_name_underlined}_request_model","dart")
-        response_dart_file = generate_class_from_json(responseJson,project_directory,f"lib/src/data/models/{folder_path}",f"{entity_name_underlined}_response_model","dart")
+        request_dart_file = generate_class_from_json(requestJson,project_directory,f"lib/app/data/models/{folder_path}",f"{entity_name_underlined}_request_model","dart")
+        response_dart_file = generate_class_from_json(responseJson,project_directory,f"lib/app/data/models/{folder_path}",f"{entity_name_underlined}_response_model","dart")
 
         if is_create_entity:
             project_name = get_project_name(project_directory)
             insert_strings_to_file_before(request_dart_file, '''    static {{name}}RequestModel fromEntity({{name}}RequestEntity request) {return {{name}}RequestModel.fromJson(request.toJson());}''',f"factory {entity_name_titlecased}RequestModel.fromJson")
             replace_in_file_singleline_string(request_dart_file, "{{name}}", entity_name_titlecased)
-            insert_strings_to_file_before(request_dart_file, f"import 'package:{project_name}/src/domain/entities/{folder_path}/{entity_name_underlined}_request_entity.dart';\n",f"{entity_name_titlecased}RequestModel {entity_name_variablecased}RequestModelFromJson")
+            insert_strings_to_file_before(request_dart_file, f"import 'package:{project_name}/app/domain/entities/{folder_path}/{entity_name_underlined}_request_entity.dart';\n",f"{entity_name_titlecased}RequestModel {entity_name_variablecased}RequestModelFromJson")
             
             insert_strings_to_file_before(response_dart_file, '''   {{name}}ResponseEntity toEntity() {return {{name}}ResponseEntity.fromJson(toJson());}''',f"factory {entity_name_titlecased}ResponseModel.fromJson")
             replace_in_file_singleline_string(response_dart_file, "{{name}}", entity_name_titlecased)
-            insert_strings_to_file_before(response_dart_file, f"import 'package:{project_name}/src/domain/entities/{folder_path}/{entity_name_underlined}_response_entity.dart';\n",f"{entity_name_titlecased}ResponseModel {entity_name_variablecased}ResponseModelFromJson")
+            insert_strings_to_file_before(response_dart_file, f"import 'package:{project_name}/app/domain/entities/{folder_path}/{entity_name_underlined}_response_entity.dart';\n",f"{entity_name_titlecased}ResponseModel {entity_name_variablecased}ResponseModelFromJson")
         
 
 if task=="1":  
@@ -170,17 +170,17 @@ if task=="1":
 
     # split main.dart and app.dart
     change_directory(project_root_directory)
-    os.makedirs("lib/src", exist_ok=True)
-    copy_file("lib/main.dart", "lib/src/app.dart")
+    os.makedirs("lib/app", exist_ok=True)
+    copy_file("lib/main.dart", "lib/app/app.dart")
     main_file = os.path.join(project_root_directory, "lib/main.dart")
-    app_file = os.path.join(project_root_directory, "lib/src/app.dart")
+    app_file = os.path.join(project_root_directory, "lib/app/app.dart")
     remove_all_before(app_file, "class MyApp extends StatelessWidget {")
     remove_all_after(main_file, "class MyApp extends StatelessWidget {",include_keyword=True)
     prepend_to_file(app_file, "import 'package:flutter/material.dart';\n")
-    prepend_to_file(main_file, f"import 'package:{project_name}/src/app.dart';")
+    prepend_to_file(main_file, f"import 'package:{project_name}/app/app.dart';")
     
     test_file = os.path.join(project_root_directory, "test/widget_test.dart")
-    replace_in_file_singleline_string(test_file,f"import 'package:{project_name}/main.dart';",f"import 'package:{project_name}/src/app.dart';\n")
+    replace_in_file_singleline_string(test_file,f"import 'package:{project_name}/main.dart';",f"import 'package:{project_name}/app/app.dart';\n")
 
     # pub get
     command = f"{flutter_command} pub get"
@@ -197,18 +197,27 @@ elif task=="2":
     # Define folder structure
     folders = [
         "lib",
-        "lib/src",
-        "lib/src/app", 
-        "lib/src/domain",
-        "lib/src/data",
-        "lib/src/app/pages",
-        "lib/src/app/widgets",
-        "lib/src/domain/usecases",
-        "lib/src/domain/entities",
-        "lib/src/domain/irepositories",
-        "lib/src/data/repositories",
-        "lib/src/data/datasources",
-        "lib/src/data/models",
+        "lib/app",
+        "lib/app/presentation", 
+        "lib/app/domain",
+        "lib/app/data",
+        "lib/app/presentation/pages",
+        "lib/app/presentation/widgets",
+        "lib/app/domain/usecases",
+        "lib/app/domain/entities",
+        "lib/app/domain/irepositories",
+        "lib/app/data/repositories",
+        "lib/app/data/datasources",
+        "lib/app/data/providers",
+        "lib/app/data/providers/api",
+        "lib/app/data/providers/database",
+        "lib/app/data/providers/preference",
+        "lib/app/data/models",
+        "lib/app/shared",
+        "lib/app/shared/utils",
+        "lib/app/shared/configs",
+        "lib/app/shared/extensions",
+        
     ]
 
     # Create folders within the project
@@ -217,7 +226,7 @@ elif task=="2":
         os.makedirs(full_path, exist_ok=True)
 
     # copy some files
-    copy_file(os.path.join(flutter_generator_dir,"general_usecase.dart.txt"), os.path.join(project_dir, "lib/src/domain/usecases/general_usecase.dart"))
+    copy_file(os.path.join(flutter_generator_dir,"general_usecase.dart.txt"), os.path.join(project_dir, "lib/app/domain/usecases/general_usecase.dart"))
 
     print(f"Clean architecture folders created at: {project_dir}")
 elif task=="3":
@@ -322,9 +331,9 @@ elif task=="7":
     print(f"flutter_generator_dir : {flutter_generator_dir}")
 
     # copy some files
-    preference_dir = os.path.join(project_directory, "lib/src/data/preference")
+    preference_dir = os.path.join(project_directory, "lib/app/data/providers/preference")
     os.makedirs(preference_dir, exist_ok=True)
-    copy_file(os.path.join(flutter_generator_dir,"app_preference.dart.txt"), os.path.join(project_directory, "lib/src/data/preference/app_preference.dart"))
+    copy_file(os.path.join(flutter_generator_dir,"app_preference.dart.txt"), os.path.join(project_directory, "lib/app/data/providers/preference/app_preference.dart"))
     
     main_file = os.path.join(project_directory, "lib/main.dart")
     if not exist_line_in_file(main_file, "  inject.registerLazySingletonAsync<AppPreference>("):    
@@ -333,8 +342,8 @@ elif task=="7":
 
     project_name = get_project_name(project_directory)
 
-    if not exist_line_in_file(main_file, f"import 'package:{project_name}/src/data/preference/app_preference.dart';"):
-        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/src/data/preference/app_preference.dart';\n\n''', "Future<void> main() async {")
+    if not exist_line_in_file(main_file, f"import 'package:{project_name}/app/data/providers/preference/app_preference.dart';"):
+        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/app/data/providers/preference/app_preference.dart';\n\n''', "Future<void> main() async {")
 
     # add dependecy
     change_directory(project_directory)
@@ -355,13 +364,13 @@ elif task=="8":
     print(f"flutter_generator_dir : {flutter_generator_dir}")
 
 
-    api_dir = os.path.join(project_directory, "lib/src/data/api")
+    api_dir = os.path.join(project_directory, "lib/app/data/providers/api")
     env_dir = os.path.join(project_directory, "lib/env")
     # copy some files
     os.makedirs(api_dir, exist_ok=True)
-    copy_file(os.path.join(flutter_generator_dir,"api_client.dio.dart.txt"), os.path.join(project_directory, "lib/src/data/api/api_client.dart"))
-    copy_file(os.path.join(flutter_generator_dir,"api_endpoint.dart.txt"), os.path.join(project_directory, "lib/src/data/api/api_endpoint.dart"))
-    copy_file(os.path.join(flutter_generator_dir,"api_exception.dio.dart.txt"), os.path.join(project_directory, "lib/src/data/api/api_exception.dart"))
+    copy_file(os.path.join(flutter_generator_dir,"api_client.dio.dart.txt"), os.path.join(project_directory, "lib/app/data/providers/api/api_client.dart"))
+    copy_file(os.path.join(flutter_generator_dir,"api_endpoint.dart.txt"), os.path.join(project_directory, "lib/app/data/providers/api/api_endpoint.dart"))
+    copy_file(os.path.join(flutter_generator_dir,"api_exception.dio.dart.txt"), os.path.join(project_directory, "lib/app/data/providers/api/api_exception.dart"))
     os.makedirs(env_dir, exist_ok=True)
     copy_file(os.path.join(flutter_generator_dir,"env.dart.txt"), os.path.join(project_directory, "lib/env/env.dart"))
     copy_file(os.path.join(flutter_generator_dir,".env.txt"), os.path.join(project_directory, ".env"))
@@ -374,8 +383,8 @@ elif task=="8":
     run_command(command)
     
    
-    api_client_file = os.path.join(project_directory, "lib/src/data/api/api_client.dart")
-    api_endpoint_file = os.path.join(project_directory, "lib/src/data/api/api_endpoint.dart")
+    api_client_file = os.path.join(project_directory, "lib/app/data/providers/api/api_client.dart")
+    api_endpoint_file = os.path.join(project_directory, "lib/app/data/providers/api/api_endpoint.dart")
     pubspec_yaml_file = os.path.join(project_directory, "pubspec.yaml")
     
     # replace content some files
@@ -391,8 +400,8 @@ elif task=="8":
   await apiClient.initialize();
   inject.registerSingleton<ApiClient>(apiClient);\n''', "inject.registerLazySingleton(() => Logger());")
 
-    if not exist_line_in_file(main_file, f"import 'package:{project_name}/src/data/api/api_client.dart';"): 
-        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/src/data/api/api_client.dart';\n''', "Future<void> main() async {")
+    if not exist_line_in_file(main_file, f"import 'package:{project_name}/app/data/providers/api/api_client.dart';"): 
+        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/app/data/providers/api/api_client.dart';\n''', "Future<void> main() async {")
     
     
     # build runner
@@ -413,10 +422,10 @@ elif task=="9":
     print(f"flutter_generator_dir : {flutter_generator_dir}")
 
 
-    database_dir = os.path.join(project_directory, "lib/src/data/database")
+    database_dir = os.path.join(project_directory, "lib/app/data/providers/database")
     # copy some files
     os.makedirs(database_dir, exist_ok=True)
-    copy_file(os.path.join(flutter_generator_dir,"drift_provider.dart.txt"), os.path.join(project_directory, "lib/src/data/database/drift_provider.dart"))
+    copy_file(os.path.join(flutter_generator_dir,"drift_provider.dart.txt"), os.path.join(project_directory, "lib/app/data/providers/database/drift_provider.dart"))
     
 
     change_directory(project_directory)
@@ -435,8 +444,8 @@ elif task=="9":
         insert_strings_to_file_before(main_file, '''  inject.registerLazySingleton<DriftProvider>(() => DriftProvider());\n\n''', "inject.registerLazySingleton(() => Logger());")
     
 
-    if not exist_line_in_file(main_file, f"import 'package:{project_name}/src/data/database/drift_provider.dart';"): 
-        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/src/data/database/drift_provider.dart';\n''', "Future<void> main() async {")
+    if not exist_line_in_file(main_file, f"import 'package:{project_name}/app/data/providers/database/drift_provider.dart';"): 
+        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/app/data/providers/database/drift_provider.dart';\n''', "Future<void> main() async {")
    
 
     
@@ -465,21 +474,21 @@ elif task=="10":
     name_variablecased= name_titlecased[0].lower()+name_titlecased[1:]
 
     # make some folders
-    irepos_dir = os.path.join(project_directory, "lib/src/domain/irepositories")
+    irepos_dir = os.path.join(project_directory, "lib/app/domain/irepositories")
     os.makedirs(irepos_dir, exist_ok=True)
-    usecases_dir = os.path.join(project_directory, f"lib/src/domain/usecases/{name_underlined}")
+    usecases_dir = os.path.join(project_directory, f"lib/app/domain/usecases/{name_underlined}")
     os.makedirs(usecases_dir, exist_ok=True)
-    entities_dir = os.path.join(project_directory, f"lib/src/domain/entities/{name_underlined}")
+    entities_dir = os.path.join(project_directory, f"lib/app/domain/entities/{name_underlined}")
     os.makedirs(entities_dir, exist_ok=True)
 
-    repos_dir = os.path.join(project_directory, "lib/src/data/repositories")
+    repos_dir = os.path.join(project_directory, "lib/app/data/repositories")
     os.makedirs(repos_dir, exist_ok=True)
-    datasources_dir = os.path.join(project_directory, f"lib/src/data/datasources/{name_underlined}")
+    datasources_dir = os.path.join(project_directory, f"lib/app/data/datasources/{name_underlined}")
     os.makedirs(datasources_dir, exist_ok=True)
-    models_dir = os.path.join(project_directory, f"lib/src/data/models/{name_underlined}")
+    models_dir = os.path.join(project_directory, f"lib/app/data/models/{name_underlined}")
     os.makedirs(models_dir, exist_ok=True)
 
-    utils_dir = os.path.join(project_directory, "lib/src/utils")
+    utils_dir = os.path.join(project_directory, "lib/app/shared/utils")
     os.makedirs(utils_dir, exist_ok=True)
 
     widget_util_file = os.path.join(utils_dir, "widget_util.dart")
@@ -540,17 +549,17 @@ elif task=="10":
         insert_strings_to_file_before(main_file, f'''  inject.registerLazySingleton<I{name_titlecased}Repository>(() => {name_titlecased}Repository(inject(),inject()));\n\n''', "  //DO NOT REMOVE/CHANGE THIS : REGISTER DI")
     
 
-    if not exist_line_in_file(main_file, f"import 'package:{project_name}/src/data/datasources/{name_underlined}/{name_underlined}_local_datasource.dart';"): 
-        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/src/data/datasources/{name_underlined}/{name_underlined}_local_datasource.dart';\n''', "Future<void> main() async {")
+    if not exist_line_in_file(main_file, f"import 'package:{project_name}/app/data/datasources/{name_underlined}/{name_underlined}_local_datasource.dart';"): 
+        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/app/data/datasources/{name_underlined}/{name_underlined}_local_datasource.dart';\n''', "Future<void> main() async {")
    
-    if not exist_line_in_file(main_file, f"import 'package:{project_name}/src/data/datasources/{name_underlined}/{name_underlined}_remote_datasource.dart';"): 
-        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/src/data/datasources/{name_underlined}/{name_underlined}_remote_datasource.dart';\n''', "Future<void> main() async {")
+    if not exist_line_in_file(main_file, f"import 'package:{project_name}/app/data/datasources/{name_underlined}/{name_underlined}_remote_datasource.dart';"): 
+        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/app/data/datasources/{name_underlined}/{name_underlined}_remote_datasource.dart';\n''', "Future<void> main() async {")
     
-    if not exist_line_in_file(main_file, f"import 'package:{project_name}/src/data/repositories/{name_underlined}_repository.dart';"): 
-        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/src/data/repositories/{name_underlined}_repository.dart';\n''', "Future<void> main() async {")
+    if not exist_line_in_file(main_file, f"import 'package:{project_name}/app/data/repositories/{name_underlined}_repository.dart';"): 
+        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/app/data/repositories/{name_underlined}_repository.dart';\n''', "Future<void> main() async {")
 
-    if not exist_line_in_file(main_file, f"import 'package:{project_name}/src/domain/irepositories/{name_underlined}_irepository.dart';"): 
-        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/src/domain/irepositories/{name_underlined}_irepository.dart';\n''', "Future<void> main() async {")
+    if not exist_line_in_file(main_file, f"import 'package:{project_name}/app/domain/irepositories/{name_underlined}_irepository.dart';"): 
+        insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/app/domain/irepositories/{name_underlined}_irepository.dart';\n''', "Future<void> main() async {")
 
     
     change_directory(project_directory)
@@ -698,13 +707,13 @@ elif task=="12":
             # use repo/datasource
             
             datasource_filepath = datasource_text.get()
-            datasource_path_to_filename = datasource_filepath.split("/lib/src/data/datasources/")[1].replace("_remote_datasource.dart", "")
+            datasource_path_to_filename = datasource_filepath.split("/lib/app/data/datasources/")[1].replace("_remote_datasource.dart", "")
             datasource_path_to_filename_array = datasource_path_to_filename.split("/")
             datasource_name = datasource_path_to_filename_array[-1].replace("_", " ")
             datasource_path_to_filename_array.pop()
             datasource_folder_path = "/".join(datasource_path_to_filename_array)
 
-            irepo_filepath = os.path.join(project_directory, f"lib/src/domain/irepositories/{datasource_name.replace(" ","_")}_irepository.dart")
+            irepo_filepath = os.path.join(project_directory, f"lib/app/domain/irepositories/{datasource_name.replace(" ","_")}_irepository.dart")
 
             entity_name = "" # app online
             entity_folder_path = "" #path/to/folder
@@ -718,7 +727,7 @@ elif task=="12":
                 generateEntityAndModel(project_directory, requestJson, responseJson, entity_folder_path, entity_name, True, True)
             else:
                 full_request_entity_path = request_entity_option2_text.get()
-                path_to_file_request_entity = full_request_entity_path.split("/lib/src/domain/entities/")[1]
+                path_to_file_request_entity = full_request_entity_path.split("/lib/app/domain/entities/")[1]
                 path_to_file_request_entity = path_to_file_request_entity.replace("_request_entity.dart", "").replace("_response_entity.dart", "")
                 request_entity_path_array = path_to_file_request_entity.split("/")
                 entity_name = request_entity_path_array[-1].replace("_", " ")
@@ -750,10 +759,10 @@ elif task=="12":
             # update irepo
             insert_strings_to_file_before(irepo_filepath, f'''Future<{entity_name_class}ResponseEntity> {usecase_name_var}({entity_name_class}RequestEntity request);\n''', "  //DO NOT REMOVE/CHANGE THIS : IREPOSITORY")
             
-            import_request_entity = f'''import 'package:{project_name}/src/domain/entities/{entity_folder_path}/{entity_name_file}_request_entity.dart';'''
-            import_response_entity = f'''import 'package:{project_name}/src/domain/entities/{entity_folder_path}/{entity_name_file}_response_entity.dart';\n'''
-            import_request_model = f'''import 'package:{project_name}/src/data/models/{entity_folder_path}/{entity_name_file}_request_model.dart';'''
-            import_response_model = f'''import 'package:{project_name}/src/data/models/{entity_folder_path}/{entity_name_file}_response_model.dart';\n'''
+            import_request_entity = f'''import 'package:{project_name}/app/domain/entities/{entity_folder_path}/{entity_name_file}_request_entity.dart';'''
+            import_response_entity = f'''import 'package:{project_name}/app/domain/entities/{entity_folder_path}/{entity_name_file}_response_entity.dart';\n'''
+            import_request_model = f'''import 'package:{project_name}/app/data/models/{entity_folder_path}/{entity_name_file}_request_model.dart';'''
+            import_response_model = f'''import 'package:{project_name}/app/data/models/{entity_folder_path}/{entity_name_file}_response_model.dart';\n'''
 
             if not exist_line_in_file(irepo_filepath, import_request_entity): 
                 insert_strings_to_file_before(irepo_filepath, import_request_entity, f"abstract class I{datasource_name_class}Repository")
@@ -761,7 +770,7 @@ elif task=="12":
                 insert_strings_to_file_before(irepo_filepath, import_response_entity, f"abstract class I{datasource_name_class}Repository")
 
             # update repo
-            repo_filepath = os.path.join(project_directory, f"lib/src/data/repositories/{datasource_name.replace(" ", "_")}_repository.dart")
+            repo_filepath = os.path.join(project_directory, f"lib/app/data/repositories/{datasource_name.replace(" ", "_")}_repository.dart")
             
             method_at_repo = '''  @override
   Future<{{entity_name_class}}ResponseEntity> {{usecase_name_var}}({{entity_name_class}}RequestEntity request) async {
@@ -784,7 +793,7 @@ elif task=="12":
                 insert_strings_to_file_before(repo_filepath, import_response_model, f"class {datasource_name_class}Repository extends I{datasource_name_class}Repository")
 
             # update remote datasources
-            remote_datasource_filepath = os.path.join(project_directory, f"lib/src/data/datasources/{datasource_folder_path}/{datasource_name.replace(" ", "_")}_remote_datasource.dart")
+            remote_datasource_filepath = os.path.join(project_directory, f"lib/app/data/datasources/{datasource_folder_path}/{datasource_name.replace(" ", "_")}_remote_datasource.dart")
             
             method_get_at_datasource = '''  Future<{{entity_name_class}}ResponseModel> {{usecase_name_var}}(
       {{entity_name_class}}RequestModel request) async {
@@ -832,8 +841,8 @@ elif task=="12":
                 insert_strings_to_file_before(remote_datasource_filepath, import_response_model, f"class {datasource_name_class}RemoteDatasource")
             if not exist_line_in_file(remote_datasource_filepath, "import 'package:flutter/foundation.dart';"): 
                 insert_strings_to_file_before(remote_datasource_filepath, "import 'package:flutter/foundation.dart';", f"class {datasource_name_class}RemoteDatasource")
-            if not exist_line_in_file(remote_datasource_filepath, f"import 'package:{project_name}/src/data/api/api_endpoint.dart';"): 
-                insert_strings_to_file_before(remote_datasource_filepath, f"import 'package:{project_name}/src/data/api/api_endpoint.dart';\n", f"class {datasource_name_class}RemoteDatasource")
+            if not exist_line_in_file(remote_datasource_filepath, f"import 'package:{project_name}/app/data/providers/api/api_endpoint.dart';"): 
+                insert_strings_to_file_before(remote_datasource_filepath, f"import 'package:{project_name}/app/data/providers/api/api_endpoint.dart';\n", f"class {datasource_name_class}RemoteDatasource")
             
             if(get_or_post_selected_option.get()=="post"):
                 if not exist_line_in_file(remote_datasource_filepath, "import 'package:path/path.dart';"): 
@@ -885,7 +894,7 @@ elif task=="12":
       return Future.error(e);
     }
   }\n'''
-            local_datasource_filepath = os.path.join(project_directory, f"lib/src/data/datasources/{datasource_folder_path}/{datasource_name.replace(" ", "_")}_local_datasource.dart")
+            local_datasource_filepath = os.path.join(project_directory, f"lib/app/data/datasources/{datasource_folder_path}/{datasource_name.replace(" ", "_")}_local_datasource.dart")
             insert_strings_to_file_before(local_datasource_filepath, method_at_local_datasource, "  //DO NOT REMOVE/CHANGE THIS : LOCALDATASOURCE")
             replace_in_file_singleline_string(local_datasource_filepath, "{{entity_name_class}}", entity_name_class)
             replace_in_file_singleline_string(local_datasource_filepath, "{{usecase_name_class}}", usecase_name_class)
@@ -918,8 +927,8 @@ elif task=="12":
             if not exist_line_in_file(main_file, f"  inject.registerFactory(() => {usecase_name_class}Usecase());"):
                 insert_strings_to_file_before(main_file, f'''  inject.registerFactory(() => {usecase_name_class}Usecase());\n\n''', "  //DO NOT REMOVE/CHANGE THIS : REGISTER DI")
 
-        if not exist_line_in_file(main_file, f"import 'package:{project_name}/src/domain/usecases/{usecase_path}/{usecase_name_underlined}_usecase.dart';"):
-            insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/src/domain/usecases/{usecase_path}/{usecase_name_underlined}_usecase.dart';\n''', "Future<void> main() async {")
+        if not exist_line_in_file(main_file, f"import 'package:{project_name}/app/domain/usecases/{usecase_path}/{usecase_name_underlined}_usecase.dart';"):
+            insert_strings_to_file_before(main_file, f'''import 'package:{project_name}/app/domain/usecases/{usecase_path}/{usecase_name_underlined}_usecase.dart';\n''', "Future<void> main() async {")
     
 
         # pub get
@@ -940,10 +949,10 @@ elif task=="12":
     print(f"project_directory : {project_directory}")
     print(f"flutter_generator_dir : {flutter_generator_dir}")
 
-    entity_dir = os.path.join(project_directory, "lib/src/domain/entities")
-    irepo_dir = os.path.join(project_directory, "lib/src/domain/irepositories")
-    datasource_dir = os.path.join(project_directory, "lib/src/data/datasources")
-    usecase_dir = os.path.join(project_directory, "lib/src/domain/usecases")
+    entity_dir = os.path.join(project_directory, "lib/app/domain/entities")
+    irepo_dir = os.path.join(project_directory, "lib/app/domain/irepositories")
+    datasource_dir = os.path.join(project_directory, "lib/app/data/datasources")
+    usecase_dir = os.path.join(project_directory, "lib/app/domain/usecases")
 
     # Create the main window
     window = tk.Tk()
@@ -1128,7 +1137,7 @@ elif task=="13":
     run_command(command)
 
 
-    app_file = os.path.join(project_directory, "lib/src/app.dart")
+    app_file = os.path.join(project_directory, "lib/app/app.dart")
 
     replace_in_file_singleline_string(app_file,"    return MaterialApp(", "    return MaterialApp.router(")
 
@@ -1211,12 +1220,12 @@ elif task=="13":
      # copy some files
     change_directory(script_directory)
 
-    information_directory = os.path.join(project_directory, "lib/src/app/pages/information")
+    information_directory = os.path.join(project_directory, "lib/app/presentation/pages/information")
     print(f"information_directory : {information_directory}")
     os.makedirs(information_directory, exist_ok=True)
     copy_file(os.path.join(flutter_generator_dir,"information_page.dart.txt"), os.path.join(information_directory, "information_page.dart"))
 
-    homepage_directory = os.path.join(project_directory, "lib/src/app/pages/home")
+    homepage_directory = os.path.join(project_directory, "lib/app/presentation/pages/home")
     print(f"homepage_directory : {homepage_directory}")
     os.makedirs(homepage_directory, exist_ok=True)
     copy_file(os.path.join(flutter_generator_dir,"home_page.dart.txt"), os.path.join(homepage_directory, "home_page.dart"))
@@ -1224,9 +1233,9 @@ elif task=="13":
     # import 'package:firebase_auth/firebase_auth.dart';
     # import 'package:firebase_ui_auth/firebase_ui_auth.dart';
     # import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';
-    # import 'package:nasab/src/app/pages/information/information_page.dart';
+    # import 'package:nasab/app/presentation/pages/information/information_page.dart';
     # import 'package:go_router/go_router.dart';
-    # import 'package:nasab/src/app/pages/home/home_page.dart';
+    # import 'package:nasab/app/presentation/pages/home/home_page.dart';
 
     project_name = get_project_name(project_directory)
 
@@ -1236,12 +1245,12 @@ elif task=="13":
         insert_strings_to_file_before(app_file, "import 'package:firebase_ui_auth/firebase_ui_auth.dart';\n", "class MyApp extends State")
     if not exist_line_in_file(app_file, "import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';"): 
         insert_strings_to_file_before(app_file, "import 'package:firebase_ui_oauth_google/firebase_ui_oauth_google.dart';\n", "class MyApp extends State")
-    if not exist_line_in_file(app_file, f"import 'package:{project_name}/src/app/pages/information/information_page.dart';"): 
-        insert_strings_to_file_before(app_file, f"import 'package:{project_name}/src/app/pages/information/information_page.dart';\n", "class MyApp extends State")
+    if not exist_line_in_file(app_file, f"import 'package:{project_name}/app/presentation/pages/information/information_page.dart';"): 
+        insert_strings_to_file_before(app_file, f"import 'package:{project_name}/app/presentation/pages/information/information_page.dart';\n", "class MyApp extends State")
     if not exist_line_in_file(app_file, "import 'import 'package:go_router/go_router.dart';"): 
         insert_strings_to_file_before(app_file, "import 'package:go_router/go_router.dart';\n", "class MyApp extends State")
-    if not exist_line_in_file(app_file, f"import 'package:{project_name}/src/app/pages/home/home_page.dart';"): 
-        insert_strings_to_file_before(app_file, f"import 'package:{project_name}/src/app/pages/home/home_page.dart';\n", "class MyApp extends State")
+    if not exist_line_in_file(app_file, f"import 'package:{project_name}/app/presentation/pages/home/home_page.dart';"): 
+        insert_strings_to_file_before(app_file, f"import 'package:{project_name}/app/presentation/pages/home/home_page.dart';\n", "class MyApp extends State")
     
 
 
