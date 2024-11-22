@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -341,17 +342,19 @@ class ApiClient {
 }
 
 class FileUploadData {
-  final String filePath;
-  final String fileName;
+  final String? filePath;
+  final Uint8List? fileBytes;
+  final String? fileName;
+  final String? fileMimeType;
 
-  FileUploadData(this.filePath, this.fileName);
+  FileUploadData(
+      this.filePath, this.fileBytes, this.fileName, this.fileMimeType);
 }
 
 extension FileUploadDataMap on Map {
   Future<FormData> convertAsFormData() async {
     Map<String, dynamic> data = {};
     var keyList = keys.toList();
-    //List<MapEntry<String, MultipartFile>> files = [];
     for (var i = 0; i < keyList.length; i++) {
       var key = keyList[i];
       var value = this[key];
@@ -387,33 +390,38 @@ extension FileUploadDataMap on Map {
         }
       } else {
         if (value is FileUploadData) {
-          value = await MultipartFile.fromFile(value.filePath,
-              filename: value.fileName);
+          value = await getMultiPartFile(value);
         } else if (value is List<FileUploadData>) {
           int length = value.length;
           final fileList = <MultipartFile>[];
           for (var j = 0; j < length; j++) {
             final FileUploadData fileData = value[j];
-            fileList.add(await MultipartFile.fromFile(fileData.filePath,
-                filename: fileData.fileName));
-
-            // files.add(MapEntry(
-            //   "$key",
-            //   MultipartFile.fromFileSync(fileData.filePath,
-            //       filename: fileData.fileName),
-            // ));
+            final multiPartFile = await getMultiPartFile(fileData);
+            if (multiPartFile != null) fileList.add(multiPartFile);
           }
-          //continue;
           value = fileList;
         }
         data.putIfAbsent(key, () => value ?? "");
       }
     }
     final formData = FormData.fromMap(data);
-
-    // if (files.isNotEmpty) {
-    //   formData.files.addAll(files);
-    // }
     return formData;
+  }
+
+  FutureOr<MultipartFile?> getMultiPartFile(FileUploadData fileData) {
+    if (fileData.fileBytes != null) {
+      return MultipartFile.fromBytes(fileData.fileBytes!,
+          filename: fileData.fileName,
+          contentType: fileData.fileMimeType != null
+              ? DioMediaType.parse(fileData.fileMimeType!)
+              : null);
+    } else if (fileData.filePath != null) {
+      return MultipartFile.fromFile(fileData.filePath ?? "",
+          filename: fileData.fileName,
+          contentType: fileData.fileMimeType != null
+              ? DioMediaType.parse(fileData.fileMimeType!)
+              : null);
+    }
+    return null;
   }
 }
