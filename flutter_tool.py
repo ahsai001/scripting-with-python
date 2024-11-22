@@ -813,7 +813,7 @@ elif task=="12":
       var formData = {
         'param1': "",
         'files[]': ["", ""]
-            .map((file) => FileUploadData(file, basename(file)))
+            .map((file) => FileUploadData(file, null, basename(file), null))
             .toList(),
       };
       final response = await apiClient.post(ApiEndPoint.chekSerialNumber,
