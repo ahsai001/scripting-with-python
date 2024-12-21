@@ -713,7 +713,7 @@ elif task=="12":
             datasource_path_to_filename_array.pop()
             datasource_folder_path = "/".join(datasource_path_to_filename_array)
 
-            irepo_filepath = os.path.join(project_directory, f"lib/app/domain/irepositories/{datasource_name.replace(" ","_")}_irepository.dart")
+            irepo_filepath = os.path.join(project_directory, f"lib/app/domain/irepositories/{datasource_name.replace(' ','_')}_irepository.dart")
 
             entity_name = "" # app online
             entity_folder_path = "" #path/to/folder
@@ -770,7 +770,7 @@ elif task=="12":
                 insert_strings_to_file_before(irepo_filepath, import_response_entity, f"abstract class I{datasource_name_class}Repository")
 
             # update repo
-            repo_filepath = os.path.join(project_directory, f"lib/app/data/repositories/{datasource_name.replace(" ", "_")}_repository.dart")
+            repo_filepath = os.path.join(project_directory, f"lib/app/data/repositories/{datasource_name.replace(' ', '_')}_repository.dart")
             
             method_at_repo = '''  @override
   Future<{{entity_name_class}}ResponseEntity> {{usecase_name_var}}({{entity_name_class}}RequestEntity request) async {
@@ -793,7 +793,7 @@ elif task=="12":
                 insert_strings_to_file_before(repo_filepath, import_response_model, f"class {datasource_name_class}Repository extends I{datasource_name_class}Repository")
 
             # update remote datasources
-            remote_datasource_filepath = os.path.join(project_directory, f"lib/app/data/datasources/{datasource_folder_path}/{datasource_name.replace(" ", "_")}_remote_datasource.dart")
+            remote_datasource_filepath = os.path.join(project_directory, f"lib/app/data/datasources/{datasource_folder_path}/{datasource_name.replace(' ', '_')}_remote_datasource.dart")
             
             method_get_at_datasource = '''  Future<{{entity_name_class}}ResponseModel> {{usecase_name_var}}(
       {{entity_name_class}}RequestModel request) async {
@@ -894,7 +894,7 @@ elif task=="12":
       return Future.error(e);
     }
   }\n'''
-            local_datasource_filepath = os.path.join(project_directory, f"lib/app/data/datasources/{datasource_folder_path}/{datasource_name.replace(" ", "_")}_local_datasource.dart")
+            local_datasource_filepath = os.path.join(project_directory, f"lib/app/data/datasources/{datasource_folder_path}/{datasource_name.replace(' ', '_')}_local_datasource.dart")
             insert_strings_to_file_before(local_datasource_filepath, method_at_local_datasource, "  //DO NOT REMOVE/CHANGE THIS : LOCALDATASOURCE")
             replace_in_file_singleline_string(local_datasource_filepath, "{{entity_name_class}}", entity_name_class)
             replace_in_file_singleline_string(local_datasource_filepath, "{{usecase_name_class}}", usecase_name_class)
