@@ -198,6 +198,7 @@ class ApiClient {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headerParameters,
     int attemptIndex = 0,
+    bool isRequestStringJson = true,
     bool? isMultipart,
     String? tag,
     ProgressCallback? onSendProgress,
@@ -205,16 +206,24 @@ class ApiClient {
   }) async {
     try {
       FormData? newData;
-      if (data is Map) {
-        newData = await data.convertAsFormData();
-      }
-
       final options = Options();
       options.headers = headerParameters;
-      if (isMultipart ?? false) {
-        options.sendTimeout = const Duration(seconds: 50);
-        options.receiveTimeout = const Duration(seconds: 50);
-        options.contentType = Headers.multipartFormDataContentType;
+
+      if (data is Map) {
+        if (isMultipart == true) {
+          newData = await data.convertAsFormData();
+          options.sendTimeout = const Duration(seconds: 50);
+          options.receiveTimeout = const Duration(seconds: 50);
+          options.contentType = Headers.multipartFormDataContentType;
+        } else {
+          options.contentType = Headers.formUrlEncodedContentType;
+        }
+      } else {
+        if (isRequestStringJson == true) {
+          options.contentType = Headers.jsonContentType;
+        } else {
+          options.contentType = Headers.textPlainContentType;
+        }
       }
 
       final Response response = await _dio.post(
@@ -238,6 +247,7 @@ class ApiClient {
             queryParameters: queryParameters,
             headerParameters: headerParameters,
             attemptIndex: attemptIndex + 1,
+            isRequestStringJson: isRequestStringJson,
             isMultipart: isMultipart,
             tag: tag,
             onSendProgress: onSendProgress,
@@ -254,18 +264,33 @@ class ApiClient {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headerParameters,
     int attemptIndex = 0,
+    bool isRequestStringJson = true,
+    bool? isMultipart,
     String? tag,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
       FormData? newData;
-      if (data is Map) {
-        newData = await data.convertAsFormData();
-      }
-
       final options = Options();
       options.headers = headerParameters;
+
+      if (data is Map) {
+        if (isMultipart == true) {
+          newData = await data.convertAsFormData();
+          options.sendTimeout = const Duration(seconds: 50);
+          options.receiveTimeout = const Duration(seconds: 50);
+          options.contentType = Headers.multipartFormDataContentType;
+        } else {
+          options.contentType = Headers.formUrlEncodedContentType;
+        }
+      } else {
+        if (isRequestStringJson == true) {
+          options.contentType = Headers.jsonContentType;
+        } else {
+          options.contentType = Headers.textPlainContentType;
+        }
+      }
 
       final Response response = await _dio.put(
         url,
@@ -288,6 +313,8 @@ class ApiClient {
             queryParameters: queryParameters,
             headerParameters: headerParameters,
             attemptIndex: attemptIndex + 1,
+            isRequestStringJson: isRequestStringJson,
+            isMultipart: isMultipart,
             tag: tag,
             onSendProgress: onSendProgress,
             onReceiveProgress: onReceiveProgress);
@@ -303,20 +330,26 @@ class ApiClient {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic>? headerParameters,
     int attemptIndex = 0,
+    bool isRequestStringJson = true,
     String? tag,
   }) async {
     try {
-      FormData? newData;
-      if (data is Map) {
-        newData = await data.convertAsFormData();
-      }
-
       final options = Options();
       options.headers = headerParameters;
 
+      if (data is Map) {
+        options.contentType = Headers.formUrlEncodedContentType;
+      } else {
+        if (isRequestStringJson == true) {
+          options.contentType = Headers.jsonContentType;
+        } else {
+          options.contentType = Headers.textPlainContentType;
+        }
+      }
+
       final Response response = await _dio.delete(
         url,
-        data: newData ?? data,
+        data: data,
         queryParameters: queryParameters,
         options: options,
         cancelToken: getCancelToken(url, "delete", tag),
@@ -333,6 +366,7 @@ class ApiClient {
             queryParameters: queryParameters,
             headerParameters: headerParameters,
             attemptIndex: attemptIndex + 1,
+            isRequestStringJson: isRequestStringJson,
             tag: tag);
       } else {
         throw errorMessage;
@@ -340,6 +374,7 @@ class ApiClient {
     }
   }
 }
+
 
 class FileUploadData {
   final String? filePath;
