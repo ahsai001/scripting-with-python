@@ -132,12 +132,12 @@ def generateEntityAndModel(project_directory, requestJson,responseJson, folder_p
     entity_name_variablecased= entity_name_titlecased[0].lower()+entity_name_titlecased[1:]
 
     if is_create_entity:
-        generate_class_from_json(requestJson,project_directory,f"lib/app/domain/entities/{folder_path}",f"{entity_name_underlined}_request_entity","dart")
-        generate_class_from_json(responseJson,project_directory,f"lib/app/domain/entities/{folder_path}",f"{entity_name_underlined}_response_entity","dart")
+        generate_class_from_json(requestJson,project_directory,f"lib/app/domain/entities/{folder_path}",f"{entity_name_underlined}_request_entity","dart",f"{entity_name_titlecased}RequestEntity")
+        generate_class_from_json(responseJson,project_directory,f"lib/app/domain/entities/{folder_path}",f"{entity_name_underlined}_response_entity","dart",f"{entity_name_titlecased}ResponseEntity")
     
     if is_create_model:
-        request_dart_file = generate_class_from_json(requestJson,project_directory,f"lib/app/data/models/{folder_path}",f"{entity_name_underlined}_request_model","dart")
-        response_dart_file = generate_class_from_json(responseJson,project_directory,f"lib/app/data/models/{folder_path}",f"{entity_name_underlined}_response_model","dart")
+        request_dart_file = generate_class_from_json(requestJson,project_directory,f"lib/app/data/models/{folder_path}",f"{entity_name_underlined}_request_model","dart",f"{entity_name_titlecased}RequestModel")
+        response_dart_file = generate_class_from_json(responseJson,project_directory,f"lib/app/data/models/{folder_path}",f"{entity_name_underlined}_response_model","dart",f"{entity_name_titlecased}ResponseModel")
 
         if is_create_entity:
             project_name = get_project_name(project_directory)

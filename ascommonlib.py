@@ -238,7 +238,7 @@ def run_command(command: str):
 
 
 
-def generate_class_from_json(json,project_directory,path_to_file, filename, target_file_format):
+def generate_class_from_json(json,project_directory,path_to_file, filename, target_file_format, class_name):
   old_dir = os.getcwd()
 
   class_dir = os.path.join(project_directory, path_to_file)
@@ -255,7 +255,7 @@ def generate_class_from_json(json,project_directory,path_to_file, filename, targ
   change_directory(class_dir)
 
   # quicktype user_response_entity.json -l schema -o schema.json
-  command = f"quicktype {filename}.json -l schema -o {filename}_schema.json"
+  command = f"quicktype {filename}.json -l schema -o {filename}_schema.json --no-enums --no-date-times --no-maps --no-combine-classes"
   run_command(command)
   
   # replace "required": into "requiredx":
@@ -265,6 +265,11 @@ def generate_class_from_json(json,project_directory,path_to_file, filename, targ
   # quicktype -s schema schema.json -o user_response_entity3.dart
   command = f"quicktype -s schema {filename}_schema.json -o {filename}.{target_file_format}"
   run_command(command)
+
+  # replace "Datum": into "clas_nameData":
+  dart_file_path = os.path.join(project_directory, f"{path_to_file}/{filename}.{target_file_format}")
+  replace_in_file_singleline_string(dart_file_path, '''Datum''', f'''{class_name}Data''')
+
   remove_file(json_file_path)
   remove_file(schema_file_path)
   change_directory(old_dir)
