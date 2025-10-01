@@ -136,7 +136,11 @@ class ApiClient {
         e.type == DioExceptionType.sendTimeout ||
         e.type == DioExceptionType.receiveTimeout;
 
-    if (isRTO && attemptIndex < ApiEndPoint.baseAuthorityList.length - 1) {
+    var isSSLError = e.type == DioExceptionType.badCertificate ||
+        (e.error is HandshakeException);
+
+    if ((isRTO || isSSLError) &&
+        attemptIndex < ApiEndPoint.baseAuthorityList.length - 1) {
       var lastBaseAuthority = ApiEndPoint.baseAuthority;
       ApiEndPoint.nextAuthorityIndex();
       var newBaseAuthority = ApiEndPoint.baseAuthority;
@@ -161,10 +165,18 @@ class ApiClient {
     int attemptIndex = 0,
     String? tag,
     ProgressCallback? onReceiveProgress,
-  }) async {
+      int? sendTimeoutInSecond,
+      int? receiveTimeoutInSecond}) async {
     try {
       final options = Options();
       options.headers = headerParameters;
+
+      if (sendTimeoutInSecond != null) {
+        options.sendTimeout = Duration(seconds: sendTimeoutInSecond);
+      }
+      if (receiveTimeoutInSecond != null) {
+        options.receiveTimeout = Duration(seconds: receiveTimeoutInSecond);
+      }
 
       final Response response = await _dio.get(
         url,
@@ -185,7 +197,9 @@ class ApiClient {
             headerParameters: headerParameters,
             attemptIndex: attemptIndex + 1,
             tag: tag,
-            onReceiveProgress: onReceiveProgress);
+            onReceiveProgress: onReceiveProgress,
+            sendTimeoutInSecond: sendTimeoutInSecond,
+            receiveTimeoutInSecond: receiveTimeoutInSecond);
       } else {
         throw errorMessage;
       }
@@ -203,7 +217,8 @@ class ApiClient {
     String? tag,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
-  }) async {
+      int? sendTimeoutInSecond,
+      int? receiveTimeoutInSecond}) async {
     try {
       FormData? newData;
       final options = Options();
@@ -224,6 +239,12 @@ class ApiClient {
         } else {
           options.contentType = Headers.textPlainContentType;
         }
+      }
+      if (sendTimeoutInSecond != null) {
+        options.sendTimeout = Duration(seconds: sendTimeoutInSecond);
+      }
+      if (receiveTimeoutInSecond != null) {
+        options.receiveTimeout = Duration(seconds: receiveTimeoutInSecond);
       }
 
       final Response response = await _dio.post(
@@ -251,7 +272,9 @@ class ApiClient {
             isMultipart: isMultipart,
             tag: tag,
             onSendProgress: onSendProgress,
-            onReceiveProgress: onReceiveProgress);
+            onReceiveProgress: onReceiveProgress,
+            sendTimeoutInSecond: sendTimeoutInSecond,
+            receiveTimeoutInSecond: receiveTimeoutInSecond);
       } else {
         throw errorMessage;
       }
@@ -269,7 +292,8 @@ class ApiClient {
     String? tag,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
-  }) async {
+      int? sendTimeoutInSecond,
+      int? receiveTimeoutInSecond}) async {
     try {
       FormData? newData;
       final options = Options();
@@ -290,6 +314,13 @@ class ApiClient {
         } else {
           options.contentType = Headers.textPlainContentType;
         }
+      }
+
+      if (sendTimeoutInSecond != null) {
+        options.sendTimeout = Duration(seconds: sendTimeoutInSecond);
+      }
+      if (receiveTimeoutInSecond != null) {
+        options.receiveTimeout = Duration(seconds: receiveTimeoutInSecond);
       }
 
       final Response response = await _dio.put(
@@ -317,7 +348,9 @@ class ApiClient {
             isMultipart: isMultipart,
             tag: tag,
             onSendProgress: onSendProgress,
-            onReceiveProgress: onReceiveProgress);
+            onReceiveProgress: onReceiveProgress,
+            sendTimeoutInSecond: sendTimeoutInSecond,
+            receiveTimeoutInSecond: receiveTimeoutInSecond);
       } else {
         throw errorMessage;
       }
@@ -332,7 +365,8 @@ class ApiClient {
     int attemptIndex = 0,
     bool isRequestStringJson = true,
     String? tag,
-  }) async {
+      int? sendTimeoutInSecond,
+      int? receiveTimeoutInSecond}) async {
     try {
       final options = Options();
       options.headers = headerParameters;
@@ -345,6 +379,13 @@ class ApiClient {
         } else {
           options.contentType = Headers.textPlainContentType;
         }
+      }
+
+      if (sendTimeoutInSecond != null) {
+        options.sendTimeout = Duration(seconds: sendTimeoutInSecond);
+      }
+      if (receiveTimeoutInSecond != null) {
+        options.receiveTimeout = Duration(seconds: receiveTimeoutInSecond);
       }
 
       final Response response = await _dio.delete(
@@ -367,7 +408,9 @@ class ApiClient {
             headerParameters: headerParameters,
             attemptIndex: attemptIndex + 1,
             isRequestStringJson: isRequestStringJson,
-            tag: tag);
+            tag: tag,
+            sendTimeoutInSecond: sendTimeoutInSecond,
+            receiveTimeoutInSecond: receiveTimeoutInSecond);
       } else {
         throw errorMessage;
       }
@@ -394,7 +437,17 @@ extension FileUploadDataMap on Map {
       var key = keyList[i];
       var value = this[key];
 
-      if (value is List<dynamic>) {
+      if (value is List<FileUploadData>) {
+        int length = value.length;
+        final fileList = <MultipartFile>[];
+        for (var j = 0; j < length; j++) {
+          final FileUploadData fileData = value[j];
+          final multiPartFile = await getMultiPartFile(fileData);
+          if (multiPartFile != null) fileList.add(multiPartFile);
+        }
+        value = fileList;
+        data.putIfAbsent(key, () => value ?? "");
+      } else if (value is List<dynamic>) {
         for (var (index, item) in value.indexed) {
           if (item is int || item is String) {
             data.putIfAbsent("$key[$index]", () => item);
@@ -426,15 +479,6 @@ extension FileUploadDataMap on Map {
       } else {
         if (value is FileUploadData) {
           value = await getMultiPartFile(value);
-        } else if (value is List<FileUploadData>) {
-          int length = value.length;
-          final fileList = <MultipartFile>[];
-          for (var j = 0; j < length; j++) {
-            final FileUploadData fileData = value[j];
-            final multiPartFile = await getMultiPartFile(fileData);
-            if (multiPartFile != null) fileList.add(multiPartFile);
-          }
-          value = fileList;
         }
         data.putIfAbsent(key, () => value ?? "");
       }
