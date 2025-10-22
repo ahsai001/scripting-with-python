@@ -347,7 +347,7 @@ elif task=="7":
 
     # add dependecy
     change_directory(project_directory)
-    command = f"{flutter_command} pub add shared_preferences"
+    command = f"{flutter_command} pub add shared_preferences flutter_secure_storage encrypt"
     run_command(command)
 
     # pub get

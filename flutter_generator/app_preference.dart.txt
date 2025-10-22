@@ -1,85 +1,169 @@
+import 'dart:convert';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:encrypt/encrypt.dart' as encrypt;
 
 class AppPreference {
+  final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
   SharedPreferences? _preferences;
 
-  // comment below caused already handle by getit
-  // static final AppPreference _instance = AppPreference._();
-  // factory AppPreference() {
-  //   return _instance;
-  // }
-  // AppPreference._();
+  late String _masterKey;
+  late String _ivString;
 
-  //must be run in runApp
+  // Inisialisasi utama
   Future<AppPreference> initialize() async {
     _preferences = await SharedPreferences.getInstance();
+    await _loadOrGenerateMasterKey();
     return this;
   }
 
-  Future<void> reload() async {
-    await _preferences!.reload();
+  // Generate atau ambil master key
+  Future<void> _loadOrGenerateMasterKey() async {
+    if (kIsWeb) {
+      // Di web: simpan di localStorage
+      _masterKey =
+          _preferences?.getString(_secureKeyName) ?? _generateRandomKeyBase64();
+      await _preferences!.setString(_secureKeyName, _masterKey);
+
+      _ivString = _preferences?.getString(_ivKey) ?? _generateRandomIVBase64();
+      await _preferences!.setString(_ivKey, _ivString);
+    } else {
+      // Mobile: pakai flutter_secure_storage
+      _masterKey = await _secureStorage.read(key: _secureKeyName) ??
+          _generateRandomKeyBase64();
+      _secureStorage.write(key: _secureKeyName, value: _masterKey);
+
+      _ivString =
+          await _secureStorage.read(key: _ivKey) ?? _generateRandomIVBase64();
+      _secureStorage.write(key: _ivKey, value: _ivString);
+    }
   }
 
-//generic function publicly can be accessed
+  String _generateRandomKeyBase64() {
+    final key = encrypt.Key.fromSecureRandom(32); // 256-bit
+    return base64UrlEncode(key.bytes);
+  }
+
+  String _generateRandomIVBase64() {
+    final iv = encrypt.IV.fromSecureRandom(16);
+    return base64UrlEncode(iv.bytes);
+  }
+
+  encrypt.Encrypter get _encrypter {
+    final key = encrypt.Key(base64Url.decode(_masterKey));
+    return encrypt.Encrypter(encrypt.AES(key));
+  }
+
+  encrypt.IV get _iv => encrypt.IV(base64Url.decode(_ivString));
+
+  // 🔄 Reload (khusus jika pakai SharedPreferences)
+  Future<void> reload() async => await _preferences?.reload();
+
+  // =========================================================
+  // 🔐 Generic Getters & Setters (dengan migrasi otomatis)
+  // =========================================================
+
   String? getString(String key) {
-    return _preferences!.getString(key);
+    final encrypted = _preferences?.getString(key);
+    if (encrypted == null) return null;
+
+    try {
+      // decrypt
+      return _decrypt(encrypted);
+    } catch (_) {
+      // fallback ke plain (auto-migrate)
+      final plain = encrypted;
+      putString(key, plain);
+      return plain;
+    }
   }
 
   int? getInt(String key) {
-    return _preferences!.getInt(key);
+    final str = getString(key);
+    return str != null ? int.tryParse(str) : null;
   }
 
   bool? getBool(String key) {
-    return _preferences!.getBool(key);
+    final str = getString(key);
+    return str == null ? null : str == 'true';
   }
 
-  Future<bool> putString(String key, String value) {
-    return _preferences!.setString(key, value);
+  Future<bool> putString(String key, String value) async {
+    final encrypted = _encrypt(value);
+    return await _preferences!.setString(key, encrypted);
   }
 
-  Future<bool> putInt(String key, int value) {
-    return _preferences!.setInt(key, value);
+  Future<bool> putInt(String key, int value) =>
+      putString(key, value.toString());
+
+  Future<bool> putBool(String key, bool value) =>
+      putString(key, value.toString());
+
+  Future<bool> clear() async => await _preferences!.clear();
+
+  // =========================================================
+  // 🔧 Encryption helpers
+  // =========================================================
+
+  String _encrypt(String plainText) {
+    final encrypted = _encrypter.encrypt(plainText, iv: _iv);
+    return encrypted.base64;
   }
 
-  Future<bool> putBool(String key, bool value) {
-    return _preferences!.setBool(key, value);
+  String _decrypt(String encryptedText) {
+    return _encrypter.decrypt64(encryptedText, iv: _iv);
   }
 
-  Future<bool> clear() async {
-    return await _preferences!.clear();
-  }
-
-  //specific constanta
-  final String _keyIsLoggedin = "key_is_loggedin";
-  final String _keyLoginResponse = "key_loginresponse";
-  final String _token = "key_token";
-
-  //specific function for managing key value data
+  // =========================================================
+  // 🔑 Specific keys and getters/setters
+  // =========================================================
+  final String _keyIsLoggedin = "data.1";
+  final String _keyRemoteDatabaseName = "data.2";
+  final String _secureKeyName = 'data.3';
+  final String _keyLoginResponse = "data.4";
+  final String _token = "data.5";
+  final String _keyCompanyName = "data.6";
+  final String _ivKey = 'data.7';
+  final String _keySerialNumber = "data.8";
+  final String _jwtToken = "data.9";
+  final String _kdUser = "data.10";
 
   bool get isLoggedIn => getBool(_keyIsLoggedin) ?? false;
-  set isLoggedIn(bool value) {
-    putBool(_keyIsLoggedin, value);
-  }
+  set isLoggedIn(bool value) => putBool(_keyIsLoggedin, value);
 
-  Future<bool> setLoggedIn(bool value) {
-    return putBool(_keyIsLoggedin, value);
-  }
+  Future<bool> setLoggedIn(bool value) => putBool(_keyIsLoggedin, value);
 
-  String get loginResponse => getString(_keyLoginResponse) ?? "";
-  set loginResponse(String value) {
-    putString(_keyLoginResponse, value);
-  }
-
-  Future<bool> setLoginResponse(String value) {
-    return putString(_keyLoginResponse, value);
-  }
+  String get loginResponse => getString(_keyLoginResponse) ?? "{}";
+  set loginResponse(String value) => putString(_keyLoginResponse, value);
+  Future<bool> setLoginResponse(String value) =>
+      putString(_keyLoginResponse, value);
 
   String get token => getString(_token) ?? "";
-  set token(String value) {
-    putString(_token, value);
-  }
+  set token(String value) => putString(_token, value);
+  Future<bool> setToken(String value) => putString(_token, value);
 
-  Future<bool> setToken(String value) {
-    return putString(_token, value);
-  }
+  String get remoteDatabaseName => getString(_keyRemoteDatabaseName) ?? "";
+  set remoteDatabaseName(String value) =>
+      putString(_keyRemoteDatabaseName, value);
+  Future<bool> setRemoteDatabaseName(String value) =>
+      putString(_keyRemoteDatabaseName, value);
+
+  String get serialNumber => getString(_keySerialNumber) ?? "";
+  set serialNumber(String value) => putString(_keySerialNumber, value);
+  Future<bool> setSerialNumber(String value) =>
+      putString(_keySerialNumber, value);
+
+  String get companyName => getString(_keyCompanyName) ?? "";
+  set companyName(String value) => putString(_keyCompanyName, value);
+  Future<bool> setCompanyName(String value) =>
+      putString(_keyCompanyName, value);
+
+  String get jwtToken => getString(_jwtToken) ?? "";
+  set jwtToken(String value) => putString(_jwtToken, value);
+  Future<bool> setJWTToken(String value) => putString(_jwtToken, value);
+
+  String get kdUser => getString(_kdUser) ?? "";
+  set kdUser(String value) => putString(_kdUser, value);
+  Future<bool> setKdUser(String value) => putString(_kdUser, value);
 }
