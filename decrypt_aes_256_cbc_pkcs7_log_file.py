@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from tkinter import Tk
 from tkinter import filedialog
 import os
