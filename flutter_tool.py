@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import os
 
 from ascommonlib import EntryWithDialog, append_to_file, change_directory, choose_file, copy_file, create_new_file, exist_line_in_file, generate_class_from_json, get_line_in_file, input_directorypath, input_filepath, insert_strings_to_file_after, insert_strings_to_file_before, prepend_to_file, read_file, remove_all_after, remove_all_before, remove_line_contains, remove_multiline_strings, replace_in_file_multiline_string, replace_in_file_singleline_string, run_command
